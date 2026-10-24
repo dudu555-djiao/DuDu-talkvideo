@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+TASK_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+if [ -n "${DUDU_PYTHON:-}" ]; then
+  exec "$DUDU_PYTHON" "$TASK_ROOT/dudu.py" "$@"
+fi
+if [ -x "$TASK_ROOT/.venv/bin/python" ]; then
+  exec "$TASK_ROOT/.venv/bin/python" "$TASK_ROOT/dudu.py" "$@"
+fi
+exec python3 "$TASK_ROOT/dudu.py" "$@"

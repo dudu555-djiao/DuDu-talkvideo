@@ -1,0 +1,4 @@
+interface:
+  display_name: "DuDu-talkvideo"
+  short_description: "蓝白纸感IP视频制作，先审语义分镜，再看真实关键帧，保留增强工作台"
+  default_prompt: "使用 $dudu-talkvideo，把我提供的文案制作成已定版蓝白IP视频，先给我语义分镜HTML审查。"

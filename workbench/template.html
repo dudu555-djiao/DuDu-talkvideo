@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DuDu-talkvideo · 分镜共创工作台</title>
+<style>
+:root{--ink:#202124;--muted:#7c8088;--line:#ececf0;--purple:#8050ed;--soft:#f6f2ff;--top:156px}*{box-sizing:border-box}html{scroll-padding-top:180px}body{margin:0;background:#fff;color:var(--ink);font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}button,select,input{font:inherit}button,select{background:#fff;border:1px solid #dedee4;border-radius:7px;padding:7px 12px;color:var(--ink);cursor:pointer}button:hover{background:#f7f7fa}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #bca0f5;outline-offset:2px}button:disabled{opacity:.35;cursor:default}button.active{background:#27262b;color:white;border-color:#27262b}a{color:#6f43c7;text-underline-offset:3px}.wb-header{position:sticky;top:0;z-index:20;background:#fffffff5;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:12px 28px}.wb-titlebar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:8px}.wb-titlebar h1{font-size:17px;font-weight:650;margin:0}.wb-revision{font-size:12px;color:var(--muted)}.wb-mode{display:flex;gap:5px;align-items:center}.wb-mode button{font-size:13px;padding:5px 12px}.wb-mode button.active{background:var(--soft);border-color:#d7c7f8;color:#6334c1}.wb-transport{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.wb-transport audio{height:38px;width:310px}.wb-transport label{display:flex;align-items:center;gap:6px;font-size:13px;color:#65656c}.wb-transport select{max-width:265px;font-size:13px}.wb-stats{font-size:12px;color:var(--muted);margin-left:auto}.wb-tools{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:9px}.wb-tools button{font-size:12px;padding:4px 10px}.wb-tools .export{margin-left:auto;color:#6334c1;border-color:#d9cbf4}.wb-hint{color:var(--muted);font-size:12px}.wb-main{max-width:1920px;margin:auto;padding:0 28px}.scene-card{display:grid;grid-template-columns:minmax(235px,25fr) minmax(400px,43fr) minmax(300px,32fr);border-bottom:1px solid var(--line);scroll-margin-top:175px}.scene-card.is-active>.scene-script{box-shadow:inset 3px 0 var(--purple)}.scene-card>section{padding:22px 22px 32px;min-width:0;border-right:1px solid var(--line)}.scene-card>section:first-child{border-left:1px solid var(--line)}.scene-meta{font-size:12px;color:#8c8c94;font-variant-numeric:tabular-nums}.scene-title{font-size:14px;font-weight:600;margin:8px 0 9px}.narration{font-size:17px;line-height:1.85;white-space:pre-line;margin:10px 0 22px}.plan{padding-top:14px;border-top:1px solid var(--line);font-size:13px;line-height:1.85}.plan p{margin:8px 0}.plan b{font-weight:650}.media-bar{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px;color:#8a8992;margin-bottom:12px}.frame-image{border:0;padding:0;display:block;position:relative;width:100%;background:white;cursor:zoom-in;border-radius:4px}.frame-image img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain}.frame-error{padding:14px;background:#fff1f0;color:#9e322b;font-size:13px}.frame-caption{white-space:pre-line;margin:12px 0;background:#f7f7f9;padding:9px 12px;font-size:13px;color:#666}.frame-controls{display:flex;align-items:center;gap:9px;margin:13px 0}.frame-controls button{padding:4px 11px;font-size:14px}.frame-count{min-width:62px;font-size:13px;color:#777;font-variant-numeric:tabular-nums;text-align:center}.frame-controls .play-scene{margin-left:auto;font-size:12px}.thumbs{display:flex;gap:10px;overflow-x:auto;padding:7px 0 14px;scrollbar-width:thin}.thumb{flex:0 0 104px;border:1px solid transparent;border-radius:5px;background:white;padding:3px;line-height:1.2;color:#777;font-size:11px}.thumb.active{border-color:#a885ef;background:#f5f0ff;color:#6941b1}.thumb img{width:96px;aspect-ratio:16/9;object-fit:contain;display:block;margin-bottom:6px}.scene-feedback{font-size:13px}.badge{display:inline-block;background:#f2f2f4;border-radius:4px;padding:3px 9px;font-size:12px}.badge.change{background:#fff2da;color:#8b6008}.badge.keep{background:#edf5ed;color:#356839}.comment-scope{margin:12px 0 17px;color:#666;font-size:13px}.decisions{display:flex;gap:6px;flex-wrap:wrap}.decisions button{padding:5px 10px;font-size:12px}.rich-feedback{min-height:178px;max-height:480px;overflow:auto;border:1px solid #e1e1e7;border-radius:9px;padding:12px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8;font-size:14px;margin-top:12px;background:white}.rich-feedback:focus{outline:2px solid #c8b5ed;outline-offset:1px}.rich-feedback:empty:before{content:attr(data-placeholder);color:#aaa;pointer-events:none}.attach-tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.attach-tools button{font-size:12px;padding:5px 10px}.help{font-size:11px;color:#999;margin:8px 0}.inline-feedback-image{display:inline-block;position:relative;max-width:100%;margin:8px 0;vertical-align:middle;white-space:normal}.inline-feedback-image img{max-width:100%;max-height:230px;display:block;cursor:zoom-in;border-radius:5px}.inline-feedback-image button{position:absolute;right:4px;top:4px;padding:0;width:24px;height:24px;background:white;border-radius:50%;line-height:20px}details{margin:17px 0 0;border-top:1px solid var(--line);padding-top:13px}summary{cursor:pointer;color:#777;font-size:12px}.history-record{padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}.history-label{font-size:11px;color:#999;white-space:normal;margin:5px 0}.history-record img{max-width:100%;max-height:210px;display:block;cursor:zoom-in;margin:8px 0}.video-preview video,.candidate video{display:block;width:100%;aspect-ratio:16/9;background:#f7f7f7;border-radius:5px}.candidate{margin-bottom:15px}.candidate img{width:100%;display:block;cursor:zoom-in}.candidate label{display:flex;align-items:center;gap:7px;font-size:13px;margin-top:8px}.route-choice{font-size:12px;width:100%;margin-top:10px}.empty{padding:45px 20px;background:#fafafa;color:#888;font-size:13px;text-align:center}.wb-footer{padding:25px 50px 70px;font-size:12px;color:#999}.wb-save{font-size:12px;color:#888;max-width:420px}.wb-save.error{color:#a33}.wb-dialog{border:1px solid #ddd;border-radius:12px;padding:16px;max-width:94vw;max-height:94vh}.wb-dialog::backdrop{background:#000a}.wb-dialog img{display:block;max-width:87vw;max-height:80vh;object-fit:contain}.wb-dialog video{display:block;width:min(1100px,85vw);max-height:75vh;background:black}.dialog-actions{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:12px}.dialog-actions span{font-size:12px;color:#777}#feedback-autosave-status{max-width:260px!important;font-size:11px!important}#wb-archive{margin:0 22px 30px}.no-results{padding:35px;text-align:center;color:#888}.scene-card[hidden],[hidden]{display:none!important}@media(min-width:1550px){.wb-header{padding-left:max(28px,calc((100vw - 1864px)/2));padding-right:max(28px,calc((100vw - 1864px)/2))}.scene-card>section{padding:25px 25px 35px}.narration{font-size:18px}}@media(max-width:1100px){.wb-main{padding:0 12px}.scene-card{grid-template-columns:minmax(180px,25fr) minmax(300px,43fr) minmax(240px,32fr)}.scene-card>section{padding:16px 12px}.wb-header{padding:10px 14px}.wb-stats{display:none}.wb-transport{gap:8px}.narration{font-size:15px}}@media(max-width:760px){.wb-header{position:relative}.wb-titlebar{align-items:flex-start;flex-direction:column}.wb-transport audio{width:100%}.wb-transport{align-items:stretch}.wb-transport select{max-width:100%;width:100%}.wb-main{padding:0 10px}.scene-card{display:flex;flex-direction:column}.scene-card>section{border:0;border-left:1px solid var(--line);border-right:1px solid var(--line);padding:16px}.scene-script .plan{display:none}.scene-feedback{border-top:1px solid var(--line)!important}.narration{margin-bottom:6px}.rich-feedback{min-height:140px}.wb-tools .export{margin-left:0}.wb-hint{display:none}.wb-footer{padding:20px}.frame-controls{flex-wrap:wrap}}
+.segment-actions{display:flex;gap:7px;flex-wrap:wrap;padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--line)}.segment-actions button{font-size:12px;padding:5px 10px}.delete-scene{color:#a05454}.delete-notice{font-size:13px;color:#745d4a;background:#fff8ee;border-radius:8px;padding:12px;margin:0}.scene-card.is-deleted{grid-template-columns:1fr}.scene-card.is-deleted>.scene-script,.scene-card.is-deleted>.scene-media{display:none}.scene-card.is-deleted>.scene-feedback>:not(.segment-actions):not(.delete-notice){display:none}.scene-card.is-deleted>.scene-feedback{border-left:1px solid var(--line)}
+</style><style>.stage-notice{padding:10px 28px;background:#eaf0ff;color:#28467b;font-size:13px}.semantic-label{font-size:12px;color:#7183a0;margin-top:0}.semantic-field{line-height:1.8;margin:12px 0;white-space:pre-wrap}.semantic-assets{margin-top:20px;border-top:1px solid #e6eaf1}.semantic-assets h3{font-size:14px}.semantic-asset{padding:10px 0;border-bottom:1px solid #edf0f5}.semantic-asset img{max-width:100%;max-height:190px;display:block;margin-top:10px;cursor:zoom-in}.scene-plan-details{margin-top:12px}.scene-plan-details summary{font-size:13px}</style></head><body><div id="stage-notice" class="stage-notice"></div><header class="wb-header"><div class="wb-titlebar"><h1 id="wb-title"></h1><div class="wb-mode" aria-label="审看阶段"><button data-mode="suggestion">语义分镜</button><button data-mode="keyframes">关键帧共创</button><button data-mode="video">视频审看</button></div><span class="wb-revision" id="wb-revision"></span></div>
+<div class="wb-transport"><audio id="wb-audio" controls preload="metadata" aria-label="口播与配乐连续播放"></audio><select id="wb-scene-select" aria-label="定位段落"></select><label><input id="wb-follow" type="checkbox" checked>跟随播放滚动</label><label>倍速<select id="wb-speed" aria-label="播放倍速"><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label><span class="wb-stats" id="wb-stats"></span></div>
+<div class="wb-tools" aria-label="意见筛选"><button data-filter="all">全部</button><button data-filter="pending">待看</button><button data-filter="change">需要调整</button><button data-filter="keep">采用</button><button data-filter="skip">不采用</button><button data-filter="deleted">已删除</button><button id="wb-undo" disabled>撤回上一步</button><span class="wb-hint">按口播时间连续切换关键帧 · 每段固定一个意见区</span><button id="wb-full-video">播放完整视频</button><button class="export" id="wb-export">导出全部意见与附件</button><span class="wb-save" id="wb-save" role="status">正在读取意见…</span></div></header>
+<main id="wb-scenes" class="wb-main"></main><p id="wb-empty" class="no-results" hidden>当前筛选没有段落，切换“全部”或“已删除”查看。</p>
+<footer class="wb-footer"><span id="wb-count"></span> · 图片为离散关键帧；连续动画和声音请看真实视频。<br><a id="wb-legacy" target="_blank" rel="noopener" hidden>查看前一版工作台（意见仍保留）</a><details id="wb-archive"><summary>查看全部原始修改意见与贴图</summary><div id="wb-archive-content"></div></details></footer>
+<dialog id="wb-image-dialog" class="wb-dialog"><div class="dialog-actions"><span id="wb-image-label"></span><button id="wb-close-image">关闭大图</button></div><img id="wb-large-image" alt="放大的关键帧或意见图片"></dialog>
+<dialog id="wb-video-dialog" class="wb-dialog"><div class="dialog-actions"><span>当前完整成片</span><button id="wb-close-video">关闭视频</button></div><video id="wb-master-video" controls preload="none"></video><a id="wb-download" download>下载完整视频</a></dialog>
+<style>.fe-dialog{--fe-purple:#8050ed;--fe-ink:#23212a;--fe-muted:#77727f;--fe-line:#e7e2ed;--fe-soft:#f6f2ff;position:fixed;inset:12px;margin:auto;width:calc(100vw - 24px);max-width:none;height:calc(100dvh - 24px);max-height:none;padding:0;border:1px solid #ded5ef;border-radius:14px;background:#fbfafc;color:var(--fe-ink);font:13px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;box-shadow:0 22px 90px #26104444;overflow:hidden}.fe-dialog::backdrop{background:#17121caa}.fe-dialog *{box-sizing:border-box}.fe-dialog button,.fe-dialog select,.fe-dialog input,.fe-dialog textarea{font:inherit;color:inherit}.fe-dialog button,.fe-dialog select{border:1px solid var(--fe-line);border-radius:7px;background:white;padding:6px 10px;cursor:pointer}.fe-dialog button:hover{background:var(--fe-soft)}.fe-dialog button:disabled{opacity:.4;cursor:default}.fe-dialog button:focus-visible,.fe-dialog input:focus-visible,.fe-dialog select:focus-visible,.fe-dialog textarea:focus-visible{outline:2px solid #a984ef;outline-offset:2px}.fe-dialog button.fe-active,.fe-dialog button[aria-pressed=true]{border-color:#b399eb;color:#6636c5;background:#eee6ff}.fe-dialog button.fe-primary{background:var(--fe-purple);border-color:var(--fe-purple);color:white}.fe-dialog button.fe-danger{color:#a34a54}.fe-dialog input:not([type=checkbox]):not([type=color]),.fe-dialog textarea{width:100%;border:1px solid var(--fe-line);border-radius:6px;background:white;padding:6px 8px;min-width:0}.fe-dialog input[type=color]{width:42px;height:31px;padding:2px;border:1px solid var(--fe-line);border-radius:5px;background:white}.fe-dialog textarea{resize:vertical;min-height:72px}.fe-layout{height:100%;display:grid;grid-template-rows:auto auto 1fr auto}.fe-header{display:flex;align-items:center;justify-content:space-between;gap:12px;background:white;padding:12px 18px;border-bottom:1px solid var(--fe-line)}.fe-header h2{font-size:17px;margin:0 0 3px;font-weight:650}.fe-meta,.fe-subtle{color:var(--fe-muted);font-size:11px}.fe-header-actions{display:flex;align-items:center;gap:7px;flex-shrink:0}.fe-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:9px 14px;background:white;border-bottom:1px solid var(--fe-line)}.fe-toolbar-divider{height:24px;width:1px;background:var(--fe-line);margin:0 4px}.fe-toolbar label{display:flex;align-items:center;gap:6px;font-size:12px}.fe-toolbar select{max-width:195px}.fe-body{min-height:0;display:grid;grid-template-columns:204px minmax(280px,1fr) 292px}.fe-layers,.fe-inspector{min-height:0;overflow:auto;background:white;padding:14px;border-right:1px solid var(--fe-line)}.fe-inspector{border-right:0;border-left:1px solid var(--fe-line)}.fe-section-title{font-size:12px;font-weight:650;margin:0 0 9px;display:flex;align-items:center;justify-content:space-between;gap:6px}.fe-section-title:not(:first-child){margin-top:20px}.fe-layer-list{display:flex;flex-direction:column;gap:4px}.fe-layer-row{display:flex;gap:3px;align-items:center;border:1px solid transparent;border-radius:6px;padding:3px}.fe-layer-row.fe-selected{background:var(--fe-soft);border-color:#cdb7f7}.fe-layer-row.fe-hidden{opacity:.5}.fe-layer-select{flex:1;min-width:0;text-align:left;border:0!important;background:transparent!important;padding:4px!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fe-layer-icon{font-size:10px;color:#9b91a8}.fe-lock{width:27px;padding:4px 0!important;font-size:12px}.fe-layer-group{font-size:10px;color:#8c64c6}.fe-layer-empty{padding:15px 0;color:var(--fe-muted);font-size:12px}.fe-center{display:flex;flex-direction:column;min-height:0;min-width:0;padding:14px;gap:10px;overflow:auto;background:radial-gradient(#ded7e6 .6px,transparent .6px) 0 0/12px 12px}.fe-canvas-fit{width:100%;margin:auto;min-width:240px;flex:0 0 auto}.fe-stage{position:relative;width:100%;aspect-ratio:16/9;background:white;box-shadow:0 4px 24px #31203d14;isolation:isolate;overflow:hidden;border:1px solid #dfd9e9}.fe-stage iframe{display:block;width:1920px;height:1080px;max-width:none;max-height:none;border:0;position:absolute;left:0;top:0;transform-origin:0 0;pointer-events:none;background:white}.fe-overlay{position:absolute;inset:0;width:100%;height:100%;touch-action:none;user-select:none}.fe-overlay:focus{outline:none}.fe-hit{fill:transparent;stroke:transparent;pointer-events:all;cursor:move}.fe-hit:hover{stroke:#a080dd;stroke-width:2}.fe-hit.fe-parent{pointer-events:none}.fe-outline{fill:none;stroke:#8251ed;stroke-width:3;pointer-events:none;vector-effect:non-scaling-stroke}.fe-handle{fill:white;stroke:#8050ed;stroke-width:2;vector-effect:non-scaling-stroke;cursor:nwse-resize}.fe-handle.fe-rotate{fill:#8050ed;cursor:crosshair}.fe-rotation-line{stroke:#8050ed;stroke-width:2;vector-effect:non-scaling-stroke;pointer-events:none}.fe-marquee{fill:#8050ed12;stroke:#8050ed;stroke-width:2;stroke-dasharray:8 5;pointer-events:none;vector-effect:non-scaling-stroke}.fe-annotation{fill:none;stroke:#e67041;stroke-width:4;vector-effect:non-scaling-stroke;pointer-events:stroke;cursor:pointer}.fe-annotation.fe-selected{stroke:#8050ed;stroke-width:5}.fe-annotation-label{font:26px sans-serif;fill:#914c30;paint-order:stroke;stroke:#fff;stroke-width:6;pointer-events:none}.fe-stage-note{padding:7px 11px;border:1px solid #e8e1ef;background:#ffffffeb;border-radius:7px;color:#6a5d7e;font-size:12px}.fe-stage-note strong{font-weight:650;color:#4c386c}.fe-stage-note.fe-error{background:#fff3f2;border-color:#efc6c4;color:#a23e39}.fe-precise{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fe-field{display:flex;flex-direction:column;gap:4px;font-size:11px;color:#72687f}.fe-field.fe-wide{grid-column:1/-1}.fe-field-row{display:flex;gap:7px;align-items:center}.fe-field-row input{flex:1}.fe-small-actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}.fe-small-actions button{font-size:11px;padding:5px 7px}.fe-readonly{background:#f7f5fa!important;color:#8c8296!important}.fe-object-detail{font-size:10px;overflow-wrap:anywhere;background:#f7f5fa;padding:8px;border-radius:5px;margin:8px 0}.fe-inspector .fe-hint{font-size:11px;color:#8b8195;margin:7px 0;line-height:1.7}.fe-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 15px;background:white;border-top:1px solid var(--fe-line);font-size:12px}.fe-status{color:#79688e;overflow-wrap:anywhere}.fe-status.fe-error{color:#ac3e40}.fe-status.fe-saving{color:#8050ed}.fe-proposal-history{border-top:1px solid var(--fe-line);padding-top:10px;margin-top:16px}.fe-proposal-item{padding:10px 0;border-bottom:1px solid var(--fe-line)}.fe-proposal-item small{display:block;color:#8b8195}.fe-proposal-item button{margin-top:5px;font-size:11px}.fe-reference{display:flex;gap:7px;align-items:center;padding:6px;border:1px solid var(--fe-line);border-radius:5px;margin:6px 0;font-size:11px;overflow-wrap:anywhere}.fe-reference img,.fe-reference video{width:45px;height:40px;object-fit:contain;background:#f3f0f7}.fe-reference span{flex:1}.fe-reference button{padding:3px 5px}.fe-drop-zone{outline:4px dashed #a67cf1;outline-offset:-8px}.fe-drop-choice{position:absolute;inset:20%;z-index:10;background:white;box-shadow:0 6px 30px #21133144;border:1px solid #cab5ed;border-radius:12px;padding:20px;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:12px}.fe-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;background:white;padding:12px;border:1px solid var(--fe-line);border-radius:8px}.fe-compare img{width:100%;display:block;background:#f5f3f8}.fe-compare label{font-size:12px;color:#71677c}.fe-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#fffefbe8;color:#775c99;z-index:4;font-size:15px}.fe-spinner{width:18px;height:18px;border:2px solid #d5c4f2;border-top-color:#8050ed;border-radius:50%;animation:fe-spin .7s linear infinite;margin-right:9px}@keyframes fe-spin{to{transform:rotate(360deg)}}.fe-selection-count{font-size:11px;color:#a38fb9}.fe-list-filter{margin-bottom:10px}.fe-dialog [hidden]{display:none!important}@media(min-width:1600px){.fe-body{grid-template-columns:235px minmax(300px,1fr) 320px}.fe-center{padding:25px}.fe-header{padding:14px 24px}}@media(max-width:1050px){.fe-body{grid-template-columns:156px minmax(240px,1fr) 245px}.fe-layers,.fe-inspector{padding:10px}.fe-toolbar{gap:4px;padding:7px}.fe-dialog button{padding:5px 7px}.fe-header h2{font-size:14px}.fe-header{padding:9px}.fe-center{padding:8px}}@media(max-width:740px){.fe-dialog{inset:4px;width:calc(100vw - 8px);height:calc(100dvh - 8px);border-radius:9px}.fe-header{align-items:flex-start;gap:7px}.fe-header-actions{flex-wrap:wrap;justify-content:flex-end;max-width:185px}.fe-meta{font-size:10px}.fe-toolbar-divider{display:none}.fe-toolbar select{max-width:150px}.fe-body{display:flex;flex-direction:column;overflow:auto}.fe-center{order:0;overflow:visible;min-height:200px}.fe-canvas-fit{min-width:0}.fe-layers{order:2;flex-shrink:0;max-height:210px;border-top:1px solid var(--fe-line);border-right:0}.fe-inspector{order:1;overflow:visible;flex-shrink:0;border-left:0;border-top:1px solid var(--fe-line)}.fe-precise{grid-template-columns:repeat(3,minmax(0,1fr))}.fe-bottom{align-items:flex-start;font-size:10px}.fe-stage-note{font-size:11px}.fe-header-actions button{font-size:11px}.fe-center{flex-shrink:0}.fe-compare{padding:6px}.fe-drop-choice{inset:5%;font-size:11px;padding:10px}}
+.fe-reference img,.fe-reference video{cursor:zoom-in}.fe-reference-preview{position:absolute;inset:90px 25% 50px 15%;z-index:15;padding:14px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;border:1px solid #cab5ed;border-radius:10px;background:#fffffff5;box-shadow:0 9px 45px #27163b33;overflow:auto}.fe-reference-preview img,.fe-reference-preview video{max-width:100%;max-height:85%;object-fit:contain}.fe-reference-preview button{align-self:flex-end}@media(max-width:740px){.fe-reference-preview{inset:100px 12px 20px}}
+</style>
+<style id="wb-attachment-style">
+.rich-feedback.is-file-over{outline:3px dashed #9e73ef;outline-offset:3px;background:#faf7ff}
+.inline-feedback-attachment{display:block;max-width:100%;margin:10px 0;padding:10px 12px;border:1px solid #ded4f0;border-radius:8px;background:#faf8ff;white-space:normal}
+.inline-feedback-attachment strong,.inline-feedback-attachment small{display:block;overflow-wrap:anywhere}
+.inline-feedback-attachment small{font-size:11px;color:#827a8c}
+.inline-feedback-attachment details{margin:0;padding:0;border:0}
+.inline-feedback-attachment summary{font-size:13px;color:#493463;overflow-wrap:anywhere}
+.attachment-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:8px}
+.attachment-actions button,.attachment-actions a{font-size:11px;padding:3px 7px}
+.attachment-file-list{display:block;max-height:280px;overflow:auto;margin-top:10px}
+.attachment-file{display:block;border-top:1px solid #e7e0ef;padding:7px 0;overflow-wrap:anywhere}
+.attachment-file img{display:block;max-width:100%;max-height:150px;cursor:zoom-in;margin-top:5px}
+.attachment-directory-path{display:block;font-size:11px;color:#877490}
+.inline-image-name{display:block;font-size:11px;color:#827a8c;overflow-wrap:anywhere}
+.inline-image-download{display:inline-block;font-size:11px;margin-top:3px}
+</style>
+<script id="workbench-data" type="application/json">__WORKBENCH_DATA__</script><script>/* FredTalk precise frame proposals. This editor never changes the production video. */
+(function (global) {
+  'use strict';
+  const NS = 'http://www.w3.org/2000/svg';
+  const SCHEMA = 'fred-frame-proposal/v1';
+  const clone = (value) => JSON.parse(JSON.stringify(value));
+  const uid = () => global.crypto?.randomUUID?.() || `fe-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  const finite = (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
+  const rounded = (n) => Math.round(n * 1000) / 1000;
+  const escape = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const time = (s) => { const n = Math.max(0, finite(s)); return `${String(Math.floor(n / 60)).padStart(2,'0')}:${(n % 60).toFixed(3).padStart(6,'0')}`; };
+  const objectById = (objects, id) => objects.find((o) => o.id === id);
+  function normalizeObject(raw) {
+    if (!raw || !raw.id || !raw.rect) throw new Error('可编辑对象缺少 ID 或坐标。');
+    for (const key of ['x','y','width','height']) if (!Number.isFinite(Number(raw.rect[key]))) throw new Error(`对象 ${raw.id} 的 ${key} 不是有效数值。`);
+    if (Number(raw.rect.width) <= 0 || Number(raw.rect.height) <= 0) throw new Error(`对象 ${raw.id} 的宽高必须大于 0。`);
+    const strictNumber=(value,label)=>{if(value!=null && !Number.isFinite(Number(value)))throw new Error(`对象 ${raw.id} 的 ${label} 不是有效数值。`);};
+    strictNumber(raw.rotation,'rotation');strictNumber(raw.opacity,'opacity');strictNumber(raw.zIndex,'zIndex');
+    if(typeof raw.scale==='number')strictNumber(raw.scale,'scale');else {strictNumber(raw.scale?.x,'scale.x');strictNumber(raw.scale?.y,'scale.y');}
+    strictNumber(raw.anchor?.x,'anchor.x');strictNumber(raw.anchor?.y,'anchor.y');
+    if(raw.worldQuad && (!Array.isArray(raw.worldQuad)||raw.worldQuad.length!==4||raw.worldQuad.some((p)=>!p||!Number.isFinite(p.x)||!Number.isFinite(p.y))))throw new Error(`对象 ${raw.id} 的四角坐标无效。`);
+    if(raw.crop){for(const k of ['top','right','bottom','left']){strictNumber(raw.crop[k],`crop.${k}`);if(finite(raw.crop[k])<0||finite(raw.crop[k])>=100)throw new Error(`对象 ${raw.id} 的裁剪百分比应在 0 到 100 之间。`);}if(finite(raw.crop.top)+finite(raw.crop.bottom)>=100||finite(raw.crop.left)+finite(raw.crop.right)>=100)throw new Error(`对象 ${raw.id} 的裁剪不能遮住整个素材。`);}
+    if(raw.timing){for(const k of ['inSeconds','outSeconds']){strictNumber(raw.timing[k],`timing.${k}`);if(raw.timing[k]!=null&&Number(raw.timing[k])<0)throw new Error(`对象 ${raw.id} 的出入场时间不能为负数。`);}if(raw.timing.inSeconds!=null&&raw.timing.outSeconds!=null&&Number(raw.timing.outSeconds)<Number(raw.timing.inSeconds))throw new Error(`对象 ${raw.id} 的出场时间不能早于入场时间。`);}
+    const o = clone(raw);
+    o.rect = Object.fromEntries(['x','y','width','height'].map((k) => [k, Number(raw.rect[k])]));
+    o.rotation = finite(raw.rotation);
+    o.scale = typeof raw.scale === 'number' ? {x:raw.scale,y:raw.scale} : {x:finite(raw.scale?.x,1),y:finite(raw.scale?.y,1)};
+    o.anchor = {x:finite(raw.anchor?.x,.5),y:finite(raw.anchor?.y,.5)};
+    o.parentId = raw.parentId || null;
+    o.hidden = Boolean(raw.hidden);
+    o.label = raw.label || raw.type || raw.id;
+    return o;
+  }
+  function boundsOf(objects) {
+    if (!objects.length) return {x:0,y:0,width:0,height:0};
+    const x = Math.min(...objects.map((o) => o.rect.x)), y = Math.min(...objects.map((o) => o.rect.y));
+    return {x,y,width:Math.max(...objects.map((o) => o.rect.x+o.rect.width))-x,height:Math.max(...objects.map((o) => o.rect.y+o.rect.height))-y};
+  }
+  // Rects are world-space geometry from the actual rendered DOM. Rotation is an
+  // additional world orientation; parentId is retained for inverse-parent replay.
+  function transformObjects(objects, ids, transform) {
+    const all = objects.map(normalizeObject), selected = new Set(ids);
+    let grew = true;
+    while (grew) { grew = false; for (const o of all) if (selected.has(o.parentId) && !selected.has(o.id)) { selected.add(o.id); grew = true; } }
+    const roots = all.filter((o) => selected.has(o.id) && !selected.has(o.parentId));
+    const b = transform.bounds || boundsOf(roots), sx=finite(transform.sx,1), sy=finite(transform.sy,1);
+    const rad = finite(transform.angle) * Math.PI / 180, origin = transform.origin || {x:b.x+b.width/2,y:b.y+b.height/2};
+    return all.map((o) => {
+      if (!selected.has(o.id)) return o;
+      const r = o.rect;
+      if(o.worldQuad){
+        const tx=(p)=>{
+          if(transform.type==='move')return {x:p.x+finite(transform.dx),y:p.y+finite(transform.dy)};
+          if(transform.type==='resize')return {x:origin.x+(p.x-origin.x)*sx,y:origin.y+(p.y-origin.y)*sy};
+          if(transform.type==='rotate'){const dx=p.x-origin.x,dy=p.y-origin.y;return {x:origin.x+dx*Math.cos(rad)-dy*Math.sin(rad),y:origin.y+dx*Math.sin(rad)+dy*Math.cos(rad)};}
+          return p;
+        };
+        o.worldQuad=o.worldQuad.map(tx).map((p)=>({x:rounded(p.x),y:rounded(p.y)}));
+        const xs=o.worldQuad.map((p)=>p.x),ys=o.worldQuad.map((p)=>p.y);
+        r.x=Math.min(...xs);r.y=Math.min(...ys);r.width=Math.max(...xs)-r.x;r.height=Math.max(...ys)-r.y;
+        if(transform.type==='rotate')o.rotation+=finite(transform.angle);
+        else if(transform.type==='resize')o.rotation=Math.atan2(o.worldQuad[1].y-o.worldQuad[0].y,o.worldQuad[1].x-o.worldQuad[0].x)*180/Math.PI;
+      }
+      else if (transform.type === 'move') { r.x += finite(transform.dx); r.y += finite(transform.dy); }
+      else if (transform.type === 'resize') {
+        r.x = origin.x+(r.x-origin.x)*sx; r.y=origin.y+(r.y-origin.y)*sy;
+        r.width = Math.max(.1,r.width*sx); r.height=Math.max(.1,r.height*sy);
+      } else if (transform.type === 'rotate') {
+        const cx=r.x+r.width/2,cy=r.y+r.height/2,dx=cx-origin.x,dy=cy-origin.y;
+        r.x=origin.x+dx*Math.cos(rad)-dy*Math.sin(rad)-r.width/2;
+        r.y=origin.y+dx*Math.sin(rad)+dy*Math.cos(rad)-r.height/2;
+        o.rotation += finite(transform.angle);
+      }
+      for (const k of ['x','y','width','height']) r[k]=rounded(r[k]);
+      o.rotation=rounded(o.rotation);
+      return o;
+    });
+  }
+  function pointFromClient(clientX,clientY,rect,canvas) {
+    if (!(rect.width>0 && rect.height>0)) throw new Error('画布尚未就绪。');
+    if (![clientX,clientY,rect.left,rect.top,rect.width,rect.height,canvas.width,canvas.height].every(Number.isFinite)) throw new Error('画布坐标必须是有限数值。');
+    return {x:(clientX-rect.left)/rect.width*canvas.width,y:(clientY-rect.top)/rect.height*canvas.height};
+  }
+  function validateDraft(draft, expectedSource) {
+    if (!draft || !Array.isArray(draft.objects)) throw new Error('草稿格式无效。');
+    const source=draft.source || {}, expected=expectedSource || {};
+    for (const k of ['sceneId','version','frameId','globalFrame','localFrame','sourceHash','sourceSha256','masterSha256']) {
+      if (expected[k] != null && String(source[k] ?? '') !== String(expected[k])) throw new Error(`草稿的 ${k} 与当前锁定帧不一致。`);
+    }
+    const ids = new Set();
+    for (const object of draft.objects) { const o=normalizeObject(object); if (ids.has(o.id)) throw new Error(`重复的对象 ID：${o.id}`); ids.add(o.id); }
+    if (!['layout','pose'].includes(draft.scope)) throw new Error('草稿缺少调整范围。');
+    for (const a of draft.annotations || []) {
+      for (const p of a.points || []) if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) throw new Error('标注包含无效坐标。');
+      for (const key of ['startSeconds','durationSeconds']) if (a[key] != null && (!Number.isFinite(a[key]) || a[key] < 0)) throw new Error('标注时间必须是非负数或留空待确定。');
+    }
+    return true;
+  }
+  function svg(tag,attrs={}) { const el=document.createElementNS(NS,tag); for(const [k,v] of Object.entries(attrs)) el.setAttribute(k,v); return el; }
+  function html(tag,attrs={},textValue) { const el=document.createElement(tag); for(const [k,v] of Object.entries(attrs)) { if(k==='class')el.className=v;else el.setAttribute(k,v); } if(textValue!=null)el.textContent=textValue; return el; }
+  let active = null;
+  function open(options) {
+    if (active) { active.focus(); throw new Error('请先保存或关闭已打开的关键帧编辑器。'); }
+    if (!options?.sourceUrl) throw new Error('此段尚未接入真实组件编辑源。');
+    if (typeof options.onSave !== 'function') throw new Error('缺少提案保存接口。');
+    const scene=options.scene || {}, frame=options.frame || {}, data=options.data || {};
+    const fps=finite(data.fps || scene.fps || frame.fps,50);
+    const sceneStart=finite(scene.startSeconds ?? scene.start ?? scene.globalStartSeconds ?? (finite(scene.startFrame)/fps));
+    const localFrame=Math.round(finite(frame.localFrame ?? frame.frame ?? ((finite(frame.time ?? frame.seconds)-sceneStart)*fps)));
+    const globalFrame=Math.round(finite(frame.globalFrame ?? (sceneStart*fps+localFrame)));
+    const lockedSource={sceneId:scene.stableId || scene.id || scene.sceneId,version:data.revision || data.version || frame.version || scene.version || '',frameId:frame.id || frame.frameId || `f${globalFrame}`,globalFrame,localFrame,fps,globalSeconds:globalFrame/fps,localSeconds:localFrame/fps,sourceHash:frame.image?.sha256 || frame.sha256 || frame.hash || data.sourceHash || null,sourceSha256:data.frameEditor?.sourceSha256 || null,masterSha256:data.master?.sha256 || null,sourceVariant:null};
+    const sourceURL=new URL(options.sourceUrl,location.href);
+    if(sourceURL.origin!==location.origin)throw new Error('编辑源必须与工作台同源，以保证精确截图和组件通信。');
+    const origin=sourceURL.origin;
+    let canvas={width:1920,height:1080}, objects=[], beforeObjects=[], annotations=[],note='', references=[], journal=[], selection=new Set(), selectedAnnotation=null;
+    let scope='layout',tool='select',ready=false,saving=false,closed=false,beforePNG=null,dirty=false,revision=0,draftTimer=null,draftPromise=Promise.resolve(),savedRevision=-1;
+    let gesture=null,undo=[],redo=[],locked=new Set(),applyTimer=null,applyPromise=Promise.resolve(),applyRevision=0,appliedRevision=0,loadError=null,originalScreenshots=null;
+    const pending=new Map(),mediaURLs=new Map(),mediaJobs=new Set();
+    let lastVerification=null,noteBefore=null;
+    const dialog=html('dialog',{class:'fe-dialog','aria-label':'精确关键帧修改提案编辑器'});
+    dialog.innerHTML=`<div class="fe-layout"><header class="fe-header"><div><h2>编辑本帧 <span class="fe-selection-count">· 修改提案</span></h2><div class="fe-meta"></div></div><div class="fe-header-actions"><button data-action="compare">原画面对照</button><button data-action="close">保存草稿并关闭</button><button class="fe-primary" data-action="save" disabled>保存修改提案</button></div></header><div class="fe-toolbar"><label>调整范围 <select aria-label="调整范围"><option value="layout">整段布局</option><option value="pose">当前时间点</option></select></label><span class="fe-toolbar-divider"></span><button data-tool="select" aria-pressed="true">选中 / 拖动</button><button data-tool="circle">圈选区域</button><button data-tool="arrow">运动箭头</button><button data-tool="path">运动路径</button><span class="fe-toolbar-divider"></span><button data-action="undo" disabled>撤销</button><button data-action="redo" disabled>重做</button><button data-action="copy">复制</button><button data-action="delete" class="fe-danger">删除</button><button data-action="group">组合</button><button data-action="ungroup">取消组合</button></div><div class="fe-body"><aside class="fe-layers"><div class="fe-section-title">画面对象 <span class="fe-object-count"></span></div><input class="fe-list-filter" type="search" placeholder="搜索对象" aria-label="搜索可编辑对象"><div class="fe-layer-list"></div><p class="fe-subtle">Shift 多选；留白拖框多选。锁定只影响本次选择，原对象 ID 与父级关系始终保留。</p><div class="fe-section-title">区域与运动标注</div><div class="fe-annotation-list"></div><details class="fe-proposal-history"><summary>本帧已保存提案</summary><div class="fe-history-list"></div></details></aside><section class="fe-center"><div class="fe-stage-note"><strong>整段布局</strong>：拖动后指定这一段的整体位置，保留原有运动关系。预览为当前锁定帧；保存后由 AI 执行。</div><div class="fe-canvas-fit"><div class="fe-stage"><iframe title="锁定帧真实组件预览" sandbox="allow-scripts allow-same-origin"></iframe><svg class="fe-overlay" tabindex="0" aria-label="可拖动关键帧画布"></svg><div class="fe-loading"><span class="fe-spinner"></span>正在读取当前帧的真实组件…</div></div></div><div class="fe-compare" hidden><label>原画面<img alt="修改前画面"></label><label>当前提案<img alt="修改后画面"></label></div><div class="fe-subtle">1920 × 1080 原画布坐标 · 拖动即刻预览，正片在 AI 执行后更新。方向键微调 1 像素，Shift + 方向键 10 像素。</div></section><aside class="fe-inspector"><div class="fe-property-panel"></div><div class="fe-section-title">本帧修改说明</div><textarea class="fe-overall-note" placeholder="说明调整原因、希望添加的动画或需要保留的细节…" aria-label="本帧修改说明"></textarea><div class="fe-section-title">参考 GIF / 图片 / 视频</div><button data-action="reference">添加参考素材</button><div class="fe-references"></div><p class="fe-hint">可把素材直接拖入编辑器。GIF、录屏按整份素材编辑，内部动作通过说明与参考交给 AI。</p><input type="file" class="fe-files" accept="image/*,video/*" multiple hidden></aside></div><footer class="fe-bottom"><span class="fe-status" role="status">正在连接编辑源…</span><span>当前帧锁定 · 位置 / 宽高精确到 0.001 px</span></footer></div>`;
+    document.body.append(dialog);
+    const $=(s)=>dialog.querySelector(s), $$=(s)=>Array.from(dialog.querySelectorAll(s));
+    const stage=$('.fe-stage'), overlay=$('.fe-overlay'), iframe=$('iframe'), layerList=$('.fe-layer-list'),panel=$('.fe-property-panel'),loading=$('.fe-loading'),noteInput=$('.fe-overall-note'),files=$('.fe-files');
+    $('.fe-meta').textContent=`${scene.title || scene.label || lockedSource.sceneId || '当前段'} · ${time(lockedSource.globalSeconds)} · 全片帧 ${globalFrame} / 段内帧 ${localFrame} · ${lockedSource.version || '当前版本'}`;
+    const previousOverflow=document.body.style.overflow; document.body.style.overflow='hidden';
+    function status(message,error=false){ const el=$('.fe-status');el.textContent=message;el.classList.toggle('fe-error',error); }
+    function showError(err){status(err?.message || String(err),true);}
+    function request(type,payload={},timeout=20000){
+      const requestId=uid();
+      return new Promise((resolve,reject)=>{
+        const timer=setTimeout(()=>{pending.delete(requestId);reject(new Error(type==='fred-editor-capture'?'当前帧截图超时，草稿仍保留。':'真实组件预览响应超时，草稿仍保留。'));},timeout);
+        pending.set(requestId,{resolve,reject,timer});
+        iframe.contentWindow.postMessage({type,requestId,...payload},origin);
+      });
+    }
+    async function receive(event){
+      if(closed || event.origin!==origin || event.source!==iframe.contentWindow)return;
+      const msg=event.data;
+      if(!msg || typeof msg!=='object' || !String(msg.type||'').startsWith('fred-editor-'))return;
+      const waiter=pending.get(msg.requestId);
+      if(!waiter)return;
+      if(!['fred-editor-ready','fred-editor-applied','fred-editor-captured','fred-editor-error'].includes(msg.type))return;
+      clearTimeout(waiter.timer);pending.delete(msg.requestId);
+      if(msg.type==='fred-editor-error' || msg.error)waiter.reject(new Error(msg.error || msg.message || '真实组件预览失败。'));else waiter.resolve(msg);
+    }
+    global.addEventListener('message',receive);
+    function snapshot(){return {objects:clone(objects),annotations:clone(annotations),note,references:clone(references),scope,selection:[...selection],selectedAnnotation,locked:[...locked]};}
+    function restore(s){objects=clone(s.objects);annotations=clone(s.annotations);note=s.note||'';references=clone(s.references||[]);scope=s.scope||'layout';selection=new Set(s.selection||[]);selectedAnnotation=s.selectedAnnotation||null;locked=new Set(s.locked||[]);$('select[aria-label="调整范围"]').value=scope;noteInput.value=note;renderAll();queueApply();changed();}
+    function addJournal(kind,before,after,ids=[]){journal.push({id:uid(),type:kind,at:new Date().toISOString(),objectIds:ids,before:clone(before),after:clone(after)});}
+    function commit(kind,before,ids=[],config={}){const after=snapshot();if(JSON.stringify(before)===JSON.stringify(after))return;undo.push(before);if(undo.length>75)undo.shift();redo=[];addJournal(kind,before,after,ids);changed();if(config.keepPanel){renderOverlay();renderLayers();updateButtons();syncPropertyInputs();}else renderAll();queueApply();}
+    function changed(){dirty=true;revision++;clearTimeout(draftTimer);draftTimer=setTimeout(()=>saveDraft().catch(showError),450);updateButtons();}
+    function portableObject(o){const result=clone(o); if(result.replacement?.dataUrl && result.assetRef){delete result.replacement.dataUrl;result.replacement.mediaId=result.assetRef.mediaId||result.assetRef.id;}if(result.assetRef)delete result.asset;return result;}
+    function draft(){return {schemaVersion:SCHEMA,source:clone(lockedSource),canvas:clone(canvas),scope,objects:objects.map(portableObject),beforeObjects:clone(beforeObjects),annotations:clone(annotations),note,references:clone(references),operationJournal:journal.map((j)=>{const r=clone(j);for(const side of ['before','after'])if(r[side]?.objects)r[side].objects=r[side].objects.map(portableObject);return r;}),editorState:{selectedIds:[...selection],lockedIds:[...locked]},updatedAt:new Date().toISOString(),draftRevision:revision};}
+    async function saveDraft(){
+      clearTimeout(draftTimer);if(mediaJobs.size)await Promise.all([...mediaJobs]);if(!ready || closed || !dirty)return;
+      const payload=draft(),thisRevision=revision;
+      if(!options.onDraft){status('草稿仅在当前编辑器保留；保存提案后才会持久保存。',true);return;}
+      draftPromise=draftPromise.catch(()=>{}).then(()=>options.onDraft(payload));
+      await draftPromise;
+      savedRevision=Math.max(savedRevision,thisRevision);
+      if(!saving)status(thisRevision===revision?'草稿已保存；尚未提交给 AI。':'草稿正在保存…');
+    }
+    async function hydrateMedia(list){
+      for(const o of list){
+        const ref=o.assetRef || (o.replacement?.mediaId?{id:o.replacement.mediaId}:null);
+        if(!ref)continue;
+        if(!options.resolveMedia)throw new Error('草稿含素材替换，但当前工作台缺少媒体读取接口。');
+        const resolved=await options.resolveMedia(ref.id),url=typeof resolved==='string'?resolved:resolved?.url;
+        if(!url)throw new Error(`素材 ${ref.name||ref.id} 无法读取；原草稿仍保留。`);
+        o.asset=url;o.replacement={...o.replacement,dataUrl:url,mime:ref.type || o.replacement?.mime,name:ref.name || o.replacement?.name};
+      }
+      return list;
+    }
+    async function applyNow(){
+      clearTimeout(applyTimer);if(!ready || closed)return;
+      const targetRevision=++applyRevision,payload=clone(objects);
+      applyPromise=applyPromise.catch(()=>{}).then(()=>request('fred-editor-apply',{objects:payload}));
+      const result=await applyPromise;
+      if(result.errors?.length)throw new Error(`部分对象无法预览：${result.errors.map((e)=>typeof e==='string'?e:e.message||e.id).join('；')}`);
+      lastVerification={at:new Date().toISOString(),sceneId:result.sceneId,localFrame:result.localFrame,objects:(result.objects||[]).map((o)=>({id:o.id,rect:o.rect,actualRect:o.actualRect,worldQuad:o.worldQuad})),diagnostics:result.diagnostics||null,tolerancePixels:.25};
+      appliedRevision=targetRevision;return result;
+    }
+    function queueApply(){clearTimeout(applyTimer);applyTimer=setTimeout(()=>applyNow().catch(showError),65);}
+    async function capture(){await applyNow();const result=await request('fred-editor-capture',{},45000);if(!result.dataUrl?.startsWith('data:image/'))throw new Error('编辑源没有返回有效的截图。');return result.dataUrl;}
+    function updateButtons(){
+      const busy=saving||mediaJobs.size>0;
+      $$('input,textarea,select,button').forEach((control)=>{control.disabled=busy || !ready;});
+      $('[data-action=close]').disabled=busy;
+      $('[data-action=undo]').disabled=!undo.length || busy;$('[data-action=redo]').disabled=!redo.length || busy;
+      $('[data-action=save]').disabled=!ready||busy;
+      for(const a of ['copy','delete','group','ungroup'])$(`[data-action=${a}]`).disabled=!ready||busy||(!selection.size&&!selectedAnnotation);
+      $('[data-action=save]').textContent=saving?'正在保存…':mediaJobs.size?'正在保存素材…':'保存修改提案';
+    }
+    function visibleSelected(){return objects.filter((o)=>selection.has(o.id)&&!o.hidden);}
+    function rootsOfSelected(){const chosen=new Set(selection);return objects.filter((o)=>chosen.has(o.id)&&!chosen.has(o.parentId)&&!o.hidden);}
+    function selectObject(id,add=false){
+      if(locked.has(id))return;selectedAnnotation=null;
+      const obj=objectById(objects,id);if(!obj)return;
+      const members=obj.groupId?objects.filter((o)=>o.groupId===obj.groupId).map((o)=>o.id):[id];
+      if(!add)selection.clear();
+      const remove=add&&selection.has(id);for(const oid of members){if(remove)selection.delete(oid);else if(!locked.has(oid))selection.add(oid);}
+      renderAll();
+    }
+    function setTool(next){tool=next;selectedAnnotation=null;$$('[data-tool]').forEach((b)=>b.setAttribute('aria-pressed',String(b.dataset.tool===tool)));overlay.style.cursor=tool==='select'?'default':'crosshair';renderAll();}
+    function rotateCenter(o){return {x:o.rect.x+o.rect.width*o.anchor.x,y:o.rect.y+o.rect.height*o.anchor.y};}
+    function renderOverlay(){
+      overlay.replaceChildren();overlay.setAttribute('viewBox',`0 0 ${canvas.width} ${canvas.height}`);
+      const defs=svg('defs'),marker=svg('marker',{id:'fe-arrow-'+sessionId,viewBox:'0 0 10 10',refX:'8',refY:'5',markerWidth:'8',markerHeight:'8',orient:'auto-start-reverse'});marker.append(svg('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'#e67041'}));defs.append(marker);overlay.append(defs);
+      if(tool==='select'){
+        const depth=(object)=>{let d=0,current=object,seen=new Set();while(current?.parentId&&!seen.has(current.parentId)){seen.add(current.parentId);d++;current=objectById(objects,current.parentId);}return d;};
+        const sorted=objects.filter((o)=>!o.hidden&&!locked.has(o.id)).sort((a,b)=>depth(a)-depth(b)||finite(a.zIndex)-finite(b.zIndex));
+        const appendHit=(o)=>{const r=o.rect;const hit=o.worldQuad?svg('polygon',{points:o.worldQuad.map((p)=>`${p.x},${p.y}`).join(' '),class:'fe-hit','data-object':o.id}):svg('rect',{x:r.x,y:r.y,width:r.width,height:r.height,class:'fe-hit','data-object':o.id});overlay.append(hit);};
+        for(const o of sorted)appendHit(o);
+        // An already-selected object stays draggable even when a full-canvas
+        // parent has a high stacking index. Parent selection remains in the tree.
+        for(const o of sorted)if(selection.has(o.id))appendHit(o);
+      }
+      for(const a of annotations){
+        if(a.points?.length<2)continue;
+        const first=a.points[0],last=a.points[a.points.length-1];let shape;
+        if(a.kind==='circle')shape=svg('ellipse',{cx:(first.x+last.x)/2,cy:(first.y+last.y)/2,rx:Math.abs(last.x-first.x)/2,ry:Math.abs(last.y-first.y)/2});
+        else shape=svg('polyline',{points:a.points.map((p)=>`${p.x},${p.y}`).join(' ')});
+        shape.setAttribute('class','fe-annotation'+(a.id===selectedAnnotation?' fe-selected':''));shape.setAttribute('data-annotation',a.id);
+        if(a.kind==='arrow'||a.kind==='path')shape.setAttribute('marker-end','url(#fe-arrow-'+sessionId+')');overlay.append(shape);
+        const label=svg('text',{x:first.x,y:first.y-14,class:'fe-annotation-label'});label.textContent=String(annotations.indexOf(a)+1);overlay.append(label);
+      }
+      const chosen=rootsOfSelected();
+      for(const o of chosen){const r=o.rect,outline=svg('rect',{x:r.x,y:r.y,width:r.width,height:r.height,class:'fe-outline'});overlay.append(outline);}
+      if(chosen.length){
+        const b=boundsOf(chosen),ratio=canvas.width/Math.max(1,stage.clientWidth),size=9*ratio;
+        if(chosen.length>1)overlay.append(svg('rect',{...b,class:'fe-outline','stroke-dasharray':'8 5'}));
+        const h=svg('rect',{x:b.x+b.width-size/2,y:b.y+b.height-size/2,width:size,height:size,class:'fe-handle','data-handle':'resize'});overlay.append(h);
+        const rc={x:b.x+b.width/2,y:b.y-27*ratio};overlay.append(svg('line',{x1:rc.x,y1:b.y,x2:rc.x,y2:rc.y,class:'fe-rotation-line'}));overlay.append(svg('circle',{cx:rc.x,cy:rc.y,r:6*ratio,class:'fe-handle fe-rotate','data-handle':'rotate'}));
+      }
+      if(gesture?.kind==='marquee'){const b=boxBetween(gesture.start,gesture.current);overlay.append(svg('rect',{...b,class:'fe-marquee'}));}
+      if(gesture?.kind==='annotation'){
+        const a=gesture.annotation,first=a.points[0],last=a.points[a.points.length-1];
+        const s=a.kind==='circle'?svg('ellipse',{cx:(first.x+last.x)/2,cy:(first.y+last.y)/2,rx:Math.abs(last.x-first.x)/2,ry:Math.abs(last.y-first.y)/2}):svg('polyline',{points:a.points.map((p)=>`${p.x},${p.y}`).join(' ')});s.setAttribute('class','fe-annotation');overlay.append(s);
+      }
+    }
+    function renderLayers(){
+      const query=$('.fe-list-filter').value.trim().toLowerCase();layerList.replaceChildren();$('.fe-object-count').textContent=String(objects.filter((o)=>!o.hidden).length);
+      const sorted=objects.slice().sort((a,b)=>finite(b.zIndex)-finite(a.zIndex));
+      for(const o of sorted){if(query&&!`${o.label} ${o.type} ${o.id}`.toLowerCase().includes(query))continue;
+        const row=html('div',{class:'fe-layer-row'+(selection.has(o.id)?' fe-selected':'')+(o.hidden?' fe-hidden':'')});
+        const select=html('button',{class:'fe-layer-select',title:`${o.label}\nID: ${o.id}\n父级: ${o.parentId || '画布'}`},`${o.hidden?'已删除 · ':''}${o.groupId?'▣ ':''}${o.label}`);
+        select.addEventListener('click',(e)=>selectObject(o.id,e.shiftKey));
+        const lock=html('button',{class:'fe-lock','aria-label':(locked.has(o.id)?'解锁 ':'锁定 ')+o.label,title:locked.has(o.id)?'解锁对象':'锁定对象'},locked.has(o.id)?'🔒':'○');
+        lock.addEventListener('click',()=>{const before=snapshot();if(locked.has(o.id))locked.delete(o.id);else{locked.add(o.id);selection.delete(o.id);}commit('selection-lock',before,[o.id]);});row.append(select,lock);layerList.append(row);
+      }
+      if(!layerList.childElementCount)layerList.append(html('p',{class:'fe-layer-empty'},ready?'没有匹配的对象。':'等待读取真实组件…'));
+      const al=$('.fe-annotation-list');al.replaceChildren();for(const [index,a] of annotations.entries()){const b=html('button',{class:'fe-layer-select'+(a.id===selectedAnnotation?' fe-active':'')},`${index+1}. ${{circle:'圈选',arrow:'箭头',path:'路径'}[a.kind]||a.kind}${a.note?' · '+a.note.slice(0,14):''}`);b.addEventListener('click',()=>{selection.clear();selectedAnnotation=a.id;renderAll();});al.append(b);}
+      if(!annotations.length)al.append(html('p',{class:'fe-subtle'},'使用圈选 / 箭头 / 路径，在画面上描述修改。'));
+    }
+    function numberField(label,value,key,attrs={}){return `<label class="fe-field">${escape(label)}<input type="number" step="0.001" value="${escape(rounded(value))}" data-field="${key}" ${Object.entries(attrs).map(([k,v])=>`${k}="${escape(v)}"`).join(' ')}></label>`;}
+    function renderPanel(){
+      const selected=visibleSelected(),ann=annotations.find((a)=>a.id===selectedAnnotation);
+      if(ann){
+        panel.innerHTML=`<div class="fe-section-title">标注 ${annotations.indexOf(ann)+1} · ${{circle:'圈选区域',arrow:'运动箭头',path:'运动路径'}[ann.kind]}</div><div class="fe-precise"><label class="fe-field fe-wide">时间基准<select data-ann-field="timeBasis"><option value="scene">段内时间</option><option value="global">全片时间</option></select></label><label class="fe-field">开始时间（秒）<input type="number" min="0" step="0.01" data-ann-field="startSeconds" value="${ann.startSeconds??''}" placeholder="待确定"></label><label class="fe-field">持续时间（秒）<input type="number" min="0" step="0.01" data-ann-field="durationSeconds" value="${ann.durationSeconds??''}" placeholder="待确定"></label><label class="fe-field fe-wide">关联对象<select data-ann-field="objectId"><option value="">整个圈选区域</option>${objects.filter((o)=>!o.hidden).map((o)=>`<option value="${escape(o.id)}">${escape(o.label)}</option>`).join('')}</select></label><label class="fe-field fe-wide">具体动画或修改要求<textarea data-ann-field="note" placeholder="例如：沿箭头移动，抵达后稍微回弹；或这里换成参考 GIF">${escape(ann.note)}</textarea></label></div><p class="fe-hint">箭头与路径保存原画布上的精确点位。时间留空会标记为待确定，AI 不会把留空当作 0 秒。</p><button data-ann-delete class="fe-danger">删除此标注</button>`;
+        $('[data-ann-field=timeBasis]').value=ann.timeBasis||'scene';$('[data-ann-field=objectId]').value=ann.objectId||'';
+        $$('[data-ann-field]').forEach((input)=>{
+          input.addEventListener('focus',()=>{input._feBefore=snapshot();});
+          const apply=(transient)=>{const before=input._feBefore||snapshot(),key=input.dataset.annField,value=['startSeconds','durationSeconds'].includes(key)?(input.value.trim()===''?null:Number(input.value)):input.value;if(['startSeconds','durationSeconds'].includes(key)&&value!==null&&(!Number.isFinite(value)||value<0)){if(!transient){showError(new Error('时间必须是非负数；留空表示待确定。'));renderPanel();}return;}ann[key]=value;ann.timingStatus=ann.startSeconds==null||ann.durationSeconds==null?'needs-timing':'specified';if(transient){changed();renderOverlay();}else{input._feBefore=null;commit('annotation-edit',before,ann.objectId?[ann.objectId]:[],{keepPanel:true});}};
+          input.addEventListener('input',()=>{if(!input._feBefore)input._feBefore=snapshot();apply(true);});input.addEventListener('change',()=>apply(false));input.addEventListener('blur',()=>{if(input._feBefore)apply(false);});
+        });
+        $('[data-ann-delete]').addEventListener('click',()=>{const before=snapshot();annotations=annotations.filter((a)=>a.id!==ann.id);selectedAnnotation=null;commit('annotation-delete',before);});return;
+      }
+      if(!selected.length){panel.innerHTML='<div class="fe-section-title">对象属性</div><p class="fe-hint">点击画面中的对象，或从左侧对象列表选择。也可以拖框、多选后整体移动。</p><p class="fe-hint">画面对象来自真实 React / Remotion 组件，GIF 与视频作为完整素材。保存的是精确提案，不会直接覆盖成片。</p>';return;}
+      const roots=rootsOfSelected(),b=boundsOf(roots),o=selected.length===1?selected[0]:null;
+      panel.innerHTML=`<div class="fe-section-title">${escape(o?.label || `${selected.length} 个对象`)}<span class="fe-subtle">原画布 px</span></div><div class="fe-precise">${numberField('X 坐标',b.x,'x')}${numberField('Y 坐标',b.y,'y')}${numberField('宽度',b.width,'width',{min:'.1'})}${numberField('高度',b.height,'height',{min:'.1'})}${numberField('旋转（度）',o?.rotation||0,'rotation')}${o?numberField('透明度',finite(o.opacity,1),'opacity',{min:0,max:1,step:'.01'}):''}${o?numberField('锚点 X（0–1）',o.anchor.x,'anchorX',{min:0,max:1}):''}${o?numberField('锚点 Y（0–1）',o.anchor.y,'anchorY',{min:0,max:1}):''}${o&&typeof o.text==='string'?`<label class="fe-field fe-wide">文字内容<textarea data-field="text">${escape(o.text)}</textarea></label>`:''}${o&&o.color&&!o.asset?`<label class="fe-field fe-wide">颜色<div class="fe-field-row"><input type="color" data-color-picker aria-label="选择对象颜色" value="${/^#[\da-f]{6}$/i.test(o.color)?o.color:'#8050ed'}"><input type="text" data-field="color" value="${escape(o.color)}" aria-label="对象颜色"></div></label>`:''}</div><div class="fe-small-actions"><button data-object-action="front">置顶</button><button data-object-action="back">置底</button><button data-object-action="up">上移一层</button><button data-object-action="down">下移一层</button>${o?'<button data-object-action="replace">替换整个素材</button>':''}</div><p class="fe-hint">${scope==='layout'?'整段布局：位置变化由 AI 应用到整段，保留原动画关系。':'当前时间点：只指定此时的目标姿态，前后运动由标注说明。'}</p>${o?`<div class="fe-object-detail">对象 ID：${escape(o.id)}<br>父级：${escape(o.parentId||'画布')}<br>组件：${escape(o.sourceLocator?.component || o.type || 'DOM 对象')}<br>原始来源：${escape(o.sourceLocator?.file || o.sourceLocator?.domPath || '编辑源')}</div>`:''}`;
+      if(o&&(o.asset||o.assetRef||/image|video|gif|media|character|host/i.test(o.type||''))){
+        const section=html('div');section.innerHTML=`<div class="fe-section-title">整个素材的裁剪与时间</div><div class="fe-precise">${numberField('顶部裁剪（%）',finite(o.crop?.top),'cropTop',{min:0,max:99.999})}${numberField('右侧裁剪（%）',finite(o.crop?.right),'cropRight',{min:0,max:99.999})}${numberField('底部裁剪（%）',finite(o.crop?.bottom),'cropBottom',{min:0,max:99.999})}${numberField('左侧裁剪（%）',finite(o.crop?.left),'cropLeft',{min:0,max:99.999})}<label class="fe-field">入场（段内秒）<input type="number" min="0" step="0.01" value="${o.timing?.inSeconds??''}" data-field="timingIn" placeholder="保持原时间"></label><label class="fe-field">出场（段内秒）<input type="number" min="0" step="0.01" value="${o.timing?.outSeconds??''}" data-field="timingOut" placeholder="保持原时间"></label></div><p class="fe-hint">裁剪即时预览；入场与出场作为精确时间提案由 AI 应用，当前锁定帧保持素材可见，便于排版。留空表示保持原时间。</p>`;panel.append(section);
+        const alpha=o.intrinsicAlphaBounds;
+        if(alpha){const message=o.assetRef?'替换素材的透明边缘尚未测量，几何坐标按完整素材边框记录。':alpha.status==='measured'?`原素材可见内容：x ${alpha.x}、y ${alpha.y}、宽 ${alpha.width}、高 ${alpha.height}（原图 ${alpha.sourceWidth} × ${alpha.sourceHeight} 像素）。图层坐标保留透明留白，不会自动裁掉。`:'透明边缘尚未测量；几何坐标按完整素材边框记录。';section.append(html('p',{class:'fe-hint'},message));}
+      }
+      $$('[data-field]').forEach((input)=>{
+        input.addEventListener('focus',()=>{input._feBefore=snapshot();});
+        input.addEventListener('input',()=>{if(!input._feBefore)input._feBefore=snapshot();editProperty(input.dataset.field,input.value,{transient:true});});
+        const finish=()=>{if(!input._feBefore)return;const before=input._feBefore;input._feBefore=null;editProperty(input.dataset.field,input.value,{before});};
+        input.addEventListener('change',finish);input.addEventListener('blur',finish);
+      });
+      $('[data-color-picker]')?.addEventListener('input',(e)=>{$('[data-field=color]').value=e.target.value;});$('[data-color-picker]')?.addEventListener('change',(e)=>editProperty('color',e.target.value));
+      $$('[data-object-action]').forEach((button)=>button.addEventListener('click',()=>objectAction(button.dataset.objectAction)));
+    }
+    function editProperty(key,value,config={}){
+      if(saving)return;const before=config.before||snapshot(),chosen=rootsOfSelected(),b=boundsOf(chosen),single=visibleSelected().length===1?visibleSelected()[0]:null;
+      const reject=(message)=>{if(!config.transient){showError(new Error(message));renderPanel();}return false;};
+      if(['text','color'].includes(key)){if(!single)return;if(key==='color'&&global.CSS?.supports&&!CSS.supports('color',value))return reject('请输入有效颜色，例如 #8050ed。');single[key]=value;}
+      else if(key==='timingIn'||key==='timingOut'){
+        if(!single)return;const n=value.trim()===''?null:Number(value),timing={timeBasis:'scene',...single.timing,[key==='timingIn'?'inSeconds':'outSeconds']:n};
+        if(n!==null&&(!Number.isFinite(n)||n<0))return reject('出入场时间必须是非负数，或留空保持原时间。');
+        if(timing.inSeconds!=null&&timing.outSeconds!=null&&timing.outSeconds<timing.inSeconds)return reject('出场时间不能早于入场时间。');single.timing=timing;
+      }
+      else {if(value.trim()==='')return reject('请输入有效数值。');const n=Number(value);if(!Number.isFinite(n))return reject('请输入有效数值。');
+        if(key==='x'||key==='y')objects=transformObjects(objects,[...selection],{type:'move',dx:key==='x'?n-b.x:0,dy:key==='y'?n-b.y:0});
+        else if(key==='width'||key==='height'){if(n<=0)return reject('宽度和高度必须大于 0。');objects=transformObjects(objects,[...selection],{type:'resize',origin:{x:b.x,y:b.y},sx:key==='width'?n/b.width:1,sy:key==='height'?n/b.height:1});}
+        else if(key==='rotation')objects=transformObjects(objects,[...selection],{type:'rotate',angle:single?n-single.rotation:n});
+        else if(key==='opacity'&&single){if(n<0||n>1)return reject('透明度应在 0 到 1 之间。');single.opacity=n;}
+        else if((key==='anchorX'||key==='anchorY')&&single){if(n<0||n>1)return reject('锚点应在 0 到 1 之间。');single.anchor[key==='anchorX'?'x':'y']=n;}
+        else if(key.startsWith('crop')&&single){const crop={top:0,right:0,bottom:0,left:0,...single.crop,[key.slice(4).toLowerCase()]:n};if(n<0||n>=100||crop.top+crop.bottom>=100||crop.left+crop.right>=100)return reject('裁剪应在 0 到 100% 之间，且必须保留可见区域。');single.crop=crop;}
+      }
+      if(config.transient){if(JSON.stringify(before)!==JSON.stringify(snapshot())){changed();renderOverlay();queueApply();}return true;}
+      commit('property-'+key,before,[...selection],{keepPanel:true});return true;
+    }
+    function syncPropertyInputs(){
+      const chosen=rootsOfSelected();if(!chosen.length)return;const b=boundsOf(chosen),single=visibleSelected().length===1?visibleSelected()[0]:null;
+      const values={x:b.x,y:b.y,width:b.width,height:b.height,rotation:single?.rotation||0,opacity:single?.opacity??1,anchorX:single?.anchor.x,anchorY:single?.anchor.y,text:single?.text,color:single?.color,cropTop:single?.crop?.top??0,cropRight:single?.crop?.right??0,cropBottom:single?.crop?.bottom??0,cropLeft:single?.crop?.left??0,timingIn:single?.timing?.inSeconds??'',timingOut:single?.timing?.outSeconds??''};
+      $$('[data-field]').forEach((input)=>{if(input===document.activeElement)return;const value=values[input.dataset.field];if(value!==undefined)input.value=typeof value==='number'?rounded(value):value;});
+    }
+    function renderReferences(){const list=$('.fe-references');list.replaceChildren();for(const ref of references){const row=html('div',{class:'fe-reference'}),label=html('span',{},ref.name || ref.id),remove=html('button',{'aria-label':'移除参考 '+(ref.name||ref.id)},'×');row.append(label,remove);remove.addEventListener('click',()=>{const before=snapshot();references=references.filter((r)=>r.id!==ref.id);commit('reference-remove',before);});list.append(row);if(options.resolveMedia)Promise.resolve(options.resolveMedia(ref.id||ref.mediaId)).then((resolved)=>{if(!row.isConnected)return;const url=typeof resolved==='string'?resolved:resolved?.url;if(!url)return;const isVideo=(ref.type||ref.mimeType||'').startsWith('video/'),preview=html(isVideo?'video':'img');preview.src=url;preview.title='点击放大参考素材';if(isVideo){preview.muted=true;preview.preload='metadata';}preview.addEventListener('click',()=>{const cover=html('div',{class:'fe-reference-preview'}),media=html(isVideo?'video':'img'),button=html('button',{},'关闭参考');media.src=url;if(isVideo){media.controls=true;media.autoplay=true;media.muted=true;}button.addEventListener('click',()=>cover.remove());cover.append(button,media);$('.fe-center').append(cover);});row.prepend(preview);}).catch(showError);}}
+    function renderAll(){renderOverlay();renderLayers();renderPanel();renderReferences();updateButtons();$('.fe-stage-note').innerHTML=scope==='layout'?'<strong>整段布局</strong>：拖动后指定这一段的整体位置，保留原有运动关系。预览为当前锁定帧；保存后由 AI 执行。':'<strong>当前时间点</strong>：指定对象在这一帧的目标位置与姿态。前后怎么运动，请画路径、填写时间或补充说明。';}
+    function boxBetween(a,b){return {x:Math.min(a.x,b.x),y:Math.min(a.y,b.y),width:Math.abs(a.x-b.x),height:Math.abs(a.y-b.y)};}
+    function point(event){return pointFromClient(event.clientX,event.clientY,overlay.getBoundingClientRect(),canvas);}
+    function onDown(event){
+      if(!ready||saving||event.button!==0)return;
+      overlay.focus({preventScroll:true});const p=point(event),before=snapshot();
+      overlay.setPointerCapture(event.pointerId);
+      const annotationTarget=event.target.closest?.('[data-annotation]');
+      if(tool==='select'&&annotationTarget){selectedAnnotation=annotationTarget.dataset.annotation;selection.clear();renderAll();return;}
+      if(tool!=='select'){
+        const annotation={id:uid(),kind:tool,points:[p,p],objectId:selection.size===1?[...selection][0]:null,timeBasis:'scene',startSeconds:null,durationSeconds:null,timingStatus:'needs-timing',note:''};gesture={kind:'annotation',annotation,start:p,current:p,before};renderOverlay();return;
+      }
+      const handle=event.target.dataset?.handle;
+      if(handle&&selection.size){const b=boundsOf(rootsOfSelected()),center={x:b.x+b.width/2,y:b.y+b.height/2};gesture={kind:handle,start:p,current:p,before,bounds:b,center,initialAngle:Math.atan2(p.y-center.y,p.x-center.x)};return;}
+      const hit=event.target.closest?.('[data-object]');
+      if(hit){const id=hit.dataset.object;if(!selection.has(id)||event.shiftKey)selectObject(id,event.shiftKey);if(!selection.size)return;gesture={kind:'move',start:p,current:p,before:snapshot()};}
+      else{if(!event.shiftKey)selection.clear();selectedAnnotation=null;gesture={kind:'marquee',start:p,current:p,before,add:event.shiftKey};renderAll();}
+    }
+    function onMove(event){
+      if(!gesture||saving)return;const p=point(event);gesture.current=p;
+      if(gesture.kind==='move')objects=transformObjects(gesture.before.objects,gesture.before.selection,{type:'move',dx:p.x-gesture.start.x,dy:p.y-gesture.start.y});
+      else if(gesture.kind==='resize'){
+        const b=gesture.bounds;let sx=Math.max(.01,(p.x-b.x)/b.width),sy=Math.max(.01,(p.y-b.y)/b.height);if(event.shiftKey)sx=sy=Math.max(sx,sy);
+        objects=transformObjects(gesture.before.objects,gesture.before.selection,{type:'resize',origin:{x:b.x,y:b.y},sx,sy});
+      } else if(gesture.kind==='rotate'){
+        let angle=(Math.atan2(p.y-gesture.center.y,p.x-gesture.center.x)-gesture.initialAngle)*180/Math.PI;if(event.shiftKey)angle=Math.round(angle/15)*15;
+        objects=transformObjects(gesture.before.objects,gesture.before.selection,{type:'rotate',origin:gesture.center,angle});
+      } else if(gesture.kind==='annotation'){
+        const a=gesture.annotation;if(a.kind==='path'){const last=a.points[a.points.length-1];if(Math.hypot(last.x-p.x,last.y-p.y)>3)a.points.push({x:rounded(p.x),y:rounded(p.y)});}else a.points=[gesture.start,p];
+      }
+      renderOverlay();if(['move','resize','rotate'].includes(gesture.kind)){queueApply();renderPanel();}
+    }
+    function onUp(event){
+      if(!gesture)return;const g=gesture;gesture=null;
+      if(g.kind==='marquee'){const box=boxBetween(g.start,g.current),set=g.add?new Set(g.before.selection):new Set();for(const o of objects){if(o.hidden||locked.has(o.id))continue;const r=o.rect;if(r.x>=box.x&&r.y>=box.y&&r.x+r.width<=box.x+box.width&&r.y+r.height<=box.y+box.height)set.add(o.id);}selection=set;renderAll();}
+      else if(g.kind==='annotation'){if(Math.hypot(g.current.x-g.start.x,g.current.y-g.start.y)>4||g.annotation.kind==='path'&&g.annotation.points.length>3){g.annotation.points=g.annotation.points.map((p)=>({x:rounded(p.x),y:rounded(p.y)}));annotations.push(g.annotation);selectedAnnotation=g.annotation.id;selection.clear();commit('annotation-create',g.before,g.annotation.objectId?[g.annotation.objectId]:[]);setTimeout(()=>$('[data-ann-field=note]')?.focus(),0);}else renderAll();}
+      else commit(g.kind,g.before,g.before.selection);
+      if(overlay.hasPointerCapture?.(event.pointerId))overlay.releasePointerCapture(event.pointerId);
+    }
+    function cancelGesture(){if(!gesture)return;const before=gesture.before;gesture=null;objects=clone(before.objects);selection=new Set(before.selection);renderAll();queueApply();}
+    overlay.addEventListener('pointerdown',onDown);overlay.addEventListener('pointermove',onMove);overlay.addEventListener('pointerup',onUp);overlay.addEventListener('pointercancel',cancelGesture);
+    function objectAction(action){
+      if(!ready||saving)return;
+      if(action==='replace'){if(selection.size!==1){showError(new Error('请先选择一个要替换的完整对象。'));return;}files.dataset.intent='replace';files.click();return;}
+      const before=snapshot(),chosen=visibleSelected();if(!chosen.length)return;
+      const high=Math.max(0,...objects.map((o)=>finite(o.zIndex))),low=Math.min(0,...objects.map((o)=>finite(o.zIndex)));
+      for(const [index,o] of chosen.entries())o.zIndex=action==='front'?high+1+index:action==='back'?low-chosen.length+index:finite(o.zIndex)+(action==='up'?1:-1);
+      commit('layer-'+action,before,[...selection]);
+    }
+    function copySelection(){const chosen=rootsOfSelected();if(!chosen.length)return;const before=snapshot(),mapping=new Map();const selectedIds=new Set(selection);let grew=true;while(grew){grew=false;for(const o of objects)if(selectedIds.has(o.parentId)&&!selectedIds.has(o.id)){selectedIds.add(o.id);grew=true;}}
+      const copies=objects.filter((o)=>selectedIds.has(o.id)&&!o.hidden).map((o)=>{const c=clone(o);mapping.set(o.id,uid());c.sourceId=o.sourceId||o.id;c.id=mapping.get(o.id);c.rect.x+=24;c.rect.y+=24;if(c.worldQuad)c.worldQuad=c.worldQuad.map((p)=>({x:p.x+24,y:p.y+24}));c.label=o.label+' 副本';c.zIndex=finite(o.zIndex)+1;return c;});
+      for(const c of copies){c.parentId=mapping.get(c.parentId)||c.parentId;if(c.groupId)c.groupId=`copy-${c.groupId}-${copies[0]?.id}`;}objects.push(...copies);const newIds=new Set(copies.map((c)=>c.id));selection=new Set(copies.filter((c)=>!newIds.has(c.parentId)).map((c)=>c.id));if(!selection.size)selection=new Set(copies.map((c)=>c.id));commit('duplicate',before,[...selection]);}
+    function deleteSelection(){const before=snapshot();if(selectedAnnotation){annotations=annotations.filter((a)=>a.id!==selectedAnnotation);selectedAnnotation=null;commit('annotation-delete',before);return;}
+      const ids=new Set(selection);let grew=true;while(grew){grew=false;for(const o of objects)if(ids.has(o.parentId)&&!ids.has(o.id)){ids.add(o.id);grew=true;}}for(const o of objects)if(ids.has(o.id))o.hidden=true;selection.clear();commit('object-delete',before,[...ids]);}
+    function groupSelection(ungroup=false){const before=snapshot();if(ungroup){const groups=new Set(visibleSelected().map((o)=>o.groupId).filter(Boolean));for(const o of objects)if(groups.has(o.groupId))delete o.groupId;}else{if(selection.size<2){showError(new Error('至少选择两个对象后再组合。'));return;}const id=uid();for(const o of objects)if(selection.has(o.id))o.groupId=id;}commit(ungroup?'ungroup':'group',before,[...selection]);}
+    function undoAction(){if(!undo.length)return;const current=snapshot(),target=undo.pop();redo.push(current);addJournal('undo',current,target);restore(target);}
+    function redoAction(){if(!redo.length)return;const current=snapshot(),target=redo.pop();undo.push(current);addJournal('redo',current,target);restore(target);}
+    async function dataURL(blob){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(blob);});}
+    async function storeMedia(blob,name,type){
+      if(options.saveMedia){const ref=await options.saveMedia(blob,name,type||blob.type);if(!ref?.id)throw new Error('素材存储未返回 ID，尚未完成保存。');return {...ref,name:ref.name||name,type:ref.type||type||blob.type,size:blob.size};}
+      throw new Error('当前工作台未提供媒体持久保存接口，无法安全保存素材。');
+    }
+    function acceptFiles(list,intent='reference'){
+      const job=acceptFilesNow(list,intent);mediaJobs.add(job);updateButtons();job.finally(()=>{mediaJobs.delete(job);if(!closed)updateButtons();}).catch(()=>{});return job;
+    }
+    async function acceptFilesNow(list,intent='reference'){
+      if(!ready||saving)return;const valid=Array.from(list).filter((f)=>/^(image|video)\//.test(f.type)||/\.(gif|png|jpe?g|webp|mp4|mov|webm)$/i.test(f.name));
+      if(!valid.length){showError(new Error('请选择 GIF、图片或视频素材。'));return;}
+      if(valid.some((f)=>f.size>30*1024*1024)){showError(new Error('单份素材超过 30 MB，请使用较短参考或较小文件。'));return;}
+      if(intent==='replace'&&(selection.size!==1||valid.length!==1)){showError(new Error('替换素材需选中一个对象，并一次选择一份文件。'));return;}
+      const before=snapshot();status('正在保存原始素材…');const prepared=[];
+      for(const file of valid){const mime=file.type||(/\.gif$/i.test(file.name)?'image/gif':/\.(mp4|mov|webm)$/i.test(file.name)?'video/mp4':'image/png'),ref=await storeMedia(file,file.name,mime);prepared.push({ref,mime,name:file.name,url:intent==='replace'?await dataURL(file):null});}
+      for(const asset of prepared){if(intent==='replace'){const o=objectById(objects,[...selection][0]);o.assetRef=asset.ref;o.replacement={dataUrl:asset.url,mime:asset.mime,name:asset.name};o.asset=asset.url;}else references.push({...asset.ref,purpose:'reference'});}
+      commit(intent==='replace'?'asset-replace':'reference-add',before,[...selection]);status('素材原始文件已保存；GIF 保留动画字节。');
+    }
+    files.addEventListener('change',()=>{acceptFiles(files.files,files.dataset.intent||'reference').catch(showError).finally(()=>{files.value='';});});
+    dialog.addEventListener('paste',(event)=>{const pasted=Array.from(event.clipboardData?.files||[]);if(!pasted.length)return;event.preventDefault();acceptFiles(pasted,'reference').catch(showError);});
+    dialog.addEventListener('dragover',(event)=>{if(event.dataTransfer?.types.includes('Files')){event.preventDefault();dialog.classList.add('fe-drop-zone');}});
+    dialog.addEventListener('dragleave',(event)=>{if(!dialog.contains(event.relatedTarget))dialog.classList.remove('fe-drop-zone');});
+    dialog.addEventListener('drop',(event)=>{if(!event.dataTransfer?.files.length)return;event.preventDefault();dialog.classList.remove('fe-drop-zone');const dropped=Array.from(event.dataTransfer.files);if(selection.size===1&&dropped.length===1){const choice=html('div',{class:'fe-drop-choice'});choice.append(html('strong',{},dropped[0].name),html('span',{},'选择素材的用途'));for(const [label,intent] of [['作为动画参考','reference'],['替换选中对象的整个素材','replace']]){const b=html('button',{},label);b.addEventListener('click',()=>{choice.remove();acceptFiles(dropped,intent).catch(showError);});choice.append(b);}const cancel=html('button',{},'取消');cancel.addEventListener('click',()=>choice.remove());choice.append(cancel);stage.append(choice);}else acceptFiles(dropped,'reference').catch(showError);});
+    async function mediaImageRef(dataUrl,label){const binary=await fetch(dataUrl).then((r)=>r.blob());return storeMedia(binary,`${lockedSource.sceneId}_${lockedSource.frameId}_${label}.png`,'image/png');}
+    async function showCompare(){try{if(!ready)return;status('正在生成当前提案截图…');const after=await capture(),images=$$('.fe-compare img');images[0].src=beforePNG;images[1].src=after;$('.fe-compare').hidden=false;status('左侧原画面，右侧当前提案。');}catch(error){showError(error);}}
+    async function save(){
+      if(saving||!ready)return;saving=true;updateButtons();status('正在保存精确参数、原画面和修改后画面…');
+      try{
+        if(mediaJobs.size)await Promise.all([...mediaJobs]);
+        const draftPayload=draft();validateDraft(draftPayload,lockedSource);
+        if(!beforePNG)throw new Error('原画面截图未准备好，不能缺少对照直接提交。');
+        const afterPNG=await capture();
+        const beforeRef=await mediaImageRef(beforePNG,'before'),afterRef=await mediaImageRef(afterPNG,'after');
+        const proposal={...draftPayload,id:uid(),createdAt:new Date().toISOString(),status:'pending-ai',kind:'precise-frame-edit',scopeDescription:scope==='layout'?'整段布局调整，保留原有运动关系':'仅当前时间点的目标姿态，前后运动由标注指定',before:{objects:clone(beforeObjects),screenshot:beforeRef},after:{objects:objects.map(portableObject),screenshot:afterRef},screenshots:{before:beforeRef,after:afterRef},previewVerification:clone(lastVerification),replay:{coordinateSpace:'world',unit:'px',canvas:clone(canvas),rotationUnit:'degrees',rectMeaning:'rendered-dom-world-bounds',worldQuadMeaning:'four-corners-in-canvas-space',parentRelation:'preserved-for-inverse-parent-transform'},timingNeedsReview:annotations.some((a)=>a.startSeconds==null||a.durationSeconds==null)};
+        await options.onSave(proposal,[beforeRef,afterRef,...references,...objects.map((o)=>o.assetRef).filter(Boolean)]);
+        dirty=false;savedRevision=revision;status('提案已保存。AI 可按对象 ID、精确坐标及前后截图执行。');close(true);
+      }catch(error){saving=false;updateButtons();await saveDraft().catch(()=>{});showError(error);}
+    }
+    async function close(saved=false){
+      if(closed||saving&&!saved)return;
+      try{if(mediaJobs.size)await Promise.all([...mediaJobs]);if(!saved&&dirty)await saveDraft();}catch(error){showError(new Error('草稿保存失败，已保留编辑窗口：'+(error.message||error)));return;}
+      closed=true;clearTimeout(draftTimer);clearTimeout(applyTimer);for(const p of pending.values()){clearTimeout(p.timer);p.reject(new Error('编辑器已关闭。'));}pending.clear();global.removeEventListener('message',receive);global.removeEventListener('beforeunload',beforeUnload);resizeObserver.disconnect();dialog.close();dialog.remove();document.body.style.overflow=previousOverflow;active=null;options.onClose?.({saved,draft:ready?draft():null});
+    }
+    function beforeUnload(event){if(mediaJobs.size||dirty&&savedRevision!==revision){event.preventDefault();event.returnValue='';}}
+    global.addEventListener('beforeunload',beforeUnload);
+    dialog.addEventListener('cancel',(event)=>{event.preventDefault();if(gesture)cancelGesture();else close().catch(showError);});
+    dialog.addEventListener('keydown',(event)=>{
+      if(event.target.matches('input,textarea,select,[contenteditable=true]'))return;
+      const mod=event.metaKey||event.ctrlKey;
+      if(mod&&event.key.toLowerCase()==='z'){event.preventDefault();event.shiftKey?redoAction():undoAction();return;}
+      if(mod&&event.key.toLowerCase()==='y'){event.preventDefault();redoAction();return;}
+      if(mod&&event.key.toLowerCase()==='d'){event.preventDefault();copySelection();return;}
+      if(event.key==='Delete'||event.key==='Backspace'){event.preventDefault();deleteSelection();return;}
+      const dirs={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};
+      if(dirs[event.key]&&selection.size){event.preventDefault();const before=snapshot(),factor=event.shiftKey?10:1;objects=transformObjects(objects,[...selection],{type:'move',dx:dirs[event.key][0]*factor,dy:dirs[event.key][1]*factor});commit('nudge',before,[...selection]);}
+    });
+    $$('[data-tool]').forEach((button)=>button.addEventListener('click',()=>setTool(button.dataset.tool)));
+    $$('[data-action]').forEach((button)=>button.addEventListener('click',()=>{
+      const action=button.dataset.action;
+      if(action==='close')close().catch(showError);if(action==='save')save();if(action==='compare')showCompare();if(action==='undo')undoAction();if(action==='redo')redoAction();if(action==='copy')copySelection();if(action==='delete')deleteSelection();if(action==='group')groupSelection();if(action==='ungroup')groupSelection(true);if(action==='reference'){files.dataset.intent='reference';files.click();}
+    }));
+    $('select[aria-label="调整范围"]').addEventListener('change',(event)=>{const before=snapshot();scope=event.target.value;commit('scope',before);});
+    noteInput.addEventListener('focus',()=>{noteBefore=snapshot();});
+    noteInput.addEventListener('input',()=>{if(saving)return;note=noteInput.value;changed();});
+    noteInput.addEventListener('blur',()=>{if(noteBefore&&noteBefore.note!==note){const before=noteBefore;noteBefore=null;commit('frame-note',before);}else noteBefore=null;});$('.fe-list-filter').addEventListener('input',renderLayers);
+    const resizeObserver=new ResizeObserver(()=>{iframe.style.transform=`scale(${stage.clientWidth/canvas.width})`;renderOverlay();});resizeObserver.observe(stage);
+    const sessionId=uid().replace(/[^a-zA-Z0-9]/g,'');
+    async function renderHistory(){
+      const list=$('.fe-history-list');list.replaceChildren();const proposals=(options.proposals||[]).filter((p)=>p.source?.frameId===lockedSource.frameId);
+      if(!proposals.length){list.append(html('p',{class:'fe-subtle'},'本帧还没有已保存提案。'));return;}
+      for(const p of proposals){const item=html('div',{class:'fe-proposal-item'});item.append(html('strong',{},p.scope==='pose'?'当前时间点':'整段布局'),html('small',{},`${p.createdAt||''} · ${p.status||'pending-ai'}`));const view=html('button',{},'查看原 / 修改后');view.addEventListener('click',async()=>{try{const refs=p.screenshots||{before:p.before?.screenshot,after:p.after?.screenshot};for(const [i,ref] of [refs.before,refs.after].entries()){const resolved=ref?.dataUrl||(ref?.id&&await options.resolveMedia?.(ref.id));$$('.fe-compare img')[i].src=typeof resolved==='string'?resolved:resolved?.url||'';}$('.fe-compare').hidden=false;}catch(error){showError(error);}});const edit=html('button',{},'再次编辑，另存提案');edit.addEventListener('click',async()=>{try{validateDraft({...p,objects:p.after?.objects||p.objects},lockedSource);const before=snapshot();objects=await hydrateMedia(clone(p.after?.objects||p.objects));annotations=clone(p.annotations||[]);references=clone(p.references||[]);note=p.note||'';scope=p.scope||'layout';noteInput.value=note;$('select[aria-label="调整范围"]').value=scope;selection.clear();selectedAnnotation=null;commit('reopen-proposal',before);status('已载入已有提案；再次保存会新建记录，原提案保持不变。');}catch(error){showError(error);}});item.append(view,edit);list.append(item);}
+    }
+    let readyResolve,readyReject;const readyPromise=new Promise((resolve,reject)=>{readyResolve=resolve;readyReject=reject;});readyPromise.catch(()=>{});
+    async function initialize(){
+      try{
+        const result=await request('fred-editor-load',{sceneId:lockedSource.sceneId,localFrame,globalFrame,version:lockedSource.version},45000);
+        if(lockedSource.sourceSha256 && result.sourceSha256!==lockedSource.sourceSha256)throw new Error('编辑源构建身份与本工作台不一致（或未提供身份）。已拒绝载入，原意见与草稿仍保留；请刷新到匹配版本后再编辑。');
+        if(!Array.isArray(result.objects)||!result.objects.length)throw new Error('当前帧没有可编辑对象；请检查编辑源的组件标记。');
+        canvas={width:finite(result.canvas?.width,1920),height:finite(result.canvas?.height,1080)};if(canvas.width<=0||canvas.height<=0)throw new Error('编辑源画布尺寸无效。');
+        $('.fe-center > .fe-subtle').textContent=`${canvas.width} × ${canvas.height} 原画布坐标 · 拖动即刻预览，正片在 AI 执行后更新。方向键微调 1 像素，Shift + 方向键 10 像素。`;
+        lockedSource.sourceVariant=result.sourceVariant||null;lockedSource.sourceDiagnostics=result.diagnostics||null;if(result.version&&!lockedSource.version)lockedSource.version=result.version;
+        objects=result.objects.map(normalizeObject);beforeObjects=clone(objects);
+        iframe.style.width=`${canvas.width}px`;iframe.style.height=`${canvas.height}px`;stage.style.aspectRatio=`${canvas.width}/${canvas.height}`;iframe.style.transform=`scale(${stage.clientWidth/canvas.width})`;
+        const beforeResult=await request('fred-editor-capture',{},45000);if(!beforeResult.dataUrl)throw new Error('原画面截图失败，无法建立精确对照。');beforePNG=beforeResult.dataUrl;
+        ready=true;
+        const initial=options.initialProposal?{...options.initialProposal,objects:options.initialProposal.after?.objects || options.initialProposal.objects}:options.initialDraft;
+        if(initial){validateDraft(initial,lockedSource);const d=initial;objects=await hydrateMedia(d.objects.map(normalizeObject));annotations=clone(d.annotations||[]);references=clone(d.references||[]);note=d.note||'';scope=d.scope||'layout';journal=clone(d.operationJournal||[]);locked=new Set(d.editorState?.lockedIds||[]);selection=new Set(d.editorState?.selectedIds||[]);revision=finite(d.draftRevision);savedRevision=revision;noteInput.value=note;$('select[aria-label="调整范围"]').value=scope;await applyNow();status(options.initialProposal?'已载入已有提案；再次保存会新建记录，原提案保持不变。':'已恢复本版本、本帧的精确编辑草稿。');if(options.initialProposal){dirty=true;revision++;await saveDraft();}}
+        else status(`已锁定真实帧，读取 ${objects.length} 个对象。点击对象或左侧列表开始编辑。`);
+        loading.hidden=true;renderAll();await renderHistory();readyResolve(handle);
+      }catch(error){loadError=error;ready=false;loading.innerHTML=`<div style="padding:20px;text-align:center;max-width:600px"><strong>真实组件编辑源暂未就绪</strong><p>${escape(error.message||error)}</p><p>原意见与草稿没有删除。请关闭后重试。</p></div>`;showError(error);updateButtons();readyReject(error);}
+    }
+    iframe.addEventListener('load',initialize,{once:true});
+    const handle={dialog,ready:readyPromise,focus:()=>dialog.focus(),close:()=>close(),getDraft:()=>draft(),getSource:()=>clone(lockedSource),save,showCompare};active=handle;
+    dialog.showModal();iframe.src=sourceURL.href;renderAll();return handle;
+  }
+  global.FredFrameEditor={open,version:'1.0.0',schemaVersion:SCHEMA,geometry:{normalizeObject,boundsOf,transformObjects,pointFromClient},validateDraft};
+})(window);
+</script><script id="wb-attachments-library">/* Preserve original attachment bytes; directory readers must drain every batch. */
+(function (root) {
+  'use strict';
+  const imageExtensions = /\.(svg|png|jpe?g|gif|webp|avif|bmp|ico)$/i;
+  const isImage = file => /^image\//i.test(file.type || '') || imageExtensions.test(file.name || '');
+  const isSVG = file => /\.svg$/i.test(file.name || '') || file.type === 'image/svg+xml';
+  const pathJoin = (a, b) => a ? a + '/' + b : b;
+  const entryFile = entry => new Promise((resolve, reject) => entry.file(resolve, reject));
+  const readBatch = reader => new Promise((resolve, reject) => reader.readEntries(resolve, reject));
+  async function walkEntry(entry, parent, files, directories) {
+    const path = pathJoin(parent, entry.name);
+    if (entry.isFile) {
+      files.push({file: await entryFile(entry), relativePath: path});
+    } else if (entry.isDirectory) {
+      directories.push(path);
+      const reader = entry.createReader();
+      let batch;
+      while ((batch = await readBatch(reader)).length) {
+        for (const child of batch) await walkEntry(child, path, files, directories);
+      }
+    } else throw new Error('无法读取拖入的目录项：' + entry.name);
+  }
+  async function walkHandle(handle, parent, files, directories) {
+    const path = pathJoin(parent, handle.name);
+    if (handle.kind === 'file') files.push({file: await handle.getFile(), relativePath: path});
+    else {
+      directories.push(path);
+      for await (const child of handle.values()) await walkHandle(child, path, files, directories);
+    }
+  }
+  function sortedFolder(name, files, directories) {
+    files.sort((a, b) => a.relativePath.localeCompare(b.relativePath));
+    return {kind: 'folder', name, files, directories: [...new Set(directories)].sort()};
+  }
+  function collectDropped(transfer) {
+    // Capture handles and entries synchronously while the drag data store is readable.
+    const sources = [...(transfer.items || [])].filter(item => item.kind === 'file').map(item => {
+      const entry = item.webkitGetAsEntry?.() || item.getAsEntry?.();
+      return {entry, file: item.getAsFile?.(), handle: !entry && item.getAsFileSystemHandle ? item.getAsFileSystemHandle() : null};
+    });
+    const fallback = [...(transfer.files || [])];
+    return (async () => {
+      if (!sources.length) return fallback.map(file => ({kind: 'file', file}));
+      const out = [];
+      for (const source of sources) {
+        const handle = source.handle ? await source.handle : null;
+        if (source.entry?.isDirectory || handle?.kind === 'directory') {
+          const files = [], directories = [], name = source.entry?.name || handle.name;
+          if (source.entry) await walkEntry(source.entry, '', files, directories);
+          else await walkHandle(handle, '', files, directories);
+          out.push(sortedFolder(name, files, directories));
+        } else {
+          const file = source.entry?.isFile ? await entryFile(source.entry) : handle ? await handle.getFile() : source.file;
+          if (!file) throw new Error('浏览器没有提供原文件，请使用“添加文件夹”选择目录');
+          out.push({kind: 'file', file});
+        }
+      }
+      return out;
+    })();
+  }
+  function collectPicked(files) {
+    const out = [], groups = new Map();
+    for (const file of files) {
+      const path = file.webkitRelativePath;
+      if (!path) {out.push({kind: 'file', file}); continue;}
+      const name = path.split('/')[0];
+      if (!groups.has(name)) groups.set(name, {files: [], directories: [name]});
+      const group = groups.get(name);
+      group.files.push({file, relativePath: path});
+      const parts = path.split('/');
+      for (let i = 1; i < parts.length; i++) group.directories.push(parts.slice(0, i).join('/'));
+    }
+    for (const [name, group] of groups) out.push(sortedFolder(name, group.files, group.directories));
+    return out;
+  }
+  function normalizedFile(file) {
+    return isSVG(file) && file.type !== 'image/svg+xml' ? new File([file], file.name, {type: 'image/svg+xml', lastModified: file.lastModified}) : file;
+  }
+  const toDataURL = blob => new Promise((resolve, reject) => {
+    const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = () => reject(reader.error); reader.readAsDataURL(blob);
+  });
+  async function exportAsset(asset) {
+    if (asset.kind === 'folder') return {
+      name: asset.name, kind: 'folder', directories: asset.directories, bytes: asset.files.reduce((n, f) => n + f.blob.size, 0),
+      files: await Promise.all(asset.files.map(async f => ({name: f.name, relativePath: f.relativePath, mimeType: f.type || f.blob.type, bytes: f.blob.size, dataUrl: await toDataURL(f.blob)})))
+    };
+    return {name: asset.name, kind: asset.kind || 'image', mimeType: asset.type || asset.blob.type, bytes: asset.blob.size, dataUrl: await toDataURL(asset.blob)};
+  }
+  function blobFromDataURL(url) {
+    const match = /^data:([^,]*?);base64,([\s\S]*)$/.exec(url || '');
+    if (!match) throw new Error('附件备份缺少原文件内容');
+    const raw = atob(match[2]); return new Blob([Uint8Array.from(raw, c => c.charCodeAt(0))], {type: match[1]});
+  }
+  function restoreAsset(block) {
+    if (block.type === 'folder' && Array.isArray(block.files)) return {...block, kind: 'folder', files: block.files.map(f => ({...f, type: f.mimeType, blob: blobFromDataURL(f.dataUrl)}))};
+    if (block.dataUrl) return {...block, kind: block.type, type: block.mimeType, blob: blobFromDataURL(block.dataUrl)};
+    return null;
+  }
+  function urlFor(asset) {return asset.url || (asset.url = URL.createObjectURL(asset.blob));}
+  function download(blob, name) {
+    const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(url), 30000);
+  }
+  const crcTable = Array.from({length: 256}, (_, n) => {for (let k = 0; k < 8; k++) n = n & 1 ? 0xedb88320 ^ (n >>> 1) : n >>> 1; return n >>> 0;});
+  function crc32(bytes) {let crc = 0xffffffff; for (const b of bytes) crc = crcTable[(crc ^ b) & 255] ^ (crc >>> 8); return (crc ^ 0xffffffff) >>> 0;}
+  async function folderZIP(asset) {
+    const encoder = new TextEncoder(), body = [], central = []; let offset = 0, centralSize = 0;
+    const entries = [...asset.directories.map(path => ({relativePath: path + '/', blob: new Blob([]), directory: true})), ...asset.files];
+    if (entries.length > 65535) throw new Error('目录过大，请分别下载子目录文件');
+    for (const entry of entries) {
+      const name = encoder.encode(entry.relativePath), bytes = new Uint8Array(await entry.blob.arrayBuffer()), crc = crc32(bytes);
+      if (name.length > 65535 || offset + bytes.length > 0xffffffff) throw new Error('目录过大，请分别下载文件');
+      const local = new Uint8Array(30 + name.length), lv = new DataView(local.buffer);
+      lv.setUint32(0, 0x04034b50, true); lv.setUint16(4, 20, true); lv.setUint16(6, 0x800, true); lv.setUint32(14, crc, true); lv.setUint32(18, bytes.length, true); lv.setUint32(22, bytes.length, true); lv.setUint16(26, name.length, true); local.set(name, 30);
+      const index = new Uint8Array(46 + name.length), iv = new DataView(index.buffer);
+      iv.setUint32(0, 0x02014b50, true); iv.setUint16(4, 20, true); iv.setUint16(6, 20, true); iv.setUint16(8, 0x800, true); iv.setUint32(16, crc, true); iv.setUint32(20, bytes.length, true); iv.setUint32(24, bytes.length, true); iv.setUint16(28, name.length, true); iv.setUint32(38, entry.directory ? 16 : 0, true); iv.setUint32(42, offset, true); index.set(name, 46);
+      body.push(local, bytes); central.push(index); offset += local.length + bytes.length; centralSize += index.length;
+    }
+    if (offset + centralSize > 0xffffffff) throw new Error('目录过大，请分别下载文件');
+    const end = new Uint8Array(22), view = new DataView(end.buffer); view.setUint32(0, 0x06054b50, true); view.setUint16(8, entries.length, true); view.setUint16(10, entries.length, true); view.setUint32(12, centralSize, true); view.setUint32(16, offset, true);
+    return new Blob([...body, ...central, end], {type: 'application/zip'});
+  }
+  function attachmentNode(asset, save, largeImage, message) {
+    const node = document.createElement('span'); node.className = 'inline-feedback-attachment'; node.contentEditable = 'false'; node.dataset.attachmentId = asset.id; node.dataset.attachmentKind = asset.kind;
+    const text = (tag, value, parent = node) => {const n = document.createElement(tag); n.textContent = value; parent.append(n); return n;};
+    const actions = text('span', ''); actions.className = 'attachment-actions';
+    if (asset.kind === 'folder') {
+      const details = text('details', ''), total = asset.files.reduce((n, f) => n + f.blob.size, 0);
+      text('summary', '📁 ' + asset.name + ' · ' + asset.files.length + ' 个文件 · ' + formatBytes(total), details);
+      const listing = text('span', '', details); listing.className = 'attachment-file-list';
+      let populated = false;
+      details.addEventListener('toggle', () => {
+        if (!details.open || populated) return; populated = true;
+        for (const path of asset.directories) text('span', '📁 ' + path + '/', listing).className = 'attachment-directory-path';
+        for (const file of asset.files) {
+          const row = text('span', '', listing); row.className = 'attachment-file';
+          const link = text('a', file.relativePath, row); link.href = urlFor(file); link.download = file.name;
+          text('small', formatBytes(file.blob.size), row);
+          if (isImage(file)) {const img = document.createElement('img'); img.loading = 'lazy'; img.src = urlFor(file); img.alt = file.relativePath; img.onclick = () => largeImage(img.src, img.alt); row.append(img);}
+        }
+      });
+      const button = text('button', '下载文件夹 ZIP', actions); button.type = 'button'; button.onclick = async () => {button.disabled = true; try {download(await folderZIP(asset), asset.name + '.zip');} catch (e) {message(e.message, true);} finally {button.disabled = false;}};
+    } else {
+      text('strong', '📎 ' + asset.name); text('small', formatBytes(asset.blob.size));
+      const link = text('a', '下载原文件', actions); link.href = urlFor(asset); link.download = asset.name;
+    }
+    if (save) {const remove = text('button', '移除附件', actions); remove.type = 'button'; remove.onclick = () => {node.remove(); save();};}
+    // Put controls below the file name / folder listing, without nested executable documents.
+    node.append(actions); return node;
+  }
+  function formatBytes(bytes) {return bytes < 1024 ? bytes + ' B' : bytes < 1048576 ? (bytes / 1024).toFixed(1) + ' KB' : (bytes / 1048576).toFixed(1) + ' MB';}
+  const api = {collectDropped, collectPicked, isImage, isSVG, normalizedFile, exportAsset, restoreAsset, attachmentNode, folderZIP, crc32, toDataURL};
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else root.WorkbenchAttachments = api;
+})(typeof window === 'undefined' ? globalThis : window);
+</script><script>
+(() => {
+'use strict';
+const data=JSON.parse(document.querySelector('#workbench-data').textContent), key=data.storageKey;
+const WorkbenchAttachments=window.WorkbenchAttachments;
+const $=s=>document.querySelector(s), el=(tag,cls,text)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x};
+document.title=data.title+' · DuDu-talkvideo';
+const stageLabel=data.stage==='semantic'?'语义分镜 · 等待用户审查':'关键帧分镜 · 静态画面审查';
+if(data.stage==='semantic')$('.wb-hint').textContent='先审语义分镜 · 用户同意后生成关键帧';
+$('#stage-notice').textContent=stageLabel+'。意见与采用标记不自动等于流程批准；批准需记录用户明确同意。';
+for(const b of document.querySelectorAll('[data-mode]')){b.disabled=!(data.availableModes||['suggestion']).includes(b.dataset.mode);}
+const friendly=v=>({corner:'左下角讲述',host:'主讲人物',full:'大人物情境',none:'不出镜',normal:'普通讲述',neutral:'自然',excited:'激动',aha:'灵光一现',thinking:'思考',image:'图片',video:'视频',screenshot:'截图',recording:'录屏',keyframe:'关键帧',document:'文档',ready:'已准备',missing:'待补充',pending:'待确认'}[v]||v);
+const explain=v=>Array.isArray(v)?v.map(explain).join('；'):v&&typeof v==='object'?Object.entries(v).map(([k,x])=>`${k}：${explain(x)}`).join('，'):friendly(String(v??''));
+const scenes=data.scenes, metadata=data.metadata, currentItems=scenes.flatMap(s=>Object.values(s.reviewItems)), currentKeys=new Set(currentItems.map(recordKey));
+const cards=new Map(),assets=new Map(),pending=new Set(),drafts=new Map(),editorState=new Map();
+const audio=$('#wb-audio'), status=$('#wb-save'), picker=$('#wb-scene-select'), master=$('#wb-master-video');
+// workbench-typing-performance-v1
+// Parse the persisted history once, not hundreds of times for each input event.
+// Text still saves synchronously on every input; this cache introduces no save delay.
+let volatileStore=null,cachedStore=null,actionBusy=false,reviewDetailsTimer=0;
+
+let mode=data.initialView||'keyframes',filter='all',activeScene=null,lastScrollScene=null,raf=0,sourceExportCache=null;
+function recordKey(item){return JSON.stringify([item.stableId,item.view,item.itemId,item.identity])}
+function read(){
+ if(volatileStore)return volatileStore;
+ if(cachedStore)return cachedStore;
+ try{const x=JSON.parse(localStorage.getItem(key)||'{}');cachedStore=x.schemaVersion===5?x:{schemaVersion:5,records:{},legacy:x}}
+ catch{cachedStore={schemaVersion:5,records:{},legacy:{}}}
+ return cachedStore;
+}
+// Other tabs share the same browser store. Invalidate the cache on external writes
+// and leave the focused editor/caret alone while refreshing the other segments.
+window.addEventListener('storage',event=>{
+ if(event.key!==key||volatileStore)return;
+ cachedStore=null;drafts.clear();
+ for(const [id,c] of cards)if(!c.editor.contains(document.activeElement))editorState.get(id)?.load();
+ applyFilter();
+});
+function record(item){return drafts.get(recordKey(item))||read().records[recordKey(item)]||{...item,choice:'',note:'',content:[],selectedRoute:'',candidateId:''}}
+const copy=x=>x==null?x:JSON.parse(JSON.stringify(x));
+function editState(store=read()){return store.workbench||(store.workbench={schemaVersion:1,deleted:{},journal:[]})}
+function sceneIdentity(scene){return scene.reviewItems.keyframes.identity}
+function isDeleted(scene){const d=editState().deleted[scene.stableId];return !!d&&d.identity===sceneIdentity(scene)}
+function writeStore(store){cachedStore=store;try{localStorage.setItem(key,JSON.stringify(store));volatileStore=null;message('已保存到当前浏览器')}catch{volatileStore=store;message('浏览器容量不足，修改仍在当前页；请导出完整备份。',true)}updateUndoButtons();return !volatileStore}
+function comparable(r){return JSON.stringify({choice:r?.choice||'',note:r?.note||'',content:r?.content||[],selectedRoute:r?.selectedRoute||'',candidateId:r?.candidateId||''})}
+function addEdit(store,entry){const wb=editState(store),now=new Date().toISOString(),last=wb.journal.at(-1);if(entry.kind==='typing'&&last?.kind==='typing'&&!last.undoneAt&&last.recordKey===entry.recordKey&&Date.parse(now)-Date.parse(last.updatedAt)<1200){last.after=copy(entry.after);last.updatedAt=now}else wb.journal.push({...entry,id:crypto.randomUUID(),createdAt:now,updatedAt:now})}
+function persistRecord(scene,r,kind='edit'){const store=read(),id=recordKey(r),before=drafts.get(id)||store.records[id]||null;if(comparable(before)===comparable(r))return;store.records[id]=copy(r);drafts.set(id,copy(r));addEdit(store,{type:'record',stableId:scene.stableId,recordKey:id,mode:Object.entries(scene.reviewItems).find(([,i])=>recordKey(i)===id)?.[0]||mode,kind,label:({typing:'修改文字',media:'修改附件 / 图片 / GIF',choice:'修改审看状态',route:'修改制作方式',candidate:'修改参考方案',stamp:'标记帧 / 时间',paste:'粘贴内容'}[kind]||'修改意见'),before:copy(before),after:copy(r)});writeStore(store)}
+function eligible(e,scene){return !e.undoneAt&&(!scene||e.stableId===scene.stableId)&&(e.type==='frame-proposal'?feEligible(e):e.type==='delete'?scenes.some(s=>s.stableId===e.stableId&&sceneIdentity(s)===e.identity):currentKeys.has(e.recordKey))}
+function lastEdit(scene){return [...editState().journal].reverse().find(e=>eligible(e,scene))}
+function updateUndoButtons(){const global=$('#wb-undo');if(global){const e=lastEdit();global.disabled=actionBusy||!e;global.title=e?'撤回：'+e.label:'本版本还没有可撤回的操作'}for(const scene of scenes){const c=cards.get(scene.stableId);if(!c?.undo)continue;const e=lastEdit(scene),deleted=isDeleted(scene);c.undo.disabled=actionBusy||!e;c.undo.title=e?'撤回：'+e.label:'本段还没有可撤回的操作';c.remove.disabled=actionBusy||deleted;c.remove.title='将本段标记为待删除；原文、意见和贴图保留，可撤回';c.root.classList.toggle('is-deleted',deleted);c.deleteNotice.hidden=!deleted;c.option.textContent=`${String(scene.number).padStart(2,'0')} · ${scene.title}${deleted?'（待删除）':''}`}
+ // Rich history (and its images/videos) is unrelated to the current keystroke.
+ // Refresh it after typing pauses; persistence above remains immediate.
+ clearTimeout(reviewDetailsTimer);
+ reviewDetailsTimer=setTimeout(()=>{for(const scene of scenes){const c=cards.get(scene.stableId);operationHistoryInto(c.operationHistory,scene);feRefreshList(scene)}},300);
+}
+async function sceneAction(fn){if(actionBusy)return;actionBusy=true;updateUndoButtons();try{await ready;await Promise.all([...pending]);await fn()}catch(e){message('操作未完成：'+e.message,true)}finally{actionBusy=false;applyFilter();updateUndoButtons();document.dispatchEvent(new Event('change'))}}
+function deleteScene(scene){return sceneAction(()=>{const store=read(),wb=editState(store),before=copy(wb.deleted[scene.stableId]||null);if(isDeleted(scene))return;const after={identity:sceneIdentity(scene),deletedAt:new Date().toISOString(),pendingVideoEdit:true};wb.deleted[scene.stableId]=after;addEdit(store,{type:'delete',stableId:scene.stableId,identity:sceneIdentity(scene),kind:'delete',label:'删除本段',before,after:copy(after)});audio.pause();cards.get(scene.stableId).video.pause();writeStore(store);filter='deleted';message(`第${scene.number}段已标记待删除；可撤回，成片尚未重新剪辑。`)})}
+function undoScene(scene){return sceneAction(async()=>{const store=read(),e=[...editState(store).journal].reverse().find(x=>eligible(x,scene));if(!e)return;if(e.type==='frame-proposal'){feUndo(store,e)}else if(e.type==='delete'){if(e.before)editState(store).deleted[e.stableId]=copy(e.before);else delete editState(store).deleted[e.stableId]}else{if(e.before){store.records[e.recordKey]=copy(e.before);drafts.set(e.recordKey,copy(e.before))}else{delete store.records[e.recordKey];drafts.delete(e.recordKey)}}e.undoneAt=new Date().toISOString();writeStore(store);const target=scenes.find(s=>s.stableId===e.stableId);if(e.type==='record'&&mode!==e.mode)await switchMode(e.mode);else editorState.get(e.stableId)?.load();if(target){filter=isDeleted(target)?'deleted':'all';setActive(target,false)}message(`已撤回第${target?.number||''}段：${e.label}；记录仍保留。`)})}
+function operationHistoryInto(target,scene){
+ const list=editState().journal.filter(e=>e.stableId===scene.stableId);
+ target.hidden=!list.length;
+ let summary=target.querySelector(':scope > summary');
+ if(!summary){summary=el('summary');target.prepend(summary)}
+ const label=`操作记录（${list.length}次，刷新后保留）`;
+ if(summary.textContent!==label)summary.textContent=label;
+ const signature=JSON.stringify(list.map(e=>[e.id,e.updatedAt,e.undoneAt]));
+ if(!target.open)return;
+ if(target.dataset.renderedHistory===signature)return;
+ target.dataset.renderedHistory=signature;
+ target.replaceChildren(summary);for(const e of [...list].reverse()){const line=el('div','history-record');line.append(el('p','history-label',`${e.updatedAt} · ${e.label}${e.undoneAt?' · 已撤回 '+e.undoneAt:''}`));if(e.type==='frame-proposal'){line.append(el('p','',`精确编辑提案 · ${e.after?.source?.frameId||''} · ${e.after?.scope||''} · ${e.after?.note||''}`))}if(e.type==='record'){const before=el('details');before.append(el('summary','','修改前'));appendContent(before,e.before?.content?.length?e.before.content:[{type:'text',text:e.before?.note||'（空）'}]);const after=el('details');after.append(el('summary','','修改后'));appendContent(after,e.after?.content?.length?e.after.content:[{type:'text',text:e.after?.note||'（空）'}]);line.append(before,after)}target.append(line)}}
+function changes(r){return !!r.note?.trim()||r.content?.some(b=>b.type!=='text')||feNeedsChanges(r)}
+function effective(r){return feNeedsChanges(r)?'change':r.choice==='keep'&&changes(r)?'change':r.choice||'pending'}
+function verdict(r){return feNeedsChanges(r)?'精确提案待执行':r.choice==='keep'&&changes(r)?'采用主体，仍需调整':({keep:'采用',change:'需要调整',skip:'不采用'}[r.choice]||'待看')}
+function time(t){const m=Math.floor(t/60),s=(t%60).toFixed(2).padStart(5,'0');return `${String(m).padStart(2,'0')}:${s}`}
+function message(text,error=false){status.textContent=text;status.classList.toggle('error',error)}
+function largeImage(url,label){$('#wb-large-image').src=url;$('#wb-image-label').textContent=label||'';$('#wb-image-dialog').showModal()}
+$('#wb-close-image').onclick=()=>$('#wb-image-dialog').close();$('#wb-image-dialog').addEventListener('click',e=>{if(e.target===$('#wb-image-dialog'))e.target.close()});
+$('#wb-close-video').onclick=()=>{master.pause();$('#wb-video-dialog').close()};$('#wb-video-dialog').addEventListener('close',()=>master.pause());
+$('#wb-title').textContent=data.title;$('#wb-revision').textContent=data.revision?`${data.revision} · ${time(data.durationSeconds)}`:'';
+$('#wb-stats').textContent=`${scenes.length} 段 · 每段一个评论区 · ${data.stage==='semantic'?'语义分镜':'真实关键帧'}`;
+$('#wb-count').textContent=`${scenes.length} 段 / ${scenes.reduce((n,s)=>n+s.frames.length,0)} 张真实关键帧`;
+if(data.audio)audio.src=data.audio.url;else{audio.hidden=true;message('尚未接入录音，当前时间为分镜估时。')}
+if(data.master){master.src=data.master.url;$('#wb-download').href=data.master.url;$('#wb-full-video').onclick=()=>{audio.pause();pauseSegmentVideos();$('#wb-video-dialog').showModal();master.currentTime=audio.currentTime||0;master.play().catch(e=>message('请点击视频的播放按钮。'))}}else $('#wb-full-video').hidden=true;
+if(data.legacyPage){$('#wb-legacy').hidden=false;$('#wb-legacy').href=data.legacyPage.url}
+const database=new Promise((resolve,reject)=>{const q=indexedDB.open(key+'-images',1);q.onupgradeneeded=()=>q.result.createObjectStore('images',{keyPath:'id'});q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error)});
+async function transaction(kind,fn){const db=await database;return new Promise((resolve,reject)=>{const tx=db.transaction('images',kind),q=fn(tx.objectStore('images'));tx.oncomplete=()=>resolve(q.result);tx.onerror=tx.onabort=()=>reject(tx.error)})}
+function contentBlocks(editor){const out=[];const text=t=>{if(!t)return;if(out.at(-1)?.type==='text')out.at(-1).text+=t;else out.push({type:'text',text:t})};function walk(n){if(n.nodeType===3){text(n.textContent);return}if(n.dataset?.imageId){out.push({type:'image',id:n.dataset.imageId});return}if(n.dataset?.attachmentId){out.push({type:n.dataset.attachmentKind||'file',id:n.dataset.attachmentId});return}if(n.dataset?.pending)return;if(n.tagName==='BR'){text('\n');return}const line=['DIV','P'].includes(n.tagName);if(line&&out.length&&out.at(-1)?.text?.slice(-1)!=='\n')text('\n');for(const c of n.childNodes)walk(c);if(line&&n.nextSibling)text('\n')}for(const n of editor.childNodes)walk(n);return out}
+async function originalImage(file,gifOnly=false){
+ if(!(file instanceof Blob)||!file.size)throw new Error('没有读到图片文件');
+ file=WorkbenchAttachments.normalizedFile(file);
+ if(WorkbenchAttachments.isSVG(file)){const xml=new DOMParser().parseFromString(await file.text(),'image/svg+xml');if(xml.querySelector('parsererror')||xml.documentElement.localName!=='svg')throw new Error('SVG 文件格式无效，请选择原始 .svg 文件');}
+ if(file.size>30*1024*1024)throw new Error('单张图片或 GIF 请小于30MB');
+ const header=String.fromCharCode(...new Uint8Array(await file.slice(0,6).arrayBuffer())),gif=header==='GIF87a'||header==='GIF89a';
+ if(gifOnly&&!gif)throw new Error('请选择真正的 .gif 动图文件');
+ if(!gif&&!file.type.startsWith('image/'))throw new Error('不支持的图片文件');
+ const normalized=new File([file],file.name||(gif?'粘贴的动图.gif':'粘贴的图片.png'),{type:gif?'image/gif':file.type});
+ // Decode for validity only; keep the original bytes, including every GIF frame.
+ const url=URL.createObjectURL(normalized);
+ try{await new Promise((resolve,reject)=>{const check=new Image();check.onload=resolve;check.onerror=()=>reject(new Error('图片无法读取，请重新选择原文件'));check.src=url})}finally{URL.revokeObjectURL(url)}
+ return normalized;
+}
+function clipboardGifSource(clipboard){
+ const markup=clipboard.getData('text/html');
+ const sources=markup?[...new DOMParser().parseFromString(markup,'text/html').querySelectorAll('img')].map(i=>i.getAttribute('src')||''):[];
+ const text=clipboard.getData('text/plain').trim();if(/^data:image\/gif[;,]/i.test(text))sources.unshift(text);
+ return sources.find(src=>/^data:image\/gif[;,]/i.test(src)||/\.gif(?:$|[?#])/i.test(src))||'';
+}
+async function clipboardGifFile(source){
+ let url;try{url=new URL(source,location.href)}catch{throw new Error('请使用“插入 GIF”选择动图原文件')}
+ if(!/^data:image\/gif[;,]/i.test(source)&&url.origin!==location.origin)throw new Error('剪贴板未提供动图原文件，请使用“插入 GIF”选择文件');
+ const response=await fetch(url.href,{credentials:'omit'});if(!response.ok)throw new Error('无法读取动图，请使用“插入 GIF”选择原文件');
+ return new File([await response.blob()],'粘贴的动图.gif',{type:'image/gif'});
+}
+function imageNode(a,save){const wrap=el('span','inline-feedback-image');wrap.contentEditable='false';wrap.dataset.imageId=a.id;if(a.type==='image/gif'||a.blob?.type==='image/gif')wrap.dataset.mediaKind='gif';const img=el('img');img.src=a.url||(a.url=URL.createObjectURL(a.blob));img.alt=a.name;img.onclick=()=>largeImage(img.src,a.name);wrap.append(img);const caption=el('span','inline-image-name',a.name);wrap.append(caption);const download=el('a','inline-image-download','下载原文件');download.href=img.src;download.download=a.name;wrap.append(download);if(save){const remove=el('button','','×');remove.setAttribute('aria-label','删除这张意见图片');remove.onclick=()=>{wrap.remove();save()};wrap.append(remove)}return wrap}
+function appendContent(target,content,save){for(const block of content){
+ if(block.type==='text'){target.append(document.createTextNode(block.text));continue;}
+ let asset=assets.get(block.id);if(!asset&&(block.dataUrl||block.files)){try{asset=WorkbenchAttachments.restoreAsset(block);}catch{}}
+ if(asset){target.append(asset.kind==='folder'||asset.kind==='file'?WorkbenchAttachments.attachmentNode(asset,save,largeImage,message):imageNode(asset,save));}
+ else{const missing=el('span','','［历史附件暂不可用，请查看原工作台或备份］');if(block.type==='image')missing.dataset.imageId=block.id;else{missing.dataset.attachmentId=block.id;missing.dataset.attachmentKind=block.type;}target.append(missing);}
+}}
+function sourceHistory(scene){const ids=new Set(scene.sourceSceneIds);return data.historyRecords.filter(r=>ids.has(r.stableId))}
+function historyInto(target,scene){target.replaceChildren();const list=Object.values(read().records).filter(r=>scene.sourceSceneIds.includes(r.stableId)||r.stableId===scene.stableId).filter(r=>!Object.values(scene.reviewItems).some(i=>recordKey(i)===recordKey(r))).filter(r=>r.note?.trim()||r.content?.length||r.choice);const staticList=sourceHistory(scene);if(!list.length&&!staticList.length){target.hidden=true;return}target.hidden=false;const summary=el('summary','',`历史意见（${list.length+staticList.length}条，保留原版本）`);target.append(summary);
+ for(const h of staticList){const block=el('div','history-record');block.append(el('p','history-label',`${h.round||'原始记录'} · ${h.stableId} · 历史要求`),el('div','',h.quote||h.note||''));for(const a of h.images||[]){const img=el('img');img.loading='lazy';img.src=a.url;img.alt='原始意见贴图';img.onclick=()=>largeImage(a.url,'原始意见贴图');block.append(img)}target.append(block)}
+ for(const h of list){const block=el('div','history-record');block.append(el('p','history-label',`${h.view} · ${h.updatedAt||'历史版本'} · ${verdict(h)}`));appendContent(block,h.content?.length?h.content:[{type:'text',text:h.note||''}]);target.append(block)}
+}
+function pauseSegmentVideos(except){for(const c of cards.values())if(c.video!==except)c.video.pause()}
+function setFrame(scene,index){const c=cards.get(scene.stableId);if(!scene.frames.length)return;index=Math.max(0,Math.min(index,scene.frames.length-1));if(c.frameIndex===index)return;c.frameIndex=index;const f=scene.frames[index];c.image.src=f.image.url;c.image.alt=`第${scene.number}段 ${time(f.timeSeconds)} 实际关键帧`;c.image.dataset.frameId=f.id;c.frameLabel.textContent=`${f.id} · ${time(f.timeSeconds)} · ${data.revision||'当前版本'}`;c.counter.textContent=`${index+1} / ${scene.frames.length}`;c.prev.disabled=index===0;c.next.disabled=index===scene.frames.length-1;c.thumbs.forEach((b,i)=>{b.classList.toggle('active',i===index);b.setAttribute('aria-pressed',String(i===index))});const thumb=c.thumbs[index];if(thumb&&c.strip.clientWidth){const left=thumb.offsetLeft-c.strip.offsetLeft;if(left<c.strip.scrollLeft||left+thumb.clientWidth>c.strip.scrollLeft+c.strip.clientWidth)c.strip.scrollLeft=Math.max(0,left-c.strip.clientWidth/2)}const preload=scene.frames[index+1];if(preload){const img=new Image();img.src=preload.image.url}}
+function locate(scene,frame,scroll=false){if(data.audio)audio.currentTime=frame.timeSeconds;setActive(scene,scroll);setFrame(scene,scene.frames.indexOf(frame))}
+function setActive(scene,scroll){if(activeScene!==scene?.stableId){activeScene=scene?.stableId||null;for(const [id,c] of cards)c.root.classList.toggle('is-active',id===activeScene);if(scene)picker.value=scene.stableId;if(scroll&&scene&&lastScrollScene!==scene.stableId){const typing=['INPUT','SELECT','TEXTAREA'].includes(document.activeElement?.tagName)||document.activeElement?.isContentEditable;if(!typing){cards.get(scene.stableId).root.scrollIntoView({block:'start',behavior:'smooth'});lastScrollScene=scene.stableId}}}}
+function sync(){if(feSession)return;const t=audio.currentTime;const scene=scenes.find(s=>t>=s.startSeconds&&t<s.endSeconds);if(!scene){setActive(null,false);return}setActive(scene,$('#wb-follow').checked);let i=0;for(let n=0;n<scene.frames.length;n++){if(scene.frames[n].timeSeconds<=t+1e-7)i=n;else break}setFrame(scene,i)}
+function animate(){sync();if(!audio.paused)raf=requestAnimationFrame(animate)}
+audio.addEventListener('play',()=>{master.pause();pauseSegmentVideos();cancelAnimationFrame(raf);animate()});['timeupdate','seeked','loadedmetadata','ended'].forEach(e=>audio.addEventListener(e,sync));audio.addEventListener('pause',()=>cancelAnimationFrame(raf));audio.addEventListener('error',()=>message('音频加载失败，请检查文件入口。',true));
+$('#wb-speed').onchange=e=>{audio.playbackRate=Number(e.target.value)};$('#wb-follow').onchange=()=>{lastScrollScene=null;sync()};
+picker.onchange=()=>{const s=scenes.find(s=>s.stableId===picker.value);lastScrollScene=null;if(s.frames.length)locate(s,s.frames[0],true);else{audio.currentTime=s.startSeconds;setActive(s,true)}};
+for(const scene of scenes){
+ const option=el('option','',`${String(scene.number).padStart(2,'0')} · ${scene.title}`);option.value=scene.stableId;picker.append(option);
+ const root=el('article','scene-card');root.id='scene-'+scene.stableId;root.dataset.stableId=scene.stableId;root.setAttribute('aria-label',`第${scene.number}段 ${scene.title}`);
+ const left=el('section','scene-script');left.append(el('div','scene-meta',`第${String(scene.number).padStart(2,'0')}段 · ${data.timingKind==='estimated'?'估时 ':''}${time(scene.startSeconds)}—${time(scene.endSeconds)}`),el('h2','scene-title',scene.title),el('p','narration',scene.narration));const plan=el('div','plan');
+ for(const [label,text] of [['表达目的',scene.reason],['叙事作用',scene.component],['重点',scene.replacement]]){if(text){const p=el('p');p.append(el('b','',label+'：'),document.createTextNode(text));plan.append(p)}}const pd=el('details','scene-plan-details');pd.open=true;pd.append(el('summary','','分镜说明'),plan);left.append(pd);
+ const center=el('section','scene-media'),frameView=el('div','keyframe-preview'),bar=el('div','media-bar'),frameLabel=el('span'),detail=el('span','','离散关键帧');bar.append(frameLabel,detail);const imageButton=el('button','frame-image'),image=el('img');image.loading=scene.number<3?'eager':'lazy';imageButton.append(image);imageButton.onclick=()=>largeImage(image.src,image.alt);image.onerror=()=>{detail.textContent='图片加载失败';detail.className='frame-error'};
+ const controls=el('div','frame-controls'),prev=el('button','','←'),counter=el('span','frame-count'),next=el('button','','→'),play=el('button','play-scene','从本段连续播放');prev.setAttribute('aria-label',`第${scene.number}段上一帧`);next.setAttribute('aria-label',`第${scene.number}段下一帧`);play.setAttribute('aria-label',`从第${scene.number}段连续播放`);controls.append(prev,counter,next,play);const strip=el('div','thumbs');strip.setAttribute('aria-label',`第${scene.number}段关键帧缩略图`);const thumbs=[];
+ for(const f of scene.frames){const b=el('button','thumb');b.setAttribute('aria-label',`第${scene.number}段定位 ${time(f.timeSeconds)} ${f.id}`);const img=el('img');img.loading='lazy';img.src=f.thumbnail.url;img.alt='';b.append(img,el('span','',time(f.timeSeconds)));b.onclick=()=>locate(scene,f);thumbs.push(b);strip.append(b)}
+ frameView.append(bar,imageButton,controls,strip);if(!scene.frames.length){frameView.replaceChildren(el('div','empty','真实关键帧待生成；当前意见可继续保存。'));play.disabled=true}
+ const videoView=el('div','video-preview'),videoSource=data.master||scene.videos?.[0]?.media,clipStart=data.master?scene.startSeconds:0,clipEnd=data.master?scene.endSeconds:scene.durationInFrames/data.fps;const video=el('video');video.controls=true;video.preload='none';if(scene.frames.length)video.poster=scene.frames[0].image.url;if(videoSource)video.src=videoSource.url;video.setAttribute('aria-label',`第${scene.number}段真实视频`);video.addEventListener('play',()=>{audio.pause();master.pause();pauseSegmentVideos(video);if(video.currentTime<clipStart||video.currentTime>=clipEnd)video.currentTime=clipStart;setActive(scene,false)});video.addEventListener('timeupdate',()=>{if(video.currentTime>=clipEnd&&!video.paused)video.pause()});videoView.append(el('p','scene-meta',`当前成片 ${time(scene.startSeconds)}—${time(scene.endSeconds)} · 到段尾暂停`));if(videoSource)videoView.append(video);else videoView.append(el('div','empty','本段视频待生成'));if(scene.videos?.length){const versions=el('details');versions.append(el('summary','',data.master?'先前逐段视频（保留原版本）':'先前逐段视频'));for(const v of scene.videos.slice(data.master?0:1)){const old=el('video');old.controls=true;old.preload='none';old.src=v.media.url;if(v.poster)old.poster=v.poster.url;versions.append(el('p','history-label',v.label),old)}if(versions.childElementCount>1)videoView.append(versions)}
+ const suggestion=el('div','suggestion-preview');suggestion.append(el('p','semantic-label','画面职责与素材计划 · 非成片关键帧'));
+ for(const [label,value] of [['画面类型',scene.semantic.visual.type],['观众需要看见',scene.semantic.visual.description],['聚焦对象',scene.semantic.visual.focus],['IP / 情绪',[scene.semantic.ip.mode,scene.semantic.ip.emotion].filter(Boolean).map(friendly).join(' / ')],['强调动作',scene.semantic.ip.emphasis],['屏幕文字',scene.semantic.screenText],['已有审查说明',scene.semantic.reviewNotes]]){if(value&&(!Array.isArray(value)||value.length)){const line=el('p','semantic-field');line.append(el('b','',label+'：'),document.createTextNode(explain(value)));suggestion.append(line)}}
+ const sources=el('div','semantic-assets');sources.append(el('h3','','本镜头素材'));
+ if(!scene.semantic.assets.length)sources.append(el('p','help','未指定素材；需要补采或明确标注示意。'));
+ for(const item of scene.semantic.assets){const box=el('div','semantic-asset');box.append(el('p','',`${friendly(item.kind)||'素材'} · ${friendly(item.status)||'待确认'}`));box.append(el('p','help',item.source||'来源尚未说明'));if(item.media){const a=el('a','',item.path||'打开素材');a.href=item.media.url;a.target='_blank';a.rel='noopener';box.append(a);if(item.kind==='image'||item.kind==='keyframe'){const img=el('img');img.src=item.media.url;img.alt='参考素材，不是本期关键帧';img.loading='lazy';img.onclick=()=>largeImage(img.src,img.alt);box.append(img)}}else box.append(el('p','help',item.path?'待准备：'+item.path:'暂无文件'));sources.append(box)}suggestion.append(sources);for(const candidate of scene.candidates){const box=el('div','candidate'),img=el('img');img.src=candidate.image.url;img.alt=candidate.label;img.loading='lazy';img.onclick=()=>largeImage(img.src,candidate.label);box.append(img);if(candidate.clip){const clip=el('video');clip.controls=true;clip.preload='none';clip.src=candidate.clip.url;box.append(clip)}const label=el('label'),radio=el('input');radio.type='radio';radio.name='candidate-'+scene.stableId;radio.value=candidate.id;label.append(radio,document.createTextNode(candidate.label));box.append(label);suggestion.append(box)}
+ if(!scene.candidates.length)suggestion.append(el('p','help','先确认原文与画面职责；通过后才制作本期真实关键帧。'));center.append(frameView,suggestion,videoView);
+ const right=el('section','scene-feedback'),actions=el('div','segment-actions'),remove=el('button','delete-scene','删除本段'),undo=el('button','undo-scene','撤回本段上一步'),deleteNotice=el('p','delete-notice',`第${String(scene.number).padStart(2,'0')}段 · ${scene.title}：已标记待删除。原文、意见、图片 / GIF 完整保留；当前成片尚未重新剪辑。`),badge=el('span','badge','待看'),scope=el('p','comment-scope'),decision=el('div','decisions'),editor=el('div','rich-feedback');editor.setAttribute('role','textbox');editor.setAttribute('aria-multiline','true');editor.contentEditable='false';editor.dataset.placeholder='写下修改意见，或拖入 SVG、图片、文件和整个文件夹…';const attachments=el('div','attach-tools'),attach=el('button','','＋ 插入图片'),attachGif=el('button','','＋ 插入 GIF'),stamp=el('button','','标记当前帧 / 时间'),input=el('input');input.type='file';input.accept='image/*';input.multiple=true;input.hidden=true;input.setAttribute('aria-label',`第${scene.number}段插入意见图片`);const gifInput=el('input');gifInput.type='file';gifInput.accept='image/gif,.gif';gifInput.multiple=true;gifInput.hidden=true;gifInput.setAttribute('aria-label',`第${scene.number}段插入 GIF 动图`);const attachSVG=el('button','','＋ 插入 SVG'),attachFile=el('button','','＋ 添加文件'),attachFolder=el('button','','＋ 添加文件夹'),svgInput=el('input'),fileInput=el('input'),folderInput=el('input');for(const field of [svgInput,fileInput,folderInput]){field.type='file';field.multiple=true;field.hidden=true;}svgInput.accept='.svg,image/svg+xml';svgInput.setAttribute('aria-label',`第${scene.number}段插入 SVG 文件`);fileInput.setAttribute('aria-label',`第${scene.number}段添加文件`);folderInput.setAttribute('webkitdirectory','');folderInput.setAttribute('directory','');folderInput.setAttribute('aria-label',`第${scene.number}段添加整个文件夹`);attachments.append(attach,attachGif,attachSVG,attachFile,attachFolder,stamp,input,gifInput,svgInput,fileInput,folderInput);const history=el('details','history'),operationHistory=el('details','operation-history');operationHistory.addEventListener('toggle',()=>{if(operationHistory.open)operationHistoryInto(operationHistory,scene)});actions.append(remove,undo);deleteNotice.hidden=true;remove.onclick=()=>deleteScene(scene);undo.onclick=()=>undoScene(scene);
+ const route=el('select','route-choice');route.setAttribute('aria-label',`第${scene.number}段制作方式`);for(const [v,t] of [['','本轮尚未选择制作方式'],['recording','录屏'],['remotion','Remotion 动画'],['generated-video','生成视频'],['mixed','混合制作']]){const o=el('option','',t);o.value=v;route.append(o)}if(scene.existingSelection)right.append(el('p','help','已有制作方向记录保留；本轮未选择不会覆盖。'));
+ right.append(actions,deleteNotice,badge,scope,decision,route,editor,attachments,el('p','help','可拖入 SVG、图片、任意文件或整个文件夹；保留原文件和目录层级，刷新后可继续查看。'),history,operationHistory);root.append(left,center,right);$('#wb-scenes').append(root);
+ const c={root,option,remove,undo,deleteNotice,operationHistory,frameView,suggestion,videoView,video,frameIndex:-1,image,frameLabel,counter,prev,next,strip,thumbs,badge,scope,decision,editor,route,history,choices:new Map()};cards.set(scene.stableId,c);
+ let lastRange;function remember(){const s=getSelection();if(s.rangeCount&&editor.contains(s.anchorNode))lastRange=s.getRangeAt(0).cloneRange()}
+ function insert(node){editor.focus();let range=lastRange;if(!range||!editor.contains(range.startContainer)){range=document.createRange();range.selectNodeContents(editor);range.collapse(false)}range.deleteContents();range.insertNode(node);range.setStartAfter(node);range.collapse(true);const s=getSelection();s.removeAllRanges();s.addRange(range);lastRange=range.cloneRange()}
+ function save(kind='edit'){const item=scene.reviewItems[mode],content=contentBlocks(editor),prior=record(item),r={...item,choice:prior.choice||'',reviewedVersion:prior.choice?item.identity:'',note:content.filter(b=>b.type==='text').map(b=>b.text).join(''),content,selectedRoute:route.value||'',candidateId:root.querySelector('input[type=radio]:checked')?.value||'',updatedAt:new Date().toISOString()};persist(r,kind);applyFilter();editor.dispatchEvent(new Event('change',{bubbles:true}))}
+ function persist(r,kind){persistRecord(scene,r,kind)}
+ for(const [value,label] of [['','待看'],['keep','采用'],['change','需要调整'],['skip','不采用']]){const b=el('button','',label);b.onclick=()=>{const r={...record(scene.reviewItems[mode]),...scene.reviewItems[mode],choice:value,reviewedVersion:value?scene.reviewItems[mode].identity:'',updatedAt:new Date().toISOString()};persist(r,'choice');applyFilter();document.dispatchEvent(new Event('change'))};decision.append(b);c.choices.set(value,b)}
+ function add(sources,gifOnly=false){
+ remember();const placeholder=el('span','','［正在读取并保存附件…］');placeholder.contentEditable='false';placeholder.dataset.pending='true';insert(placeholder);const attachmentMode=mode;
+ const job=(async()=>{try{
+  const entries=await sources,prepared=[];
+  for(const source of entries){
+   const entry=await source;let asset;
+   if(entry.kind==='folder'){
+    const files=[];
+    for(const item of entry.files){const file=WorkbenchAttachments.normalizedFile(item.file);if(!(file instanceof Blob))throw new Error('无法读取目录文件：'+item.relativePath);files.push({name:file.name,relativePath:item.relativePath,type:file.type,blob:file});}
+    asset={kind:'folder',name:entry.name,files,directories:entry.directories};
+   }else{
+    const original=entry.file||entry;if(!(original instanceof Blob))throw new Error('没有读到原文件');
+    const image=gifOnly||WorkbenchAttachments.isImage(original),file=image?await originalImage(original,gifOnly):original;
+    asset={kind:image?'image':'file',name:file.name||'附件',type:file.type,blob:file};
+   }
+   prepared.push({...asset,id:crypto.randomUUID(),row:scene.reviewItems[attachmentMode].rowId,recordKey:recordKey(scene.reviewItems[attachmentMode]),createdAt:new Date().toISOString()});
+  }
+  if(!prepared.length)throw new Error('没有读到文件；也可使用“添加文件夹”选择目录');
+  // Commit the whole drop atomically so a read/quota failure never leaves a partial folder.
+  await transaction('readwrite',store=>{let request;for(const asset of prepared)request=store.put(asset);return request;});
+  for(const asset of prepared)assets.set(asset.id,asset);
+  const blocks=prepared.map(a=>({type:a.kind,id:a.id}));
+  if(mode===attachmentMode&&placeholder.isConnected){const fragment=document.createDocumentFragment();appendContent(fragment,blocks,()=>save('media'));placeholder.replaceWith(fragment);lastRange=null;save('media');message('附件已保存：'+prepared.map(a=>a.kind==='folder'?a.name+'（'+a.files.length+'个文件）':a.name).join('、'));}
+  else if(mode!==attachmentMode){const item=scene.reviewItems[attachmentMode],prior=record(item);persist({...item,...prior,content:[...(prior.content||[]),...blocks],updatedAt:new Date().toISOString()},'media');document.dispatchEvent(new Event('change'));}
+ }catch(error){placeholder.remove();message('附件插入失败：'+error.message,true);}})();
+ pending.add(job);job.finally(()=>pending.delete(job));return job;
+}
+ editor.addEventListener('input',()=>{remember();save('typing')});editor.addEventListener('mouseup',remember);editor.addEventListener('keyup',remember);route.onchange=()=>save('route');suggestion.querySelectorAll('input[type=radio]').forEach(r=>r.onchange=()=>save('candidate'));attach.onmousedown=e=>{remember();e.preventDefault()};attach.onclick=()=>input.click();input.onchange=()=>{add([...input.files]);input.value=''};attachGif.onmousedown=e=>{remember();e.preventDefault()};attachGif.onclick=()=>gifInput.click();gifInput.onchange=()=>{add([...gifInput.files],true);gifInput.value=''};
+ editor.addEventListener('paste',e=>{e.preventDefault();remember();const clipboard=e.clipboardData;if(!clipboard)return;const all=[...[...(clipboard.items||[])].filter(i=>i.kind==='file').map(i=>i.getAsFile()).filter(Boolean),...(clipboard.files||[])],seen=new Set(),files=all.filter(f=>{const id=[f.name,f.size,f.type,f.lastModified].join(':');if(seen.has(id))return false;seen.add(id);return f.type.startsWith('image/')||/\.gif$/i.test(f.name)||!f.type||f.type==='application/octet-stream'});const gifs=files.filter(f=>f.type==='image/gif'||/\.gif$/i.test(f.name));if(gifs.length)add(files);else{const gifSource=clipboardGifSource(clipboard);if(gifSource)add([clipboardGifFile(gifSource)],true);else if(files.length)add(files);else{insert(document.createTextNode(clipboard.getData('text/plain')));save('paste')}}});let dragDepth=0;
+ right.addEventListener('dragenter',e=>{if([...e.dataTransfer.types].includes('Files')){e.preventDefault();dragDepth++;editor.classList.add('is-file-over');}});
+ right.addEventListener('dragover',e=>{if([...e.dataTransfer.types].includes('Files')){e.preventDefault();e.dataTransfer.dropEffect='copy';}});
+ right.addEventListener('dragleave',()=>{if(--dragDepth<=0){dragDepth=0;editor.classList.remove('is-file-over');}});
+ right.addEventListener('drop',e=>{if(![...e.dataTransfer.types].includes('Files'))return;e.preventDefault();e.stopPropagation();dragDepth=0;editor.classList.remove('is-file-over');const range=document.caretRangeFromPoint?.(e.clientX,e.clientY);if(range&&editor.contains(range.startContainer)){lastRange=range;const selection=getSelection();selection.removeAllRanges();selection.addRange(range);}add(WorkbenchAttachments.collectDropped(e.dataTransfer));});
+ for(const [button,field] of [[attachSVG,svgInput],[attachFile,fileInput],[attachFolder,folderInput]]){button.onmousedown=e=>{remember();e.preventDefault();};button.onclick=()=>field.click();field.onchange=()=>{const files=[...field.files];if(files.length)add(WorkbenchAttachments.collectPicked(files));field.value='';};}
+ stamp.onclick=()=>{remember();const f=scene.frames[c.frameIndex],at=f?.timeSeconds??scene.startSeconds;insert(document.createTextNode(`[第${String(scene.number).padStart(2,'0')}段 · ${time(at)}${f?' · '+f.id:''} · ${data.revision||'当前版本'}]\n`));save('stamp')};
+ prev.onclick=()=>{if(scene.frames[c.frameIndex-1])locate(scene,scene.frames[c.frameIndex-1])};next.onclick=()=>{if(scene.frames[c.frameIndex+1])locate(scene,scene.frames[c.frameIndex+1])};play.disabled=!data.audio;play.onclick=()=>{audio.currentTime=scene.startSeconds;setActive(scene,false);audio.play().catch(()=>message('请点击顶部音频播放按钮。'))};
+ editorState.set(scene.stableId,{load:()=>{lastRange=null;const item=scene.reviewItems[mode],r=record(item);editor.replaceChildren();appendContent(editor,r.content?.length?r.content:[{type:'text',text:r.note||''}],()=>save('media'));editor.setAttribute('aria-label',`第${scene.number}段修改意见 · ${mode==='keyframes'?'关键帧':mode==='video'?'视频':'语义分镜'}`);editor.dataset.reviewIdentity=item.identity;route.value=r.selectedRoute||'';suggestion.querySelectorAll('input[type=radio]').forEach(x=>x.checked=x.value===r.candidateId);historyInto(history,scene);operationHistoryInto(operationHistory,scene)}});
+ if(scene.frames.length)setFrame(scene,0);
+}
+function applyFilter(){let visible=0;for(const scene of scenes){const c=cards.get(scene.stableId),r=record(scene.reviewItems[mode]),choice=effective(r),deleted=isDeleted(scene);c.root.hidden=filter==='deleted'?!deleted:deleted||filter!=='all'&&choice!==filter;if(!c.root.hidden)visible++;c.badge.textContent=verdict(r);c.badge.className='badge '+choice;c.choices.forEach((b,v)=>{b.classList.toggle('active',(r.choice||'')===v);b.setAttribute('aria-pressed',String((r.choice||'')===v))})}$('#wb-empty').hidden=!!visible;for(const b of document.querySelectorAll('[data-filter]')){const f=b.dataset.filter,count=scenes.filter(s=>f==='deleted'?isDeleted(s):!isDeleted(s)&&(f==='all'||effective(record(s.reviewItems[mode]))===f)).length;b.textContent=({all:'全部',pending:'待看',change:'需要调整',keep:'采用',skip:'不采用',deleted:'已删除'}[f])+`（${count}）`;b.classList.toggle('active',f===filter)}updateUndoButtons()}
+async function switchMode(next){if(!(data.availableModes||['suggestion']).includes(next))return;await Promise.all([...pending]);audio.pause();pauseSegmentVideos();mode=next;filter='all';document.querySelectorAll('[data-mode]').forEach(b=>{b.classList.toggle('active',b.dataset.mode===mode);b.setAttribute('aria-pressed',String(b.dataset.mode===mode))});for(const s of scenes){const c=cards.get(s.stableId);c.frameView.hidden=mode!=='keyframes';c.suggestion.hidden=mode!=='suggestion';c.videoView.hidden=mode!=='video';c.route.hidden=mode!=='suggestion';c.scope.textContent=mode==='keyframes'?'本条意见针对这一段的整组关键帧；切换段内图片不会切换评论区。':mode==='video'?'本条意见针对当前版本的这段视频。':'本条意见针对这一段的制作方向和参考方案。';editorState.get(s.stableId).load()}applyFilter()}
+for(const b of document.querySelectorAll('[data-mode]'))b.onclick=()=>switchMode(b.dataset.mode);for(const b of document.querySelectorAll('[data-filter]'))b.onclick=()=>{filter=b.dataset.filter;applyFilter()};
+$('#wb-undo').onclick=()=>undoScene();
+const ready=transaction('readonly',s=>s.getAll()).then(async list=>{list.forEach(a=>assets.set(a.id,a));await switchMode(mode);for(const c of cards.values())c.editor.contentEditable='true';document.body.dataset.ready='true';message('已读取本机意见；历史版本与贴图保留');for(const h of data.historyRecords){const block=el('div','history-record');block.append(el('p','history-label',`${h.round} · ${h.stableId}`),el('p','',h.quote));for(const a of h.images){const img=el('img');img.loading='lazy';img.src=a.url;img.alt='原始意见贴图';img.onclick=()=>largeImage(a.url,img.alt);block.append(img)}$('#wb-archive-content').append(block)}sync()}).catch(e=>{document.body.dataset.ready='error';message('读取意见存储失败；已有记录未更改。'+e.message,true);throw e});ready.catch(()=>{});
+const toDataUrl=blob=>new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>reject(r.error);r.readAsDataURL(blob)});
+async function exportRecord(r,isCurrent){const content=await Promise.all((r.content||[]).map(async b=>{if(b.type==='text'||b.dataUrl||b.files)return b;const a=assets.get(b.id);if(!a)throw new Error('历史附件暂不可用，请检查原浏览器或导出备份');return {...b,...await WorkbenchAttachments.exportAsset(a)};}));return {...r,current:isCurrent,content,images:content.filter(b=>b.type==='image'),attachments:content.filter(b=>b.type==='file'||b.type==='folder'),needsChanges:r.choice==='change'||changes(r),approvalScope:r.approvalScope||(r.view==='keyframes'?'static-frame':r.view==='suggestion'?'direction':'video-review'),animationApproved:false}}
+async function exportSourceHistory(){if(!sourceExportCache)sourceExportCache=Promise.all(data.historyRecords.map(async r=>({...r,images:await Promise.all(r.images.map(async a=>{const response=await fetch(a.url);if(!response.ok)throw new Error('原始贴图读取失败');const bytes=await response.arrayBuffer(),digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),x=>x.toString(16).padStart(2,'0')).join('');if(digest!==a.sha256)throw new Error('原始贴图校验失败');return {...a,dataUrl:await toDataUrl(new Blob([bytes],{type:response.headers.get('Content-Type')||'image/png'}))}}))}))).catch(e=>{sourceExportCache=null;throw e});return sourceExportCache}
+async function exportEdits(store){const wb=copy(editState(store)),ids=new Set();feCollectMedia(wb.frameEditor,ids);feCollectMedia(wb.journal.filter(e=>e.type==='frame-proposal'),ids);for(const e of wb.journal)for(const r of [e.before,e.after])for(const b of r?.content||[])if(b.type!=='text'&&!b.dataUrl&&!b.files)ids.add(b.id);const media={};for(const id of ids){const a=assets.get(id);if(!a)throw new Error('操作历史中的贴图暂不可用，请检查原浏览器备份');media[id]={id,sha256:a.sha256||null,...await WorkbenchAttachments.exportAsset(a)}}return {...wb,scope:'recoverable-workbench-edits; pending video edit; not approval',media}}
+async function exportData(){await ready;await Promise.all([...pending]);const store=read(),records={...store.records,...Object.fromEntries(drafts)};for(const i of metadata)if(!records[recordKey(i)])records[recordKey(i)]={...i,choice:'',note:'',content:[],reviewedVersion:''};const legacyFeedback={};for(const [sid,r] of Object.entries(store.legacy||{})){const content=r.content||[{type:'text',text:r.note||''},...[...assets.values()].filter(a=>a.row===sid).map(a=>({type:'image',id:a.id}))];legacyFeedback[sid]=await exportRecord({...r,stableId:sid,view:'video',content},false)}if(store.workbench&&(store.workbench.journal.length||Object.keys(store.workbench.deleted).length||feHasState(store)))legacyFeedback.__workbenchEdits=await exportEdits(store);legacyFeedback.__sourceFeedbackRounds={scope:'immutable-source-history; not current approval',records:await exportSourceHistory()};return {schemaVersion:5,projectId:data.episodeKey,stage:data.stage,storyboardSha256:data.storyboardSha256,workflowApproved:false,episodeKey:data.episodeKey,episode:data.episodeKey,exportedAt:new Date().toISOString(),records:await Promise.all(Object.values(records).map(r=>exportRecord(r,currentKeys.has(recordKey(r))))),legacyFeedback,savedToManifest:false,workbenchVersion:1,currentOutputSha256:data.master?.sha256||null}}
+window.segmentReview={exportData};window.segmentWorkbench={getState:()=>({ready:document.body.dataset.ready,mode,activeScene,currentTime:audio.currentTime,duration:audio.duration,paused:audio.paused,frameId:activeScene?cards.get(activeScene)?.image.dataset.frameId:null,scenes:scenes.length,frames:scenes.reduce((n,s)=>n+s.frames.length,0)}),exportData};
+$('#wb-export').onclick=async()=>{const b=$('#wb-export');b.disabled=true;try{const payload=await exportData(),blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download='segment-workbench-feedback.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);message('已导出全部意见、原始附件和完整历史')}catch(e){message('导出失败：'+e.message,true)}finally{b.disabled=false}};
+document.addEventListener('keydown',e=>{if(feSession)return;if(e.target.isContentEditable||['INPUT','TEXTAREA','SELECT','BUTTON'].includes(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;if(e.code==='Space'&&data.audio){e.preventDefault();audio.paused?audio.play().catch(()=>{}):audio.pause()}else if((e.key==='ArrowLeft'||e.key==='ArrowRight')&&activeScene){e.preventDefault();const c=cards.get(activeScene);(e.key==='ArrowLeft'?c.prev:c.next).click()}});
+// Runs inside the workbench closure. Proposals extend schema 5, without moving
+// existing records, storage identities, or original image/GIF Blobs.
+let feSession=null;
+function feState(store=read()){
+ const wb=editState(store);if(!wb.frameEditor)wb.frameEditor={schemaVersion:1,proposals:{},drafts:{}};
+ wb.frameEditor.proposals??={};wb.frameEditor.drafts??={};return wb.frameEditor;
+}
+function feHasState(store){const f=store.workbench?.frameEditor;return !!f&&(Object.keys(f.proposals||{}).length>0||Object.keys(f.drafts||{}).length>0)}
+function feKey(scene,frame){return JSON.stringify([sceneIdentity(scene),frame.id,data.frameEditor?.sourceSha256])}
+function feCurrent(scene,p){return p.source?.reviewIdentity===sceneIdentity(scene)&&p.source?.masterSha256===(data.master?.sha256||null)&&p.source?.sourceSha256===data.frameEditor?.sourceSha256}
+function feEligible(e){const s=scenes.find(s=>s.stableId===e.stableId);return !!s&&e.identity===sceneIdentity(s)&&e.masterSha256===(data.master?.sha256||null)&&e.sourceSha256===data.frameEditor?.sourceSha256}
+function feUndo(store,e){const f=feState(store);if(e.before)f.proposals[e.proposalId]=copy(e.before);else delete f.proposals[e.proposalId];if(e.draftKey&&e.beforeDraft)f.drafts[e.draftKey]=copy(e.beforeDraft)}
+function feNeedsChanges(r){if(r?.view!=='segment-frames')return false;const s=scenes.find(x=>x.stableId===r.stableId);return !!s&&Object.values(read().workbench?.frameEditor?.proposals||{}).some(p=>feCurrent(s,p)&&p.status==='pending-ai')}
+function feCollectMedia(value,ids){
+ if(!value||typeof value!=='object')return;
+ if(value.mediaId){if(!assets.has(value.mediaId))throw new Error('精确编辑素材暂不可用：'+value.mediaId);ids.add(value.mediaId)}
+ else if(value.id&&assets.has(value.id))ids.add(value.id);
+ for(const child of Object.values(value))if(child&&typeof child==='object')feCollectMedia(child,ids);
+}
+function feRefUrl(ref){if(!ref)return '';if(ref.dataUrl)return ref.dataUrl;const a=assets.get(typeof ref==='string'?ref:ref.mediaId||ref.id);if(!a)return '';return a.url||(a.url=URL.createObjectURL(a.blob))}
+function feBindSource(scene,frame,source={}){return {...source,episodeKey:data.episodeKey,sceneId:scene.stableId,version:data.revision,reviewIdentity:sceneIdentity(scene),masterSha256:data.master?.sha256||null,sourceSha256:data.frameEditor?.sourceSha256,frameId:frame.id,frameSha256:frame.image.sha256,globalFrame:frame.globalFrame,localFrame:frame.localFrame,timeSeconds:frame.timeSeconds,fps:data.fps,canvas:copy(data.frameEditor.canvas),frameNumbering:'zero-based',sceneStartFrame:scene.startFrame,sceneDurationInFrames:scene.durationInFrames}}
+function feValidate(value){
+ if(!value||typeof value!=='object')throw new Error('编辑提案格式无效');
+ function visit(x){if(typeof x==='number'&&!Number.isFinite(x))throw new Error('编辑提案含无效坐标');if(x&&typeof x==='object')Object.values(x).forEach(visit)}visit(value);
+ if(!['scene','pose','layout','segment','timepoint','frame'].includes(value.scope))throw new Error('编辑范围无效');
+ const objects=value.objects||value.after?.objects||value.afterObjects||[];
+ if(!Array.isArray(objects))throw new Error('对象清单格式无效');
+ const ids=new Set();for(const o of objects){if(!o.id||ids.has(o.id))throw new Error('对象ID缺失或重复');ids.add(o.id);if(o.rect&&['x','y','width','height'].some(k=>!Number.isFinite(o.rect[k])))throw new Error('对象矩形坐标无效');if(o.rect&&(o.rect.width<0||o.rect.height<0))throw new Error('对象尺寸不能为负')}
+}
+async function feSaveMedia(scene,blob,name,mime){
+ if(!(blob instanceof Blob)||!blob.size)throw new Error('编辑素材为空');
+ if(blob.size>30*1024*1024)throw new Error('单个编辑素材请小于30MB');
+ const type=mime||blob.type||'application/octet-stream';if(!/^(image|video)\//.test(type))throw new Error('编辑素材只支持图片、GIF和视频');
+ const job=(async()=>{
+ const bytes=await blob.arrayBuffer(),sha=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),x=>x.toString(16).padStart(2,'0')).join('');
+ const prior=[...assets.values()].find(a=>a.frameEditorMedia&&a.sha256===sha);if(prior)return {id:prior.id,mediaId:prior.id,name:prior.name,mimeType:prior.type,sha256:sha,bytes:prior.blob.size};
+ const a={id:crypto.randomUUID(),row:scene.reviewItems.keyframes.rowId,name:name||'精确编辑素材',type,blob,sha256:sha,frameEditorMedia:true,createdAt:new Date().toISOString()};
+ await transaction('readwrite',s=>s.put(a));assets.set(a.id,a);
+ return {id:a.id,mediaId:a.id,name:a.name,mimeType:type,sha256:sha,bytes:blob.size};
+ })();pending.add(job);try{return await job}finally{pending.delete(job)}
+}
+function feRefreshList(scene){
+ const c=cards.get(scene.stableId);if(!c?.frameProposals)return;
+ const target=c.frameProposals,fs=read().workbench?.frameEditor||{},proposals=Object.values(fs.proposals||{}).filter(p=>p.source?.sceneId===scene.stableId),drafts=Object.entries(fs.drafts||{}).filter(([,p])=>p.source?.sceneId===scene.stableId);
+ const signature=JSON.stringify([proposals,drafts]);if(target.dataset.renderedProposals===signature)return;target.dataset.renderedProposals=signature;
+ target.replaceChildren();target.hidden=!proposals.length&&!drafts.length;target.append(el('summary','',`精确修改提案（${proposals.length}条 · ${drafts.length}份草稿）`));
+ for(const [draftKey,d] of drafts){const line=el('div','history-record'),button=el('button','','继续编辑草稿');button.disabled=!feCurrent(scene,d);button.onclick=()=>{const f=scene.frames.find(f=>f.id===d.source.frameId);if(f)feOpen(scene,f,d)};line.append(el('p','history-label',`${d.source.frameId} · ${time(d.source.timeSeconds)} · ${feCurrent(scene,d)?'草稿已保留':'旧版本草稿完整保留'}`),button);target.append(line)}
+ for(const p of [...proposals].reverse()){
+  const line=el('div','history-record'),current=feCurrent(scene,p);line.append(el('p','history-label',`${p.createdAt} · ${p.source.frameId} · ${time(p.source.timeSeconds)} · ${current?'待 AI 执行':'旧版本提案'} · ${p.scope==='scene'||p.scope==='layout'?'整段布局':'当前时间点'}`));
+  if(p.note)line.append(el('p','',p.note));const screenshots=p.screenshots||{};
+  for(const [label,ref] of [['修改前',screenshots.before||p.beforeScreenshot],['修改后',screenshots.after||p.afterScreenshot]]){const url=feRefUrl(ref);if(url){const img=el('img');img.src=url;img.alt=label+' · '+p.source.frameId;img.onclick=()=>largeImage(url,img.alt);line.append(el('p','history-label',label),img)}}
+  const numeric=el('details');numeric.append(el('summary','','精确坐标、路径与对象信息'));const pre=el('pre');pre.style.cssText='font:11px/1.55 monospace;white-space:pre-wrap;max-height:320px;overflow:auto';pre.textContent=JSON.stringify({source:p.source,before:p.before,after:p.after,annotations:p.annotations},null,2);numeric.append(pre);line.append(numeric);
+  const edit=el('button','','基于此提案再编辑');edit.disabled=!current;edit.onclick=()=>{const f=scene.frames.find(f=>f.id===p.source.frameId);if(f)feOpen(scene,f,undefined,p)};line.append(edit);target.append(line);
+ }
+}
+async function feOpen(scene,frame,draft,proposal){
+ if(feSession)return;if(!window.FredFrameEditor||!data.frameEditor?.sourceUrl){message('本期尚未接入可编辑对象源',true);return}
+ audio.pause();master.pause();pauseSegmentVideos();await ready;await Promise.all([...pending]);locate(scene,frame);const dk=feKey(scene,frame);draft=draft||feState().drafts[dk];
+ const list=Object.values(feState().proposals).filter(p=>p.source?.sceneId===scene.stableId);feSession={sceneId:scene.stableId,frameId:frame.id};
+ try{
+  window.FredFrameEditor.open({scene,frame,data,sourceUrl:data.frameEditor.sourceUrl,initialDraft:draft,initialProposal:proposal,proposals:list,resolveMedia:feRefUrl,
+   saveMedia:(blob,name,mime)=>feSaveMedia(scene,blob,name,mime),
+   onDraft:async d=>{feValidate(d);const store=read();feState(store).drafts[dk]={...copy(d),source:feBindSource(scene,frame,d.source),updatedAt:new Date().toISOString()};const saved=writeStore(store);document.dispatchEvent(new Event('change'));if(!saved)throw new Error('浏览器容量不足，草稿仅保留在当前页；请导出备份');},
+   onSave:async p=>{feValidate(p);const store=read(),fs=feState(store),id=p.id||crypto.randomUUID();if(fs.proposals[id])throw new Error('提案ID已存在，请另存新提案');const beforeDraft=copy(fs.drafts[dk]||null);const saved={...copy(p),id,source:feBindSource(scene,frame,p.source),status:'pending-ai',appliedAt:null,createdAt:p.createdAt||new Date().toISOString(),proposalOnly:true};fs.proposals[id]=saved;delete fs.drafts[dk];addEdit(store,{type:'frame-proposal',kind:'frame-proposal',label:'保存精确编辑提案',stableId:scene.stableId,identity:sceneIdentity(scene),masterSha256:data.master?.sha256||null,sourceSha256:data.frameEditor.sourceSha256,proposalId:id,draftKey:dk,beforeDraft,before:null,after:copy(saved)});const ok=writeStore(store);applyFilter();document.dispatchEvent(new Event('change'));if(!ok)throw new Error('提案暂存在当前页，浏览器容量不足；请先导出备份');message('精确编辑提案已保存，等待 AI 按坐标执行；成片尚未改动。');},
+   onClose:()=>{feSession=null;applyFilter()}
+  });
+ }catch(e){feSession=null;message('编辑器打开失败：'+e.message,true)}
+}
+function feInstall(){
+ for(const scene of scenes){const c=cards.get(scene.stableId);const b=el('button','frame-edit-button','编辑本帧');b.setAttribute('aria-label',`第${scene.number}段编辑本帧`);b.disabled=!data.frameEditor?.sourceUrl||!scene.frames.length||(data.frameEditor.availableScenes&&!data.frameEditor.availableScenes.includes(scene.stableId));b.title=b.disabled?'本段尚未接入可编辑对象源':'进入精确坐标编辑；保存为 AI 修改提案';b.onclick=()=>feOpen(scene,scene.frames[c.frameIndex]);c.frameView.querySelector('.frame-controls')?.append(b);const list=el('details','frame-proposals');c.frameProposals=list;c.editor.parentNode.insertBefore(list,c.history);feRefreshList(scene)}
+}
+feInstall();
+
+})();
+
+</script></body></html>
