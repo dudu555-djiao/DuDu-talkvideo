@@ -2,6 +2,8 @@
 
 本项目复用了已验证的火山 HTTP 合成实现，默认音色是 **刘飞** `zh_male_liufei_uranus_bigtts`，资源 `seed-tts-2.0`，速度 `-25`。旁白完整合成，保留同次合成的词级时间戳；实际音频决定时长，禁止截成 20 秒、循环旧声音或借用别期字幕。
 
+指定本人克隆音色、导入多段录音、使用 VideoTalkCraft 音效或交付多个声音版本时，先读 [原声与多版本交付](audio-delivery.md)。用户当次录音和音色要求优先于默认预设；成品录音不重复 TTS。
+
 ## 开始条件
 
 先完成 `storyboard.json` 和语义分镜 HTML，等待用户明确同意。脚本要求 `approvals/semantic.json` 中 `status=approved`、`approvedBy=user`、非空 `userStatement`，且 `storyboardSha256` 等于当前语义分镜文件的 SHA-256。任何字节修改都会使批准失效。代理必须记录用户真实原话，不能自行构造生产批准。

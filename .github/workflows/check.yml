@@ -28,3 +28,5 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Offline installation and actual MP4 check
         run: python scripts/bootstrap.py --smoke-test
+      - name: Partial render planning and AAC variant copy checks
+        run: python tests/media_helpers_smoke.py

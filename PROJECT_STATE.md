@@ -1,6 +1,6 @@
 # DuDu-talkvideo 公开版
 
-版本 1.2.0。项目根以当前完整仓库目录为准。Skill 安装为指向 skills/dudu-talkvideo 的软链接，Windows 无软链接权限时使用包含真实项目路径的指针安装。任何安装方式均须保留完整仓库。
+版本 1.3.0。项目根以当前完整仓库目录为准。Skill 安装为指向 skills/dudu-talkvideo 的软链接，Windows 无软链接权限时使用包含真实项目路径的指针安装。任何安装方式均须保留完整仓库。
 
 ## 当前能力
 
@@ -25,3 +25,11 @@ README.md 是公开入口；docs/INSTALL.md 是依赖与配置说明；docs/INST
 ## 发布范围
 
 本公开包不包含作者电脑路径、私有凭据、个人审片意见、私人草稿、其他博主原视频或历史项目归档。配色、头像和画幅的结构调整见 README，不能只改 brand JSON 就假定所有底层画面坐标自动变化。
+
+## 2026-10-25 制作流程更新
+
+已将完整一期的实际复盘写入 docs/WORKFLOW_REVIEW.md，补充五类主画面、指定人物局部动作、录屏同坐标聚焦/笔刷、网页反馈归档和局部返修规则。声音以用户成品录音或指定音色为先，按动作做音效、按叙事做配乐；用户要三版时复用同一画面母版。
+
+references/motion-and-revisions.md 与 audio-delivery.md 为按需参考。新增 plan_partial_render.py 仅计算候选边界，mux_audio_variants.py 仅复制封装现成 AAC；通用 render 没有改为自动局部渲染。复杂场景仍由本期实现，不能把案例参数当作内置能力或全局默认。
+
+本轮更新保留原便携安装、私有凭据、品牌资产和工作台；不附本期私人素材。离线验证结果见 docs/VALIDATION.md。

@@ -62,3 +62,26 @@
 ## 新对话恢复
 
 先读每期 `PROJECT_STATE.md`、`storyboard.json`、`approvals/semantic.json` 与现有意见导出；确认当前版本再继续。不要因为换对话丢失审批，也不要把早期样片的审批泛化到新稿。
+
+## 局部返修与声音版本
+
+这两项独立工具不改既有 `render` 的全片行为。先阅读项目 `references/motion-and-revisions.md`、`references/audio-delivery.md`。
+
+```sh
+python scripts/plan_partial_render.py BASE.mp4 --range 10:15 --range 42:48 --handle 2 --output patch-plan.json
+python scripts/mux_audio_variants.py PICTURE.mp4 variants.json --report variants-report.json
+```
+
+前者只规划修改范围、前后缓冲与候选 GOP 边界，不执行渲染；实际绘帧和拼接由本期实现执行并验证。后者将同一画面与现成兼容 AAC 音轨复制封装成多版，不混音、不调用 TTS、不重绘画面。不要虚构 `dudu patch` 命令或把本期写死的秒数用于新片。
+
+`variants.json` 是数组，路径相对该 JSON 所在目录：
+
+```json
+[
+  {"id":"voice","audio":"voice.m4a","output":"out/01-voice.mp4"},
+  {"id":"sfx","audio":"voice-sfx.m4a","output":"out/02-sfx.mp4"},
+  {"id":"music","audio":"voice-sfx-music.m4a","output":"out/03-music.mp4"}
+]
+```
+
+AAC 也可直接来自已有同时间轴 MP4 的唯一音轨。工具拒绝覆盖和明显的音画时长不符；只容许编码包时长的舍入差异，不自动截短或补齐。两工具可传 `--ffprobe`，封装工具另可传 `--ffmpeg` 指定可执行文件；详细参数以 `--help` 为准。
