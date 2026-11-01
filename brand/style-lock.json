@@ -1,0 +1,74 @@
+{
+  "id": "dudu-public",
+  "name": "DuDu-talkvideo 通用几何角色模板",
+  "version": "1.4.0",
+  "status": "public-default",
+  "theme": "mint",
+  "mascot": "block",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "aspectRatio": "16:9",
+    "durationPolicy": "跟随本期实际配音，不能截成20秒"
+  },
+  "typography": {
+    "family": "PingFang SC",
+    "fallback": [
+      "DuDuBody",
+      "Microsoft YaHei",
+      "sans-serif"
+    ],
+    "title": [
+      78,
+      158
+    ],
+    "body": [
+      42,
+      62
+    ],
+    "subtitle": 42,
+    "subtitleMaxLines": 2,
+    "subtitleSafeBottom": 34,
+    "subtitleAreaTop": 950,
+    "displayFamily": "EpisodeDisplay",
+    "displayFile": "assets/fonts/ZCOOLQingKeHuangYou-Regular.ttf",
+    "displayLicense": "assets/fonts/ZCOOLQingKeHuangYou-OFL.txt"
+  },
+  "audio": {
+    "engine": "Volcengine Seed TTS 2.0",
+    "voice": "zh_male_liufei_uranus_bigtts",
+    "voiceLabel": "刘飞",
+    "resource": "seed-tts-2.0",
+    "speed": -25,
+    "style": "年轻自然的普通话男声，像一位聪明又亲切的朋友在分享经验，语气明快、有一点好奇和灵感，表达清楚，有自然停顿，不要广告腔，不要播音腔，不要幼儿化。",
+    "leadIn": 0.2,
+    "tail": 0.6,
+    "sampleRate": 48000,
+    "channels": 2,
+    "lufs": -16,
+    "truePeak": -1.5,
+    "musicBpm": 96,
+    "music": "低音量轻柔felt旋律，程序化原创",
+    "sfx": "纸张、轻点、灵感三音；按本期画面锚点生成",
+    "credentialsPolicy": "只从本机原配置读取；制作包不存密钥",
+    "soundtrack": {
+      "music": true,
+      "bpm": 96,
+      "musicRMS": 0.018,
+      "sfx": true,
+      "cuePolicy": "semantic"
+    },
+    "soundPolicy": "低音量96 BPM felt背景乐与少量动作音效；本期可覆盖，已有完整混音时关闭叠加。"
+  },
+  "avatar": {
+    "mouthModes": [
+      "closed",
+      "small",
+      "wide"
+    ],
+    "emphasis": "按语义锚点轻微上移与放大，随后回位",
+    "lipSync": "旁白包络控制有限嘴形；不是音素级唇形"
+  },
+  "defaultWorkflow": "文案与证据→语义分镜HTML→用户同意→声音时间→实际关键帧→连续动画→验收"
+}

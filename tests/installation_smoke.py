@@ -45,7 +45,7 @@ def main():
              'screenText': '安装测试', 'estimatedDuration': 1.5,
              'ip': {'mode': 'corner', 'emotion': 'explaining', 'emphasis': []},
              'render': {'type': 'note', 'title': '安装测试', 'text': '声音驱动说话'}},
-            {'id': 'S02', 'narration': '再把重点讲清楚。', 'purpose': '测试词锚点强调和出框回位',
+            {'id': 'S02', 'narration': '再把重点讲清楚。', 'purpose': '测试词锚点强调和回位',
              'visual': {'type': 'chapter', 'description': '第二个合成测试场景', 'assets': []},
              'screenText': '把重点讲清楚', 'estimatedDuration': 1.5,
              'ip': {'mode': 'corner', 'emotion': 'explaining', 'emphasis': [{'anchor': '重点'}]},
@@ -94,10 +94,10 @@ def main():
             assert page.evaluate('(t)=>window.render(t)', 1.5)['avatar']['mouth'] == 'closed'
             emphasis = data['scenes'][1]['ip']['emphasis'][0]
             pop = page.evaluate('(t)=>window.render(t)', min(emphasis['end'], emphasis['start'] + .3))['avatar']
-            assert pop['pop'] > .5 and pop['headOutPx'] > 0
+            assert pop['pop'] > .5 and pop['emphasisOffsetY'] < 0
             assert not errors
             browser.close()
-        report['fontsAvatarAndHeadPop'] = 'passed'
+        report['fontsMascotAndEmphasis'] = 'passed'
         voice_hash = hashlib.sha256((episode / 'audio/narration.wav').read_bytes()).hexdigest()
         call('render', episode)
         call('check', episode)

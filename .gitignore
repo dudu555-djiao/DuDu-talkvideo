@@ -16,3 +16,10 @@ dependency-versions.txt
 *.partial.mp4
 *.tmp
 *.log
+
+# Private author artwork and retired demos never belong in the public edition.
+assets/ip/
+assets/avatar/
+assets/scenes/D-*
+examples/approved-*/
+docs/preview.png

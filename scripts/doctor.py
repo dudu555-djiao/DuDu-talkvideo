@@ -55,7 +55,7 @@ def inspect(check_browser=True):
         checks['h264Encoder'] = checks['loudnormFilter'] = False
     checks['bundledFonts'] = all((ROOT / 'assets/fonts' / name).is_file() and (ROOT / 'assets/fonts' / name).stat().st_size > 1000
                                 for name in ('ZCOOLQingKeHuangYou-Regular.ttf', 'NotoSansSC-400.woff2', 'NotoSansSC-700.woff2'))
-    checks['avatar'] = (ROOT / 'assets/avatar/registration.json').is_file()
+    checks['avatar'] = all((ROOT / 'assets/mascots' / f'{kind}-{theme}-{state}.svg').is_file() for kind in ('block','bird','orbit') for theme in ('mint','coral','honey','berry','grape','aqua') for state in ('closed','small','wide'))
     checks['workbench'] = (ROOT / 'workbench/template.html').is_file()
     browser_error = None
     if check_browser:

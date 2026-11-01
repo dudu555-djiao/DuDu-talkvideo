@@ -111,7 +111,7 @@ def assemble(a):
    e=copy.deepcopy(e)
    if e.get('anchor'):
     x,y=anchor_range(e['anchor'],e.get('occurrence',1));e['start']=max(st,x-.10);e['end']=min(en-.05,y+float(e.get('hold',.12)))
-   if 'start' not in e or 'end' not in e:raise ValueError(s['id']+' 出框必须有本句锚点或本期绝对时间。')
+   if 'start' not in e or 'end' not in e:raise ValueError(s['id']+' 强调必须有本句锚点或本期绝对时间。')
    e.setdefault('attack',.28);e['release']=min(float(e.get('release',.4)),max(.01,en-float(e['end'])))
    emph.append(e)
   ip['emphasis']=emph;item['ip']=ip

@@ -59,6 +59,11 @@ def read_episode(p):
     if e['width']%2 or e['height']%2:raise ValueError('Output dimensions must be even')
     if abs(e['duration']*e['fps']-round(e['duration']*e['fps']))>.02:raise ValueError('Duration must align to the frame grid')
     if not e.get('scenes'):raise ValueError('No scenes')
+    themes=json.loads((ROOT/'brand/themes.json').read_text())
+    theme=e.get('theme',e.get('brand',{}).get('theme','mint'))
+    if theme not in themes:raise ValueError('Unknown theme: '+str(theme))
+    mascot=e.get('mascot',e.get('brand',{}).get('mascot',themes[theme]['mascot']))
+    if mascot not in {'block','bird','orbit'}:raise ValueError('Unknown mascot: '+str(mascot))
     allowed={'chapter','prompt-media','compare','flow','note','ip-scene'};previous=0;ids=set()
     for s in e['scenes']:
         if not isinstance(s.get('id'),str) or not re.fullmatch(r'[A-Za-z0-9_-]+',s['id']) or s['id'] in ids:raise ValueError('Scene IDs must be unique safe identifiers (letters/numbers/_/-)')
@@ -70,7 +75,7 @@ def read_episode(p):
         if s['type']=='prompt-media' and not s.get('media'):raise ValueError('prompt-media needs real media')
         if s['type']=='compare' and not all(s.get(x) for x in ['left','right']):raise ValueError('Compare needs left and right')
         if s['type']=='flow' and not 1<=len(s.get('steps',[]))<=4:raise ValueError('Flow supports 1–4 steps')
-        if s['type']=='ip-scene' and 'pose' in s and (type(s['pose']) is not int or s['pose'] not in [0,1,2]):raise ValueError('IP scene pose must be 0, 1 or 2')
+        if s['type']=='ip-scene' and 'pose' in s:raise ValueError('Legacy pose assets are not included; use the generic mascot and optional background')
         for em in s.get('ip',{}).get('emphasis',[]):
             if not all(finite(em.get(k)) for k in ['start','end']) or not s['start']<=em['start']<=em['end']<=s['end']:raise ValueError('Invalid emphasis timing: '+s['id'])
             if em.get('attack',.28)<=0 or em.get('release',.4)<=0:raise ValueError('Emphasis attack/release must be positive')

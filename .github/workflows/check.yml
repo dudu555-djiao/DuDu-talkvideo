@@ -30,3 +30,8 @@ jobs:
         run: python scripts/bootstrap.py --smoke-test
       - name: Partial render planning and AAC variant copy checks
         run: python tests/media_helpers_smoke.py
+
+      - name: Six themes, three mascots and public asset boundary
+        run: |
+          python tests/themes_smoke.py
+          python tests/public_assets_check.py

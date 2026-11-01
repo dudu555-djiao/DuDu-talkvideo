@@ -1,0 +1,642 @@
+{
+  "name": "DuDu-talkvideo",
+  "version": "1.4.0",
+  "scope": "Public generic geometric mascots, source, docs and silent template demos",
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 424,
+      "sha256": "0e9fee690b4fc6e0fede08c018cef9fc883f0c3ce1db2c7e767e3dc3f6b73e43"
+    },
+    {
+      "path": ".github/workflows/check.yml",
+      "bytes": 1035,
+      "sha256": "c450cec20d69fd80cc4d4a09e347fd0d44a8c88ad936c8a812cfe01d8022c6e0"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 353,
+      "sha256": "e4431c7a8a6e4357d5e31eb3b2abadd420fd929bf911578ddbae4fca3edd2d6f"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 1321,
+      "sha256": "948b93cb2874e9789ed2056faf6b396a45a2eed9fa0a1d4edbd3a37986c3d87f"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1293,
+      "sha256": "2c7cad2dd9df440101e2118759be51371095b74dafcc4fbe346169b1780ff29e"
+    },
+    {
+      "path": "PROJECT_STATE.md",
+      "bytes": 3597,
+      "sha256": "7c215d6fdc72c0109525f8de879450cd8e6787116230e3b82c03e58bf2676fd5"
+    },
+    {
+      "path": "README.md",
+      "bytes": 11671,
+      "sha256": "378443ffd0b6ad786a378ad560cfb648bcf64b241bdb6346151f8ede6dab22ee"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 533,
+      "sha256": "75ffefcc4781650389100d95ec31d443b4b3513a246aa78d31ae6b612968e880"
+    },
+    {
+      "path": "VERSION",
+      "bytes": 6,
+      "sha256": "78b591400c56b7b67b8cb3b2b8a8e65e9093897f02ce0878e6b5405c68620fa7"
+    },
+    {
+      "path": "assets/fonts/NotoSansSC-400.woff2",
+      "bytes": 1142552,
+      "sha256": "95e3633b6a98f764ba3adfb54504a0cd4799328c009adf9081d6c1850f9c4c78"
+    },
+    {
+      "path": "assets/fonts/NotoSansSC-700.woff2",
+      "bytes": 1172244,
+      "sha256": "e1df51edc00bce27b58044e829fb8ec6accc8a5daece475413de90d52818845c"
+    },
+    {
+      "path": "assets/fonts/NotoSansSC-OFL.txt",
+      "bytes": 4388,
+      "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9"
+    },
+    {
+      "path": "assets/fonts/ZCOOLQingKeHuangYou-OFL.txt",
+      "bytes": 4419,
+      "sha256": "f1bce31b817dee01c1e4ef8bc45d8ecb95f01f4abbf0a985007cb3cd0fd8123d"
+    },
+    {
+      "path": "assets/fonts/ZCOOLQingKeHuangYou-Regular-OFL.txt",
+      "bytes": 4419,
+      "sha256": "f1bce31b817dee01c1e4ef8bc45d8ecb95f01f4abbf0a985007cb3cd0fd8123d"
+    },
+    {
+      "path": "assets/fonts/ZCOOLQingKeHuangYou-Regular.ttf",
+      "bytes": 8328684,
+      "sha256": "54f0c0df4308cd74cd0f2fd3494ae054dbc4a1fd6fa7d71f4807eb4cdd8b4136"
+    },
+    {
+      "path": "assets/mascots/README.md",
+      "bytes": 542,
+      "sha256": "8faf4ca9f24bf82570004b8bf3288e797abcc89f576b0d7c5c01988afcfc5e2f"
+    },
+    {
+      "path": "assets/mascots/bird-aqua-closed.svg",
+      "bytes": 921,
+      "sha256": "c03776be9f965d5fb7d4a6377b7623cb2c828b6119148e6258e2079ef7fe1815"
+    },
+    {
+      "path": "assets/mascots/bird-aqua-small.svg",
+      "bytes": 947,
+      "sha256": "646ffc9b0fea2ffb6ea0c1b05dcad05441962c935de00aadabeaffc59afd2cd2"
+    },
+    {
+      "path": "assets/mascots/bird-aqua-wide.svg",
+      "bytes": 946,
+      "sha256": "4214ff5eb7da0cb426f68bface864aeeea7174dff758ad17280af3a8d30eacd8"
+    },
+    {
+      "path": "assets/mascots/bird-berry-closed.svg",
+      "bytes": 921,
+      "sha256": "e874dacb651a57aa4f11a38be48d756bd77db79bc0c07fb4e3b4561c42db2e0e"
+    },
+    {
+      "path": "assets/mascots/bird-berry-small.svg",
+      "bytes": 947,
+      "sha256": "2b995fbf1195ee5852e005676273691d2f7477076c2aafbd92ee3ef687d7e9dd"
+    },
+    {
+      "path": "assets/mascots/bird-berry-wide.svg",
+      "bytes": 946,
+      "sha256": "2927309424d7e4ac1ba5ca150ffb2910b70be02cfb3ed1a65969121c4d596743"
+    },
+    {
+      "path": "assets/mascots/bird-coral-closed.svg",
+      "bytes": 921,
+      "sha256": "e5204133b843d6a34f18d0da2569bba64183837cc09373dc36277d3a5129a129"
+    },
+    {
+      "path": "assets/mascots/bird-coral-small.svg",
+      "bytes": 947,
+      "sha256": "44056ab842c948b6b1894d608cb63e006f590ce4b9550ef464b54da8c03d0ea6"
+    },
+    {
+      "path": "assets/mascots/bird-coral-wide.svg",
+      "bytes": 946,
+      "sha256": "080e647ecaf0efb4456b97dc8f4d08884bc79c3316c356b1b7968e734d5614e9"
+    },
+    {
+      "path": "assets/mascots/bird-grape-closed.svg",
+      "bytes": 921,
+      "sha256": "a3e0b0ceca5caf98808ae0365109ce650692922acb3d0fbba89884dfa03cd12d"
+    },
+    {
+      "path": "assets/mascots/bird-grape-small.svg",
+      "bytes": 947,
+      "sha256": "7c949036436003ad3851419479a0b0e56cafafc1e3825c5f6394720d3f08328f"
+    },
+    {
+      "path": "assets/mascots/bird-grape-wide.svg",
+      "bytes": 946,
+      "sha256": "26d174c9501f18ef71131d9c7bdf87b5c3f3b484b012d8d201698ee862048f78"
+    },
+    {
+      "path": "assets/mascots/bird-honey-closed.svg",
+      "bytes": 921,
+      "sha256": "cf1c37857d2648a44140adc80866b3e87032298a43516fbcd7297eff792531bf"
+    },
+    {
+      "path": "assets/mascots/bird-honey-small.svg",
+      "bytes": 947,
+      "sha256": "7b79fb4de00c998d8e0cd96e4285ec49b322f965276de6217d92f027c7447725"
+    },
+    {
+      "path": "assets/mascots/bird-honey-wide.svg",
+      "bytes": 946,
+      "sha256": "bb7f262d3c64dd26cbdee7579484cb68e58329122955eac1d7b50a64b1cfb781"
+    },
+    {
+      "path": "assets/mascots/bird-mint-closed.svg",
+      "bytes": 921,
+      "sha256": "de5de2bd297066a2383b31141f48818a11a96f4f6e0fe724aec1719c7c138d84"
+    },
+    {
+      "path": "assets/mascots/bird-mint-small.svg",
+      "bytes": 947,
+      "sha256": "fc83c7f25bd9877a7b5d13ac88f91718a7b1e31f655270752e3ba2cf291e46b6"
+    },
+    {
+      "path": "assets/mascots/bird-mint-wide.svg",
+      "bytes": 946,
+      "sha256": "db08f0e81aed57941417b5ecd21e897888b8de9b5d2e6540694ed7508468c4b4"
+    },
+    {
+      "path": "assets/mascots/block-aqua-closed.svg",
+      "bytes": 808,
+      "sha256": "11d4b22c35481717b831d2f3b601369fc1cd4f5fc2ebf21e88192b3895b4d0ef"
+    },
+    {
+      "path": "assets/mascots/block-aqua-small.svg",
+      "bytes": 816,
+      "sha256": "d45ac5f8c4dac573a9a71f95dfd46430ed1e7eef67f70d79f9bf9e605ce51f6e"
+    },
+    {
+      "path": "assets/mascots/block-aqua-wide.svg",
+      "bytes": 915,
+      "sha256": "2f14cf35a9ec96a4ea7c7245455cf3fb04368dab2d8cea1f13dc1fae0d1c8b09"
+    },
+    {
+      "path": "assets/mascots/block-berry-closed.svg",
+      "bytes": 808,
+      "sha256": "3a8476032a2775a7cd39f9baa9c287f6dec1d1bd80dcaa23fb22b909e2ac2db6"
+    },
+    {
+      "path": "assets/mascots/block-berry-small.svg",
+      "bytes": 816,
+      "sha256": "2d33b96fd70b10ac870a04bbcac5a2ee7ba74604496050825f55fe3a6aea2881"
+    },
+    {
+      "path": "assets/mascots/block-berry-wide.svg",
+      "bytes": 915,
+      "sha256": "ae8412ab6b9122bd4a32a99f2afc73a97a1c4720b2c431dc1182d0ec025e5016"
+    },
+    {
+      "path": "assets/mascots/block-coral-closed.svg",
+      "bytes": 808,
+      "sha256": "8ed06a6d64cfe47c7c5265d2c46ce88940ec6861d2f0be36462b1206e9748596"
+    },
+    {
+      "path": "assets/mascots/block-coral-small.svg",
+      "bytes": 816,
+      "sha256": "d271c4922fc7a60cb645c8d6c60fca21e4c9da05eaa35b136d131ee9af6c925d"
+    },
+    {
+      "path": "assets/mascots/block-coral-wide.svg",
+      "bytes": 915,
+      "sha256": "4b87675ffd6474254e735aae5de387036cb8e11b70c3ac54e818cf7534e35ade"
+    },
+    {
+      "path": "assets/mascots/block-grape-closed.svg",
+      "bytes": 808,
+      "sha256": "6e2dfb6924b9a3d4d44da65413484c444d87fa4fb6c311bc00ccc41cd7e6d348"
+    },
+    {
+      "path": "assets/mascots/block-grape-small.svg",
+      "bytes": 816,
+      "sha256": "472263b926f1ffed83c3d69f10cfe73cf08a5466c3c98d2978865c51fe2aea80"
+    },
+    {
+      "path": "assets/mascots/block-grape-wide.svg",
+      "bytes": 915,
+      "sha256": "6926c46c0679324ea47c5dcef1467025d1c0f1881ad2e3c49f1a334a35307da5"
+    },
+    {
+      "path": "assets/mascots/block-honey-closed.svg",
+      "bytes": 808,
+      "sha256": "3cadb0cb16faefb12eda9fcbe6368ede7bf40286cf85215c8f4a6a4f14baa01a"
+    },
+    {
+      "path": "assets/mascots/block-honey-small.svg",
+      "bytes": 816,
+      "sha256": "22105142f52440d0b1527ddf2c9789c2d7760dbaa702d60b75d19608c1b9a66a"
+    },
+    {
+      "path": "assets/mascots/block-honey-wide.svg",
+      "bytes": 915,
+      "sha256": "5cafcd0c9056147bf486e00b756743fdb23e4b0a638d0067831472a00b26bd80"
+    },
+    {
+      "path": "assets/mascots/block-mint-closed.svg",
+      "bytes": 808,
+      "sha256": "afe3eb3f40f237562d244960c58d72d4c1850614ffef5761b897e05acc078718"
+    },
+    {
+      "path": "assets/mascots/block-mint-small.svg",
+      "bytes": 816,
+      "sha256": "05d23aaa568af16726aaaf1f2d547c4ccdcd827916053b90b90af463ebd95cda"
+    },
+    {
+      "path": "assets/mascots/block-mint-wide.svg",
+      "bytes": 915,
+      "sha256": "60e67db1a31d354409fb23a1b5d7157c74405a437e8cd1e7d2f4d2ae5ec75dd2"
+    },
+    {
+      "path": "assets/mascots/orbit-aqua-closed.svg",
+      "bytes": 923,
+      "sha256": "fd0cca7f773133c00a3c21377af086c485f329423669c31cf3a91f1497f32a91"
+    },
+    {
+      "path": "assets/mascots/orbit-aqua-small.svg",
+      "bytes": 931,
+      "sha256": "0fa48d255d1710629ea2ce708a1e56f375a2158ba5a66ab7511d4a9cda52c6d4"
+    },
+    {
+      "path": "assets/mascots/orbit-aqua-wide.svg",
+      "bytes": 1030,
+      "sha256": "bf6a63749b092aa9846be4e731a73275577d389265aace9627655f43ea33f8e1"
+    },
+    {
+      "path": "assets/mascots/orbit-berry-closed.svg",
+      "bytes": 923,
+      "sha256": "056dde9bad5500b30932133cf20e26cfbaf7c8ad8f8f6c561e6d05911e663388"
+    },
+    {
+      "path": "assets/mascots/orbit-berry-small.svg",
+      "bytes": 931,
+      "sha256": "83fb5c41e18a20680b415bb54c2211f8fd09c0a4d69f17ac5a24d2667fe44a1f"
+    },
+    {
+      "path": "assets/mascots/orbit-berry-wide.svg",
+      "bytes": 1030,
+      "sha256": "660e368b602440e981f532486116d35e75be435ec3226801482583c7bba0188a"
+    },
+    {
+      "path": "assets/mascots/orbit-coral-closed.svg",
+      "bytes": 923,
+      "sha256": "ee5adc04cbc36e76ae21fa50a97adaea0d6400236e626c0a790d33f855747538"
+    },
+    {
+      "path": "assets/mascots/orbit-coral-small.svg",
+      "bytes": 931,
+      "sha256": "7c8d5850c3a68e1393b7e041c89d9270d97f7afc5e300bd611cd4c11d6a680dd"
+    },
+    {
+      "path": "assets/mascots/orbit-coral-wide.svg",
+      "bytes": 1030,
+      "sha256": "8ca2c336d6368b1171799cc7d9f15f65558275c76f7cacdac15a4038c0253d26"
+    },
+    {
+      "path": "assets/mascots/orbit-grape-closed.svg",
+      "bytes": 923,
+      "sha256": "d3805313879eb9320d8e175837e57613c93a4082f5ac5853ddda00cf82514858"
+    },
+    {
+      "path": "assets/mascots/orbit-grape-small.svg",
+      "bytes": 931,
+      "sha256": "1234a890376243be74eba6e54e62315dc3711e538f74dd530bb50825dfc4eacb"
+    },
+    {
+      "path": "assets/mascots/orbit-grape-wide.svg",
+      "bytes": 1030,
+      "sha256": "8c4963c190770567bf464db196eadd7c4b25483e8d54e2cb6022ba8994d2240c"
+    },
+    {
+      "path": "assets/mascots/orbit-honey-closed.svg",
+      "bytes": 923,
+      "sha256": "eb0e2440742d952eb3357ce6d0477aee822bdb79877d9e25c9b0d7e4b0147d5e"
+    },
+    {
+      "path": "assets/mascots/orbit-honey-small.svg",
+      "bytes": 931,
+      "sha256": "c45f0711626d1348838698a440c91b5a2dbd16a8e826edefe1528168a84185fb"
+    },
+    {
+      "path": "assets/mascots/orbit-honey-wide.svg",
+      "bytes": 1030,
+      "sha256": "c1619202b9c900c719cd3c9f2ababf3f0c24e2fc50f98d411bedc14bb9747c33"
+    },
+    {
+      "path": "assets/mascots/orbit-mint-closed.svg",
+      "bytes": 923,
+      "sha256": "e17039e636a97796e81b0e364022769ccbee97a9b9723985146805d399f40fb2"
+    },
+    {
+      "path": "assets/mascots/orbit-mint-small.svg",
+      "bytes": 931,
+      "sha256": "a85ab1f2d3a0f4fe59500e617e02be536073685fb223cb8fd432b2fb85f640a4"
+    },
+    {
+      "path": "assets/mascots/orbit-mint-wide.svg",
+      "bytes": 1030,
+      "sha256": "e49dc0c3c9ad618ba9428880a70eef6b41488de235281eafb84ad379039af5d0"
+    },
+    {
+      "path": "brand/style-lock.json",
+      "bytes": 2235,
+      "sha256": "e53a7e8c266744fe362e30c627899e9eb6de6cd9cecdb616d963f63f3a543409"
+    },
+    {
+      "path": "brand/themes.json",
+      "bytes": 1919,
+      "sha256": "3bea870d7ccabcc29480d72d761e9758daf4a4e4568b907258f4cda9dec680df"
+    },
+    {
+      "path": "docs/INSTALL.md",
+      "bytes": 5397,
+      "sha256": "7279dc90d0b2bcb3b0e4b47c2a83a73680994109f8cd9a96fafe2fc2ca7e4490"
+    },
+    {
+      "path": "docs/INSTALL_PROMPT.md",
+      "bytes": 1160,
+      "sha256": "60b8b1417a7c88eca1244f6fab9e0c5db1c1458f2840ebe211e99a74d5e76b0b"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "bytes": 1337,
+      "sha256": "4bc1c3ed06ec4a2277961241fbf51bb215abfd134b97aa0171919662c1ab3726"
+    },
+    {
+      "path": "docs/WORKFLOW_REVIEW.md",
+      "bytes": 6914,
+      "sha256": "4f80be390a198940e444e9bd3be04f23cf48a751939af91d1aa5321c3961531a"
+    },
+    {
+      "path": "docs/public-templates.png",
+      "bytes": 172877,
+      "sha256": "39c4bcd6770495230599ab2b66172702a1d3283b8f82f9e2cfe4fb1219df5a00"
+    },
+    {
+      "path": "dudu",
+      "bytes": 310,
+      "sha256": "aedec2ab6eeb86031d26b02a81d584e004a16f8d12b148b76e80b558da9a7a41"
+    },
+    {
+      "path": "dudu.cmd",
+      "bytes": 143,
+      "sha256": "0a0b9d1f062d594d452f735cb5774bf5dd0dd279c86bbf773428e55cd72d90a0"
+    },
+    {
+      "path": "dudu.py",
+      "bytes": 622,
+      "sha256": "c297a54e961cbfc3c65a487f61565707c5f633fdc969b534570772b072bec75e"
+    },
+    {
+      "path": "examples/public-templates/README.md",
+      "bytes": 398,
+      "sha256": "f56aa3153264f49ee40c3a2b61b902015b0551e52e8a541aa5d7f4734f21e926"
+    },
+    {
+      "path": "examples/public-templates/aqua.png",
+      "bytes": 55460,
+      "sha256": "49065d17d8de8e4b80137eac196feb0694e297b1145304fccaadc53ffdec9b3f"
+    },
+    {
+      "path": "examples/public-templates/berry.png",
+      "bytes": 56685,
+      "sha256": "619f3a369211d9c940f497679cc318f67b8042d18e9bc81317288951b29a4184"
+    },
+    {
+      "path": "examples/public-templates/coral.png",
+      "bytes": 50043,
+      "sha256": "a47c1f5ba12f761001eafe0cd8f21a7687346d3cf60bd11ee03a73264fe1d7e5"
+    },
+    {
+      "path": "examples/public-templates/grape.mp4",
+      "bytes": 64622,
+      "sha256": "e900cfc7f1c9b4a994c20a860d166340e0d6ea11dbc16f33eeba062a7a5e63ed"
+    },
+    {
+      "path": "examples/public-templates/grape.png",
+      "bytes": 55253,
+      "sha256": "cfc1c972913e4781fb52e6d605bf63164b7e0dc45bfa9b0a47c332cba22a6b7c"
+    },
+    {
+      "path": "examples/public-templates/honey.mp4",
+      "bytes": 72017,
+      "sha256": "047945f3758355906efe117da3c3aabf9ade5dbbe0490ab981ff72b6b35a2690"
+    },
+    {
+      "path": "examples/public-templates/honey.png",
+      "bytes": 56602,
+      "sha256": "0c8220bef3819eb7aaafe7d8dafc8df237d5d40eae4a97521bd44dfb0ae403ba"
+    },
+    {
+      "path": "examples/public-templates/mint.mp4",
+      "bytes": 70214,
+      "sha256": "a50943378e15617e6715a185b052142953dfd325f15b88ad95954b4bf80dab5c"
+    },
+    {
+      "path": "examples/public-templates/mint.png",
+      "bytes": 50274,
+      "sha256": "99aa89fe7e922bafffd18c6bef06f625046f698bc172640efd07030844f6f09d"
+    },
+    {
+      "path": "references/audio-delivery.md",
+      "bytes": 5484,
+      "sha256": "3693512238660e334a41f7495577d07d94bf186c4a59c7d2d85e1a7116252f92"
+    },
+    {
+      "path": "references/audio.md",
+      "bytes": 8612,
+      "sha256": "75e1198d0acb159cd7d0bb03ecec82ed39c86708b955b2744c944bdc6d2401fc"
+    },
+    {
+      "path": "references/motion-and-revisions.md",
+      "bytes": 7502,
+      "sha256": "2a16135af940bfedf7fcdd3994ae7011de88c5fd2c45b8026458174f942a370d"
+    },
+    {
+      "path": "references/production-rules.md",
+      "bytes": 8059,
+      "sha256": "75b79dcedc6bd3ca8a1c74fba7478fdcac83ed32230e92aa19eb30e9f68d61e2"
+    },
+    {
+      "path": "references/renderer-schema.md",
+      "bytes": 6219,
+      "sha256": "cabf56fda8159d40dd413a09a8c99996ffe5eb85f89dec42ef356c86f3e7cbfe"
+    },
+    {
+      "path": "references/themes.md",
+      "bytes": 1842,
+      "sha256": "ea43bea304928cc2c15cac418fcb68798ebeb7e8d9c46e06a11a061c99949c18"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 35,
+      "sha256": "c4ee3ac3fd5f6184adc6e0b01fbfb3161d607cc31214c306d05d9c3cfe3481d3"
+    },
+    {
+      "path": "runtime/index.html",
+      "bytes": 1068,
+      "sha256": "aa870010b5a212dba12a40f22eba440667a9bde2fc52be3233851a88c3aee4c2"
+    },
+    {
+      "path": "runtime/renderer.js",
+      "bytes": 11269,
+      "sha256": "f182c14b17becce101cb34ee7623b88c80f7a04ed419081abe01b8de11ab5d30"
+    },
+    {
+      "path": "runtime/themes.js",
+      "bytes": 1591,
+      "sha256": "179e901de7db573963de0a6dd7ced71ef670a097f3894944251eb0daea80deef"
+    },
+    {
+      "path": "scripts/approval.py",
+      "bytes": 907,
+      "sha256": "556d5c2dafd4d5ebd4533106bce575c756bca12f79b2a5ab0f0948409d1fbb63"
+    },
+    {
+      "path": "scripts/audio_pipeline.py",
+      "bytes": 27817,
+      "sha256": "97f5e44e59b04a3c4a0c07c59b55cb9311536b3de91e2ad8b1b59cee147a47ee"
+    },
+    {
+      "path": "scripts/bootstrap.py",
+      "bytes": 5189,
+      "sha256": "7b1d24bc1f49f0bd1a19918cbcf8c20baf5a94177e4b925f48ddc77304e7ebb2"
+    },
+    {
+      "path": "scripts/build_review.py",
+      "bytes": 11747,
+      "sha256": "6aa2661708b8aeb9fc821923c99b095ac9bedf027072bd70a67b478d615eb583"
+    },
+    {
+      "path": "scripts/build_speech_envelope.py",
+      "bytes": 6550,
+      "sha256": "f8541698e2d86fd20bdda56f84f1cb33e7c6ea204be660329e9f378c634df756"
+    },
+    {
+      "path": "scripts/doctor.py",
+      "bytes": 4400,
+      "sha256": "4462e074e48f03b2805a40864cfccc52234036072885076756c9e1d5721a8ce5"
+    },
+    {
+      "path": "scripts/lib/approval.mjs",
+      "bytes": 1535,
+      "sha256": "df3a2f56f0eae6023fcb5c2bf8bc11e739065a5930cd56d7e689559e69aa16aa"
+    },
+    {
+      "path": "scripts/lib/content-cache.mjs",
+      "bytes": 3104,
+      "sha256": "8c996bc0b9d4895675d048822f9600c2d4825d0b3d0151921c87b1e7b5ab9a96"
+    },
+    {
+      "path": "scripts/lib/tts.mjs",
+      "bytes": 8020,
+      "sha256": "ff15b410a4db0d67a56f883f3f484d122343d39dafbf8e73261eea8b29c40d50"
+    },
+    {
+      "path": "scripts/mux_audio_variants.py",
+      "bytes": 9869,
+      "sha256": "b7d8cdc36f28bbd776b59204a7933a9b8de18355bb35adcc6041ed8df8497716"
+    },
+    {
+      "path": "scripts/plan_partial_render.py",
+      "bytes": 9673,
+      "sha256": "68cd50b69caae0c4ec837195bcbb93e9285f20bb55cc49ee19e11934c3f1f8c9"
+    },
+    {
+      "path": "scripts/render_keyframes.py",
+      "bytes": 2237,
+      "sha256": "2f7b4dd0caa7f295adef767a53fa18f7a39f0659a819242043a98305d6d595e3"
+    },
+    {
+      "path": "scripts/render_video.py",
+      "bytes": 3018,
+      "sha256": "e1a57fe3c0b3edc99c4d6c3dc5e5d46f098f464a11157e8af02267678b9a0563"
+    },
+    {
+      "path": "scripts/runtime_support.py",
+      "bytes": 8596,
+      "sha256": "83bc151a40fd7381c9db7712d8a2b671a83d6cfa75a7d4302db351f5753efc95"
+    },
+    {
+      "path": "scripts/serve_review.py",
+      "bytes": 2672,
+      "sha256": "a4364956cccfca7dd6921fc7e12c1bdf92eb793476ad0e2e3b0d6095f243c072"
+    },
+    {
+      "path": "scripts/sound_design.py",
+      "bytes": 6145,
+      "sha256": "8dd2bbe46075cef11699925dcf831fb82913d2070b4ca56c2724cede13345607"
+    },
+    {
+      "path": "scripts/synthesize.mjs",
+      "bytes": 3393,
+      "sha256": "67deac83de049bcebbc91389042cbfa8e3b94ccf24a9be1fd3a8efaff53934fc"
+    },
+    {
+      "path": "scripts/workflow.py",
+      "bytes": 13448,
+      "sha256": "532c3721ec11403852117a67ff5c01d1111c1f0a960c3fca6f862c9ed327e42e"
+    },
+    {
+      "path": "skills/dudu-talkvideo/SKILL.md",
+      "bytes": 8273,
+      "sha256": "ab5b8ba2bae2c3fd2ce228f0cb7dbe5080c649a425324148601d2fbcc99f526e"
+    },
+    {
+      "path": "skills/dudu-talkvideo/agents/openai.yaml",
+      "bytes": 306,
+      "sha256": "1a5062a1e8e0d33ca9e0cc558d7426f16272255884557e9c80e5fb6e503c3730"
+    },
+    {
+      "path": "skills/dudu-talkvideo/references/commands.md",
+      "bytes": 4999,
+      "sha256": "0ea59337a0726cb64fdf49737b9d01488d71fe00ee768162eea76aceb4c670c2"
+    },
+    {
+      "path": "tests/installation_smoke.py",
+      "bytes": 7012,
+      "sha256": "fd56507af638b63eddb7b44f4537737286ac25ed2f12f2cc9bb6912677bccc71"
+    },
+    {
+      "path": "tests/media_helpers_smoke.py",
+      "bytes": 12135,
+      "sha256": "47e4eae85b7f8f2d5b04bc940f6359970334b8bbd38f289a68978b891a83eb0e"
+    },
+    {
+      "path": "tests/public_assets_check.py",
+      "bytes": 1980,
+      "sha256": "7ded6a4df669da3d15037236e40de9fcdc27727d016750dde3e1faa462a0546b"
+    },
+    {
+      "path": "tests/themes_smoke.py",
+      "bytes": 7016,
+      "sha256": "fdd99c72316879ccba1248b65477a56ed468e6b3058408d3ce5375bbb7867454"
+    },
+    {
+      "path": "workbench/README.md",
+      "bytes": 1109,
+      "sha256": "741194d67d25bbf8465dfbc1ca6599b59b517f2c26b117c912962102cfbe5114"
+    },
+    {
+      "path": "workbench/template.html",
+      "bytes": 155224,
+      "sha256": "182b642ad6d0667c90dc43229e3498de49e76c4f7f3091fd718f6d3d07280496"
+    }
+  ]
+}

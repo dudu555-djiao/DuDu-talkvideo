@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 300" role="img" aria-label="bird small"><ellipse cx="160" cy="263" rx="78" ry="7" fill="#6FE1C7" opacity=".18"/><g stroke="#202C2B" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M141 215 L135 244 L116 244 M196 212 L207 243 L227 243" fill="none"/>
+        <path d="M65 138 L175 52 L246 130 L242 214 L139 233 L77 193Z" fill="#6FE1C7"/>
+        <path d="M65 138 L154 145 L139 233Z" fill="#F2CB6A" stroke="none" opacity=".75"/>
+        <path d="M175 52 L154 145 L242 214" fill="none" stroke="#202C2B" stroke-opacity=".35"/>
+        <path d="M79 153 L126 178 L82 193" fill="#244749"/>
+        <path d="M242 132 L279 139 L245 149 M245 155 L278 165 L242 168Z" fill="#F2CB6A"/><circle cx="195" cy="125" r="7" fill="#202C2B"/>
+        <path d="M214 106 L226 109" fill="none"/>
+        <path d="M168 176 Q179 183 187 173" fill="none" stroke-width="4"/></g></svg>
