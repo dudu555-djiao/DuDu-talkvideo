@@ -14,7 +14,7 @@ def main():
     assert json.loads(runtime.removeprefix('window.PUBLIC_THEMES=').strip().removesuffix(';'))==themes
     default=json.loads((ROOT/'brand/style-lock.json').read_text())
     assert default['theme']=='mint' and default['mascot']=='block'
-    assert default['version']=='1.4.0'
+    assert default['version']=='1.5.0'
     expected={f'{kind}-{theme}-{state}.svg' for kind in ['block','bird','orbit'] for theme in themes for state in ['closed','small','wide']}
     actual={p.name for p in (ROOT/'assets/mascots').glob('*.svg')}
     assert actual==expected,(actual-expected,expected-actual)

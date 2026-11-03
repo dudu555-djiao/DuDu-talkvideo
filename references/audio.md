@@ -28,7 +28,7 @@ python3 scripts/audio_pipeline.py --project episodes/本期
 python3 scripts/audio_pipeline.py --project episodes/本期 --check-only
 ```
 
-默认新增开头 0.2 秒、结尾 0.6 秒；只有补零和整帧向上取整，没有删除原声。后处理目标 48 kHz、双声道、约 -16 LUFS，真峰值目标不高于 -1.5 dBTP；实际测量保存到 `audio/audio-checks.json`。正式视频默认启用通用轻背景乐与稀疏动作音效。默认参数由brand/style-lock.json.audio.soundtrack提供，new命令会复制到本期audio-request.json；本期可覆盖。
+默认新增开头 0.2 秒、结尾 0.6 秒；只有补零和整帧向上取整，没有删除原声。后处理目标 48 kHz、双声道、约 -16 LUFS，真峰值目标不高于 -1.5 dBTP；实际测量保存到 `audio/audio-checks.json`。新一期默认仅旁白，背景音乐和音效关闭；需要时按本期要求显式开启。默认参数由brand/style-lock.json.audio.soundtrack提供，new命令会复制到本期audio-request.json；本期可覆盖。
 
 ### 本机依赖
 
@@ -72,11 +72,11 @@ SRT 必须完整覆盖文案且每个语义镜头边界也是 SRT 边界。导�
 ```json
 {
   "soundtrack": {
-    "music": true,
+    "music": false,
     "bpm": 96,
     "musicRMS": 0.018,
-    "sfx": true,
-    "cuePolicy": "semantic"
+    "sfx": false,
+    "cuePolicy": "none"
   }
 }
 ```
@@ -87,7 +87,7 @@ SRT 必须完整覆盖文案且每个语义镜头边界也是 SRT 边界。导�
 
 ### 音效跟随画面
 
-默认按本期分镜选少量事件：纸条/媒体入场对应paper，具有真实时间锚点的圈注/核对对应tick，明确aha/灵感才对应idea。并非每个镜头都加音效，更不跟着嘴形逐次加声。为某镜头写明计划时，使用该镜头的soundCues，例如：
+默认不生成音效。只有明确启用sfx并采用cuePolicy=semantic时，才按本期分镜选少量事件：纸条/媒体入场对应paper，具有真实时间锚点的圈注/核对对应tick，明确aha/灵感才对应idea。并非每个镜头都加音效，更不跟着嘴形逐次加声。为某镜头写明计划时，使用该镜头的soundCues，例如：
 
 ```json
 "soundCues": [{"kind":"tick", "anchor":"待确认"}]

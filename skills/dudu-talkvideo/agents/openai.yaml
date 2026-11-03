@@ -1,4 +1,4 @@
 interface:
   display_name: "DuDu-talkvideo"
-  short_description: "通用几何IP视频制作，先审语义分镜，再看真实关键帧，保留增强工作台"
-  default_prompt: "使用 $dudu-talkvideo，把我提供的文案制作成默认薄荷绿小方块视频，先给我语义分镜HTML审查。"
+  short_description: "通用主题视频，先确认IP或真人，再审分镜与真实关键帧"
+  default_prompt: "使用 $dudu-talkvideo，把我提供的文案制作成所选通用主题视频，先确认本期IP小人物或真人出镜，再给我包含运镜与声音意图的语义分镜HTML。"

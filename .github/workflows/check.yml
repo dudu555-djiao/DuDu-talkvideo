@@ -35,3 +35,9 @@ jobs:
         run: |
           python tests/themes_smoke.py
           python tests/public_assets_check.py
+
+      - name: Presenter intake and project-local feedback storage
+        run: |
+          python tests/workflow_intake_test.py
+          python workbench/tests/test_cli.py
+          python workbench/tests/test_feedback_store.py

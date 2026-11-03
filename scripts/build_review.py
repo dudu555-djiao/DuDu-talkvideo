@@ -96,6 +96,8 @@ def build(project, stage):
     raw = (project / 'storyboard.json').read_bytes()
     source_sha = digest(raw)
     source = json.loads(raw)
+    from presenter import require_presenter
+    require_presenter(project, source)
     if not source.get('projectId') or not source.get('title') or not source.get('version'):
         raise ValueError('storyboard.json 需要 projectId、title、version。')
     shots = source.get('shots')
@@ -104,6 +106,8 @@ def build(project, stage):
     if stage == 'keyframes':
         require_approval(project)
     sidecar = load_sidecar(project, source_sha) if stage == 'keyframes' else {}
+    media_file = project / 'review-media.json'
+    media_options = json.loads(media_file.read_text()) if media_file.exists() else {}
     ids = [s.get('id') for s in shots]
     if any(not isinstance(x, str) or not re.fullmatch(r'[\w.-]+', x) for x in ids) or len(set(ids)) != len(ids):
         raise ValueError('镜头 id 须唯一，仅使用文字、数字、下划线、点或短横线。')
@@ -115,6 +119,9 @@ def build(project, stage):
     for number, shot in enumerate(shots, 1):
         sid = shot['id']
         frame_row = sidecar.get(sid, {})
+        # User-authorized revisions live beside rendered timing; keep the approved source intact.
+        presentation = frame_row.get('reviewPresentation', {})
+        shot = {**shot, **presentation}
         timing = frame_row if stage == 'keyframes' else shot
         start = finite_number(timing.get('start', shot.get('start', cursor)), f'{sid}.start')
         duration = finite_number(shot.get('estimatedDuration', 4), f'{sid}.estimatedDuration')
@@ -141,7 +148,7 @@ def build(project, stage):
                     raise ValueError(f'{sid} 关键帧全局时间 {time} 不在镜头范围 {start}—{end}。')
                 frames.append({'id': f'{sid}-{index:02d}-{ref["sha256"][:8]}', 'localFrame': round((time-start)*fps), 'globalFrame': round(time*fps), 'timeSeconds': time, 'image': ref, 'thumbnail': ref, 'label': frame.get('label', '实际渲染关键帧')})
             frames.sort(key=lambda f: f['timeSeconds'])
-        semantic = {'visual': visual, 'ip': ip, 'assets': visual_assets, 'screenText': shot.get('screenText', ''), 'reviewNotes': (shot.get('review') or {}).get('notes', '')}
+        semantic = {'visual': visual, 'ip': ip, 'presenterMode': source.get('presenterMode'), 'cameraPlan': shot.get('cameraPlan', {}), 'soundPlan': shot.get('soundPlan', ''), 'assets': visual_assets, 'screenText': shot.get('screenText', ''), 'reviewNotes': (shot.get('review') or {}).get('notes', '')}
         semantic_identity = stable({'projectId': source['projectId'], 'version': source['version'], 'shot': {k:v for k,v in shot.items() if k not in ('keyframes', 'review')}})
         frame_identity = stable({'semantic': semantic_identity, 'frames': [(f['timeSeconds'], f['image']['sha256']) for f in frames]})
         items = {}
@@ -150,7 +157,10 @@ def build(project, stage):
             item = {'rowId': 'scene-review-' + identity[:20], 'episodeKey': source['projectId'], 'stableId': sid, 'view': {'suggestion':'segment-direction','keyframes':'segment-frames','video':'segment-video'}[mode], 'itemId': 'scene', 'identity': identity, 'approvalScope': scope, 'artifact': {'available': mode == 'suggestion' or bool(frames), 'kind': scope, 'frameCount': len(frames), 'frameSetSha256': frame_identity if frames else None}, 'context': {'narration': shot.get('narration',''), 'startSeconds': start, 'endSeconds': end, 'timelineFps': fps}}
             items[mode] = item
             metadata.append(item)
-        scenes.append({'stableId': sid, 'number': number, 'title': shot.get('title') or shot.get('purpose') or sid, 'narration': shot.get('narration',''), 'startSeconds': start, 'endSeconds': end, 'startFrame': round(start*fps), 'durationInFrames': round((end-start)*fps), 'frames': frames, 'candidates': [], 'videos': [], 'sourceSceneIds': [sid], 'plan': {'enter':'','change':'','read':'','exit':'','handoff':''}, 'component': visual.get('type', ''), 'reason': shot.get('purpose',''), 'replacement': visual.get('focus',''), 'reviewItems': items, 'semantic': semantic})
+        previews = []
+        for preview in media_options.get('segments', {}).get(sid, []):
+            previews.append({**preview, 'media': media(project, preview.get('path'), True)})
+        scenes.append({'stableId': sid, 'number': number, 'title': shot.get('title') or shot.get('purpose') or sid, 'narration': shot.get('narration',''), 'startSeconds': start, 'endSeconds': end, 'startFrame': round(start*fps), 'durationInFrames': round((end-start)*fps), 'frames': frames, 'candidates': [], 'videos': previews, 'sourceSceneIds': [sid], 'plan': {'enter':'','change':'','read':'','exit':'','handoff':''}, 'component': visual.get('type', ''), 'reason': shot.get('purpose',''), 'replacement': visual.get('focus',''), 'reviewItems': items, 'semantic': semantic})
     review = project / 'review'
     review.mkdir(exist_ok=True)
     old = review / 'index.html'
@@ -159,13 +169,11 @@ def build(project, stage):
         before = old.read_bytes()
         archive = 'history-' + digest(before)[:16] + '.html'
         (review / archive).write_bytes(before)
-    media_file = project / 'review-media.json'
-    media_options = json.loads(media_file.read_text()) if media_file.exists() else {}
     audio_path = media_options.get('audio', source.get('audio'))
     if not audio_path and (project/'audio/mix.wav').is_file():
         audio_path = 'audio/mix.wav'
     master_path = media_options.get('master', media_options.get('video'))
-    if not master_path and (project/'out/final.mp4').is_file():
+    if not master_path and 'master' not in media_options and 'video' not in media_options and (project/'out/final.mp4').is_file():
         master_path = 'out/final.mp4'
     if isinstance(master_path, dict):
         master_path = master_path.get('path')
@@ -173,6 +181,11 @@ def build(project, stage):
     if isinstance(audio_path, dict):
         audio_path = audio_path.get('path')
     data = {'schemaVersion': 1, 'episodeKey': source['projectId'], 'storageKey': 'dudu-talkvideo-review:' + source['projectId'], 'title': source['title'], 'revision': source['version'], 'fps': fps, 'durationSeconds': cursor, 'audio': media(project, audio_path), 'master': master, 'scenes': scenes, 'metadata': metadata, 'historyRecords': [], 'legacyPage': {'url': archive} if archive else None, 'initialView': 'suggestion' if stage == 'semantic' else 'keyframes', 'availableModes': ['suggestion'] if stage == 'semantic' else ['suggestion','keyframes'] + (['video'] if master else []), 'stage': stage, 'timingKind': 'estimated' if stage == 'semantic' else 'rendered', 'storyboardSha256': source_sha, 'frameEditor': None}
+    data['reviewNote'] = str(media_options.get('note', ''))
+    if media_options.get('revision'):
+        data['revision'] = str(media_options['revision'])
+    if media_options.get('initialView') in data['availableModes']:
+        data['initialView'] = media_options['initialView']
     if master:
         for scene in scenes:
             video = scene['reviewItems']['video']
@@ -180,6 +193,7 @@ def build(project, stage):
             video['rowId'] = 'scene-review-' + video['identity'][:20]
             video['artifact'].update({'available': True, 'sourceVideoSha256': master['sha256']})
     template = (ROOT / 'workbench/template.html').read_text()
+    shutil.copy2(ROOT / 'workbench/project-feedback.js', review / 'project-feedback.js')
     encoded = json.dumps(data, ensure_ascii=False).replace('<','\\u003c').replace('>','\\u003e').replace('&','\\u0026')
     if template.count('__WORKBENCH_DATA__') != 1:
         raise ValueError('工作台模板数据标记异常。')

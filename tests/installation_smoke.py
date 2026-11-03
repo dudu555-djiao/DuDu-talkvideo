@@ -36,8 +36,9 @@ def main():
         script.write_text('先看实际结果。\n再把重点讲清楚。', encoding='utf-8')
         call('new', '--script', script, '--title', '安装验证', '--out', episode)
         soundtrack = json.loads((episode / 'audio-request.json').read_text(encoding='utf-8'))['soundtrack']
-        assert soundtrack['music'] and soundtrack['sfx']
-        report['defaultSoundtrackEnabled'] = True
+        assert not soundtrack['music'] and not soundtrack['sfx'] and soundtrack['cuePolicy']=='none'
+        report['defaultSoundtrackEnabled'] = False
+        call('presenter', episode, '--mode', 'ip', '--quote', 'QA ONLY: generic mascot', '--evidence', 'synthetic installation fixture')
         board = json.loads((episode / 'storyboard.json').read_text(encoding='utf-8'))
         board['shots'] = [
             {'id': 'S01', 'narration': '先看实际结果。', 'purpose': '离线安装测试的纸条场景',
@@ -50,6 +51,8 @@ def main():
              'screenText': '把重点讲清楚', 'estimatedDuration': 1.5,
              'ip': {'mode': 'corner', 'emotion': 'explaining', 'emphasis': [{'anchor': '重点'}]},
              'render': {'type': 'chapter', 'title': '把重点讲清楚', 'number': '02'}}]
+        for shot in board['shots']:
+            shot['cameraPlan']={'subject':'generic mascot and test text','framing':'wide','movement':'restrained emphasis','reason':'synthetic runtime validation'}
         board_path = episode / 'storyboard.json'
         board_path.write_text(json.dumps(board, ensure_ascii=False, indent=2), encoding='utf-8')
         semantic_sha = hashlib.sha256(board_path.read_bytes()).hexdigest()
@@ -106,7 +109,8 @@ def main():
         info = json.loads((episode / 'qa/final-checks.json').read_text(encoding='utf-8'))
         assert info['passed'] and int(info['frames']) == 90
         sound = json.loads((episode / 'audio/soundtrack.json').read_text(encoding='utf-8'))
-        assert sound['resolved']['music'] and sound['resolved']['sfx']
+        assert not sound['resolved']['music'] and not sound['resolved']['sfx']
+        assert sound['cues']==[]
         report.update(actualKeyframes='passed', reviewHtml='passed', videoRender='passed',
                       completeDecode='passed', frames=90, duration=3, semanticSourceUnchanged=True,
                       narrationUnchanged=True, passed=True)

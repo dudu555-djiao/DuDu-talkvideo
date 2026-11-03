@@ -1,15 +1,18 @@
 # 项目执行
 
-项目根为完整仓库目录。Windows或跨平台可用 `python dudu.py` 替代 `./dudu`。下例 `./dudu` 自动选择带依赖的Python；也可用配置好的Python执行 `scripts/workflow.py`。`EPISODE` 均替换为该期的实际路径。
+项目根是完整仓库目录。下例 `python dudu.py` 或 `./dudu` 自动选择本项目Python；也可用配置好的Python执行 `scripts/workflow.py`。`EPISODE` 均替换为该期的实际路径。
 
 ```sh
 ./dudu doctor
 ./dudu new --script /实际文案.txt --title 本期标题
+# 先取得本期用户选择，原话/出处替换为真实消息；mode 可选 ip 或 real
+./dudu presenter EPISODE --mode real --quote '本期用真人出镜' --evidence '本期用户消息标识'
 ./dudu semantic EPISODE
 ./dudu serve EPISODE --port 8866
 ```
 
-`new` 自动建立启用轻背景乐和稀疏动作音效的 `audio-request.json`，并保存 `input/original.txt` 与工作稿 `input/script.txt`，不自动把分句当成已完成分镜。助手填写 `storyboard.json` 后 `semantic` 生成 `review/index.html`。在Codex浏览器打开终端给出的 localhost 地址。相同项目保持固定端口/浏览器以保留本地意见，外部浏览器访问不同origin不共享意见。
+`new` 自动建立待确认的 `presenter-request.json` 与声音配置，保存 `input/original.txt` 与工作稿 `input/script.txt`，不自动把分句当成已完成分镜。先问清IP或真人，用 `presenter` 记录本期真实选择，再按模式填写分镜；未确认不能运行semantic。真人镜头须 `ip.mode=hidden`，不使用ip-scene。每镜cameraPlan写主体、景别/构图、运动及依据，soundPlan写声音意图。`semantic` 生成原三栏 `review/index.html`。浏览器操作按项目当前模型要求执行。`serve` 提供项目意见自动保存API；优先沿用原端口/浏览器，旧记录初次迁移后其他浏览器可从项目恢复。浏览器本身的localStorage/IndexedDB仍各自独立。
+
 
 收到用户对本版语义分镜的真实同意后才记录（以下是命令格式，不是已有授权）：
 
@@ -33,6 +36,7 @@
   "projectId": "new命令生成的稳定ID",
   "title": "本期标题",
   "version": 1,
+  "presenterMode": "ip",
   "shots": [{
     "id": "s01",
     "narration": "本镜头对应的完整旁白。",
@@ -46,6 +50,8 @@
     "screenText": "缺信息，标待确认",
     "estimatedDuration": 5,
     "ip": {"mode":"corner","emotion":"explaining","emphasis":[{"anchor":"待确认"}]},
+    "cameraPlan": {"subject":"真实结果与角落通用 IP","framing":"左右对照；IP不挡结果","movement":"先全貌再聚焦待确认单元格","reason":"让观众看清缺项及填写依据"},
+    "soundPlan": "聚焦保持安静；核对动作可考虑本地轻点，获批后试听选定",
     "render": {"type":"prompt-media","prompt":"输入内容","media":{"src":"assets/result.png","kind":"image","label":"实际结果"}},
     "soundCues": [{"kind":"tick","anchor":"完整旁白"}],
     "review": {"status":"pending","notes":""}
@@ -61,7 +67,7 @@
 
 ## 新对话恢复
 
-先读每期 `PROJECT_STATE.md`、`storyboard.json`、`approvals/semantic.json` 与现有意见导出；确认当前版本再继续。不要因为换对话丢失审批，也不要把早期样片的审批泛化到新稿。
+先读每期 `PROJECT_STATE.md`、`storyboard.json`、`approvals/semantic.json` 与 `feedback/latest.json`，按附件路径直接读取原始文件，并检查有无 `feedback/conflicts/`；旧版未同步时再读现有意见导出。确认当前版本再继续。不要因为换对话丢失审批，也不要把早期样片的审批泛化到新稿。
 
 ## 局部返修与声音版本
 

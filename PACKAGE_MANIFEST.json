@@ -1,7 +1,7 @@
 {
   "name": "DuDu-talkvideo",
-  "version": "1.4.0",
-  "scope": "Public generic geometric mascots, source, docs and silent template demos",
+  "version": "1.5.0",
+  "scope": "Public generic themes, workflow code and documentation; no private character, recordings or feedback",
   "files": [
     {
       "path": ".env.example",
@@ -10,18 +10,18 @@
     },
     {
       "path": ".github/workflows/check.yml",
-      "bytes": 1035,
-      "sha256": "c450cec20d69fd80cc4d4a09e347fd0d44a8c88ad936c8a812cfe01d8022c6e0"
+      "bytes": 1265,
+      "sha256": "41ee68476368417bfbbce552a5c6c5d93f62ef047488e0618a335f0b2757dd82"
     },
     {
       "path": ".gitignore",
-      "bytes": 353,
-      "sha256": "e4431c7a8a6e4357d5e31eb3b2abadd420fd929bf911578ddbae4fca3edd2d6f"
+      "bytes": 449,
+      "sha256": "903f7539840b8b03980b8d5d15d441d9431b372b6534e3efef88ea46aa5e949c"
     },
     {
       "path": "AGENTS.md",
-      "bytes": 1321,
-      "sha256": "948b93cb2874e9789ed2056faf6b396a45a2eed9fa0a1d4edbd3a37986c3d87f"
+      "bytes": 1720,
+      "sha256": "c6aa31bb980a78b343d200220266e1867dfe7e67796257d51d2b3f81c61a54bb"
     },
     {
       "path": "LICENSE",
@@ -30,13 +30,13 @@
     },
     {
       "path": "PROJECT_STATE.md",
-      "bytes": 3597,
-      "sha256": "7c215d6fdc72c0109525f8de879450cd8e6787116230e3b82c03e58bf2676fd5"
+      "bytes": 4076,
+      "sha256": "d5590b64d21c618d45b1832c8fcb7f851ac6fc6a028dbce737a9aa783809db68"
     },
     {
       "path": "README.md",
-      "bytes": 11671,
-      "sha256": "378443ffd0b6ad786a378ad560cfb648bcf64b241bdb6346151f8ede6dab22ee"
+      "bytes": 12669,
+      "sha256": "0393745763387ecc3a8bffcb2bb492a4fff576707cc1cbd0286a80cddafadd17"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -355,8 +355,8 @@
     },
     {
       "path": "brand/style-lock.json",
-      "bytes": 2235,
-      "sha256": "e53a7e8c266744fe362e30c627899e9eb6de6cd9cecdb616d963f63f3a543409"
+      "bytes": 2473,
+      "sha256": "8ce6b2627030324c86193c010fbc20446158e9db6c419af0f78bd3fd1a8e01af"
     },
     {
       "path": "brand/themes.json",
@@ -375,8 +375,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 1337,
-      "sha256": "4bc1c3ed06ec4a2277961241fbf51bb215abfd134b97aa0171919662c1ab3726"
+      "bytes": 2099,
+      "sha256": "abdb82aa5b80e88dbf959b4f843b9959ca578fe7fa585fc1f5d3f6cf6ec07c34"
     },
     {
       "path": "docs/WORKFLOW_REVIEW.md",
@@ -455,23 +455,28 @@
     },
     {
       "path": "references/audio-delivery.md",
-      "bytes": 5484,
-      "sha256": "3693512238660e334a41f7495577d07d94bf186c4a59c7d2d85e1a7116252f92"
+      "bytes": 5530,
+      "sha256": "1d65e9c18e1c4743b7749d7fc0a4cdc93ffea23d0ad2eb338915af185aa214c1"
     },
     {
       "path": "references/audio.md",
-      "bytes": 8612,
-      "sha256": "75e1198d0acb159cd7d0bb03ecec82ed39c86708b955b2744c944bdc6d2401fc"
+      "bytes": 8715,
+      "sha256": "013eee37e864772e9fc14f4c19594e17c56b0d7984fc933577cbc5922680d94f"
     },
     {
       "path": "references/motion-and-revisions.md",
-      "bytes": 7502,
-      "sha256": "2a16135af940bfedf7fcdd3994ae7011de88c5fd2c45b8026458174f942a370d"
+      "bytes": 7886,
+      "sha256": "26002c44af37ef3eb90e876da8bcd8c7abf3562c35f6cc71c5ee0f4584966442"
+    },
+    {
+      "path": "references/presenter-and-camera.md",
+      "bytes": 2964,
+      "sha256": "3a460c000c244a473ebdb6ce46ce99bbb800b04f57b2f2a4dfd3cab2ba1f32cd"
     },
     {
       "path": "references/production-rules.md",
-      "bytes": 8059,
-      "sha256": "75b79dcedc6bd3ca8a1c74fba7478fdcac83ed32230e92aa19eb30e9f68d61e2"
+      "bytes": 8042,
+      "sha256": "e6c504daf0edb61301e6a8b9b99798c5e6265a04aabb7937367cf35291c07c21"
     },
     {
       "path": "references/renderer-schema.md",
@@ -505,13 +510,13 @@
     },
     {
       "path": "scripts/approval.py",
-      "bytes": 907,
-      "sha256": "556d5c2dafd4d5ebd4533106bce575c756bca12f79b2a5ab0f0948409d1fbb63"
+      "bytes": 1007,
+      "sha256": "89e5dce82d881b1c3df763da69b415a6aa8aa6cebedec5b6dbde63b9f9ef0547"
     },
     {
       "path": "scripts/audio_pipeline.py",
-      "bytes": 27817,
-      "sha256": "97f5e44e59b04a3c4a0c07c59b55cb9311536b3de91e2ad8b1b59cee147a47ee"
+      "bytes": 27818,
+      "sha256": "4bc0ab159b4fcd6b8aeec64ddf815d87a59d21ddd03257c66b91b46a8f2ca4e5"
     },
     {
       "path": "scripts/bootstrap.py",
@@ -520,8 +525,8 @@
     },
     {
       "path": "scripts/build_review.py",
-      "bytes": 11747,
-      "sha256": "6aa2661708b8aeb9fc821923c99b095ac9bedf027072bd70a67b478d615eb583"
+      "bytes": 12789,
+      "sha256": "ecdaa482ec416fc5c88783b8f9415e9324000079d1d0b2507df87bc8effc2ae7"
     },
     {
       "path": "scripts/build_speech_envelope.py",
@@ -532,6 +537,11 @@
       "path": "scripts/doctor.py",
       "bytes": 4400,
       "sha256": "4462e074e48f03b2805a40864cfccc52234036072885076756c9e1d5721a8ce5"
+    },
+    {
+      "path": "scripts/feedback_store.py",
+      "bytes": 8835,
+      "sha256": "a7fb4afd3997d88b78d2b05dcc88d69e46d83e1e5fd8aef1bf323174d7ec51b5"
     },
     {
       "path": "scripts/lib/approval.mjs",
@@ -559,6 +569,11 @@
       "sha256": "68cd50b69caae0c4ec837195bcbb93e9285f20bb55cc49ee19e11934c3f1f8c9"
     },
     {
+      "path": "scripts/presenter.py",
+      "bytes": 1938,
+      "sha256": "33a0b33f7686105e1da68c1cbba07f333f6b3d807858652271569c05c7fb6b26"
+    },
+    {
       "path": "scripts/render_keyframes.py",
       "bytes": 2237,
       "sha256": "2f7b4dd0caa7f295adef767a53fa18f7a39f0659a819242043a98305d6d595e3"
@@ -575,13 +590,13 @@
     },
     {
       "path": "scripts/serve_review.py",
-      "bytes": 2672,
-      "sha256": "a4364956cccfca7dd6921fc7e12c1bdf92eb793476ad0e2e3b0d6095f243c072"
+      "bytes": 6386,
+      "sha256": "e03ecc18318082e0f02c7135282c36fc35859482e730503676938b625857cde7"
     },
     {
       "path": "scripts/sound_design.py",
-      "bytes": 6145,
-      "sha256": "8dd2bbe46075cef11699925dcf831fb82913d2070b4ca56c2724cede13345607"
+      "bytes": 6143,
+      "sha256": "01395d272a800847307283947d3c21b6b928ae1d78b0a71a3f797364cefa174b"
     },
     {
       "path": "scripts/synthesize.mjs",
@@ -590,28 +605,28 @@
     },
     {
       "path": "scripts/workflow.py",
-      "bytes": 13448,
-      "sha256": "532c3721ec11403852117a67ff5c01d1111c1f0a960c3fca6f862c9ed327e42e"
+      "bytes": 15075,
+      "sha256": "21fc1af0c5de6342807550fdd27574bf2e4b964a54c5de8b1b1b2a136c0876b0"
     },
     {
       "path": "skills/dudu-talkvideo/SKILL.md",
-      "bytes": 8273,
-      "sha256": "ab5b8ba2bae2c3fd2ce228f0cb7dbe5080c649a425324148601d2fbcc99f526e"
+      "bytes": 9861,
+      "sha256": "103ead54b4b745172d64527e4f5a418344930ac4682bd97a82609404ebc39ebb"
     },
     {
       "path": "skills/dudu-talkvideo/agents/openai.yaml",
-      "bytes": 306,
-      "sha256": "1a5062a1e8e0d33ca9e0cc558d7426f16272255884557e9c80e5fb6e503c3730"
+      "bytes": 347,
+      "sha256": "6987a15e4bdf2b53b9554f9d87adad27384704d3b82ae4f01cf663185d83ad17"
     },
     {
       "path": "skills/dudu-talkvideo/references/commands.md",
-      "bytes": 4999,
-      "sha256": "0ea59337a0726cb64fdf49737b9d01488d71fe00ee768162eea76aceb4c670c2"
+      "bytes": 5921,
+      "sha256": "7cd92d202f080c4b1b5d35e1f55eccb4f82a9d81c1a8427206f20b4cf2c7d0aa"
     },
     {
       "path": "tests/installation_smoke.py",
-      "bytes": 7012,
-      "sha256": "fd56507af638b63eddb7b44f4537737286ac25ed2f12f2cc9bb6912677bccc71"
+      "bytes": 7435,
+      "sha256": "209b7184e3be9164defdcd04f99eb101944a290481c477a02dad0249570d86bf"
     },
     {
       "path": "tests/media_helpers_smoke.py",
@@ -621,7 +636,7 @@
     {
       "path": "tests/public_assets_check.py",
       "bytes": 1980,
-      "sha256": "7ded6a4df669da3d15037236e40de9fcdc27727d016750dde3e1faa462a0546b"
+      "sha256": "5722b375c0eb3bf5469537b53784116edd790420374e14f97982d6ff0626cf87"
     },
     {
       "path": "tests/themes_smoke.py",
@@ -629,14 +644,34 @@
       "sha256": "fdd99c72316879ccba1248b65477a56ed468e6b3058408d3ce5375bbb7867454"
     },
     {
+      "path": "tests/workflow_intake_test.py",
+      "bytes": 5871,
+      "sha256": "3892f5baabd17b5662874ecfcda8b15f60ab1c9242cb590a8c11e7f7a3def3b3"
+    },
+    {
       "path": "workbench/README.md",
-      "bytes": 1109,
-      "sha256": "741194d67d25bbf8465dfbc1ca6599b59b517f2c26b117c912962102cfbe5114"
+      "bytes": 2996,
+      "sha256": "5ab6637d6eff901ab500e89506cd1bc514f9e1794dd900c347093bbf2cf685b0"
+    },
+    {
+      "path": "workbench/project-feedback.js",
+      "bytes": 9173,
+      "sha256": "b95b1bd17ee0d5d2d1d0534e9dd6794bc2d6a416cb103dd7cad3476f942d79bc"
     },
     {
       "path": "workbench/template.html",
-      "bytes": 155224,
-      "sha256": "182b642ad6d0667c90dc43229e3498de49e76c4f7f3091fd718f6d3d07280496"
+      "bytes": 157482,
+      "sha256": "cbcc9dc15179995bbd02ebd550b46b3af4e16e0f2dabe80da788e6bf19c06d6f"
+    },
+    {
+      "path": "workbench/tests/test_cli.py",
+      "bytes": 2554,
+      "sha256": "0c61a75e16e41ea3cdd43913228298d6f2f7f9c76240f6509d3025ba3910baa5"
+    },
+    {
+      "path": "workbench/tests/test_feedback_store.py",
+      "bytes": 7944,
+      "sha256": "81a37a3931d1c0432604e3927e96273dd08e77588bedf668f0919d36734f512e"
     }
   ]
 }

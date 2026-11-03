@@ -648,16 +648,16 @@
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.WorkbenchAttachments = api;
 })(typeof window === 'undefined' ? globalThis : window);
-</script><script>
+</script><script src="project-feedback.js"></script><script>
 (() => {
 'use strict';
 const data=JSON.parse(document.querySelector('#workbench-data').textContent), key=data.storageKey;
 const WorkbenchAttachments=window.WorkbenchAttachments;
 const $=s=>document.querySelector(s), el=(tag,cls,text)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x};
 document.title=data.title+' · DuDu-talkvideo';
-const stageLabel=data.stage==='semantic'?'语义分镜 · 等待用户审查':'关键帧分镜 · 静态画面审查';
+const stageLabel=data.stage==='semantic'?'语义分镜 · 等待用户审查':data.master?'完整视频 · 成片与逐镜审看':'关键帧分镜 · 静态画面审查';
 if(data.stage==='semantic')$('.wb-hint').textContent='先审语义分镜 · 用户同意后生成关键帧';
-$('#stage-notice').textContent=stageLabel+'。意见与采用标记不自动等于流程批准；批准需记录用户明确同意。';
+$('#stage-notice').textContent=stageLabel+'。意见与采用标记不自动等于流程批准；批准需记录用户明确同意。'+(data.reviewNote?' '+data.reviewNote:'');
 for(const b of document.querySelectorAll('[data-mode]')){b.disabled=!(data.availableModes||['suggestion']).includes(b.dataset.mode);}
 const friendly=v=>({corner:'左下角讲述',host:'主讲人物',full:'大人物情境',none:'不出镜',normal:'普通讲述',neutral:'自然',excited:'激动',aha:'灵光一现',thinking:'思考',image:'图片',video:'视频',screenshot:'截图',recording:'录屏',keyframe:'关键帧',document:'文档',ready:'已准备',missing:'待补充',pending:'待确认'}[v]||v);
 const explain=v=>Array.isArray(v)?v.map(explain).join('；'):v&&typeof v==='object'?Object.entries(v).map(([k,x])=>`${k}：${explain(x)}`).join('，'):friendly(String(v??''));
@@ -691,7 +691,7 @@ const copy=x=>x==null?x:JSON.parse(JSON.stringify(x));
 function editState(store=read()){return store.workbench||(store.workbench={schemaVersion:1,deleted:{},journal:[]})}
 function sceneIdentity(scene){return scene.reviewItems.keyframes.identity}
 function isDeleted(scene){const d=editState().deleted[scene.stableId];return !!d&&d.identity===sceneIdentity(scene)}
-function writeStore(store){cachedStore=store;try{localStorage.setItem(key,JSON.stringify(store));volatileStore=null;message('已保存到当前浏览器')}catch{volatileStore=store;message('浏览器容量不足，修改仍在当前页；请导出完整备份。',true)}updateUndoButtons();return !volatileStore}
+function writeStore(store){cachedStore=store;try{localStorage.setItem(key,JSON.stringify(store));volatileStore=null;message('已保存到当前浏览器')}catch{volatileStore=store;message('浏览器容量不足，修改仍在当前页；请导出完整备份。',true)}updateUndoButtons();document.dispatchEvent(new Event('workbench-persist'));return !volatileStore}
 function comparable(r){return JSON.stringify({choice:r?.choice||'',note:r?.note||'',content:r?.content||[],selectedRoute:r?.selectedRoute||'',candidateId:r?.candidateId||''})}
 function addEdit(store,entry){const wb=editState(store),now=new Date().toISOString(),last=wb.journal.at(-1);if(entry.kind==='typing'&&last?.kind==='typing'&&!last.undoneAt&&last.recordKey===entry.recordKey&&Date.parse(now)-Date.parse(last.updatedAt)<1200){last.after=copy(entry.after);last.updatedAt=now}else wb.journal.push({...entry,id:crypto.randomUUID(),createdAt:now,updatedAt:now})}
 function persistRecord(scene,r,kind='edit'){const store=read(),id=recordKey(r),before=drafts.get(id)||store.records[id]||null;if(comparable(before)===comparable(r))return;store.records[id]=copy(r);drafts.set(id,copy(r));addEdit(store,{type:'record',stableId:scene.stableId,recordKey:id,mode:Object.entries(scene.reviewItems).find(([,i])=>recordKey(i)===id)?.[0]||mode,kind,label:({typing:'修改文字',media:'修改附件 / 图片 / GIF',choice:'修改审看状态',route:'修改制作方式',candidate:'修改参考方案',stamp:'标记帧 / 时间',paste:'粘贴内容'}[kind]||'修改意见'),before:copy(before),after:copy(r)});writeStore(store)}
@@ -730,7 +730,7 @@ $('#wb-title').textContent=data.title;$('#wb-revision').textContent=data.revisio
 $('#wb-stats').textContent=`${scenes.length} 段 · 每段一个评论区 · ${data.stage==='semantic'?'语义分镜':'真实关键帧'}`;
 $('#wb-count').textContent=`${scenes.length} 段 / ${scenes.reduce((n,s)=>n+s.frames.length,0)} 张真实关键帧`;
 if(data.audio)audio.src=data.audio.url;else{audio.hidden=true;message('尚未接入录音，当前时间为分镜估时。')}
-if(data.master){master.src=data.master.url;$('#wb-download').href=data.master.url;$('#wb-full-video').onclick=()=>{audio.pause();pauseSegmentVideos();$('#wb-video-dialog').showModal();master.currentTime=audio.currentTime||0;master.play().catch(e=>message('请点击视频的播放按钮。'))}}else $('#wb-full-video').hidden=true;
+if(data.master){master.src=data.master.url;$('#wb-download').href=data.master.url;$('#wb-download').download=(data.master.path||'完整视频.mp4').split('/').pop();$('#wb-full-video').onclick=()=>{audio.pause();pauseSegmentVideos();$('#wb-video-dialog').showModal();master.currentTime=audio.currentTime||0;master.play().catch(e=>message('请点击视频的播放按钮。'))}}else $('#wb-full-video').hidden=true;
 if(data.legacyPage){$('#wb-legacy').hidden=false;$('#wb-legacy').href=data.legacyPage.url}
 const database=new Promise((resolve,reject)=>{const q=indexedDB.open(key+'-images',1);q.onupgradeneeded=()=>q.result.createObjectStore('images',{keyPath:'id'});q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error)});
 async function transaction(kind,fn){const db=await database;return new Promise((resolve,reject)=>{const tx=db.transaction('images',kind),q=fn(tx.objectStore('images'));tx.oncomplete=()=>resolve(q.result);tx.onerror=tx.onabort=()=>reject(tx.error)})}
@@ -773,15 +773,15 @@ function historyInto(target,scene){target.replaceChildren();const list=Object.va
  for(const h of staticList){const block=el('div','history-record');block.append(el('p','history-label',`${h.round||'原始记录'} · ${h.stableId} · 历史要求`),el('div','',h.quote||h.note||''));for(const a of h.images||[]){const img=el('img');img.loading='lazy';img.src=a.url;img.alt='原始意见贴图';img.onclick=()=>largeImage(a.url,'原始意见贴图');block.append(img)}target.append(block)}
  for(const h of list){const block=el('div','history-record');block.append(el('p','history-label',`${h.view} · ${h.updatedAt||'历史版本'} · ${verdict(h)}`));appendContent(block,h.content?.length?h.content:[{type:'text',text:h.note||''}]);target.append(block)}
 }
-function pauseSegmentVideos(except){for(const c of cards.values())if(c.video!==except)c.video.pause()}
+function pauseSegmentVideos(except){for(const v of document.querySelectorAll('.scene-media video'))if(v!==except)v.pause()}
 function setFrame(scene,index){const c=cards.get(scene.stableId);if(!scene.frames.length)return;index=Math.max(0,Math.min(index,scene.frames.length-1));if(c.frameIndex===index)return;c.frameIndex=index;const f=scene.frames[index];c.image.src=f.image.url;c.image.alt=`第${scene.number}段 ${time(f.timeSeconds)} 实际关键帧`;c.image.dataset.frameId=f.id;c.frameLabel.textContent=`${f.id} · ${time(f.timeSeconds)} · ${data.revision||'当前版本'}`;c.counter.textContent=`${index+1} / ${scene.frames.length}`;c.prev.disabled=index===0;c.next.disabled=index===scene.frames.length-1;c.thumbs.forEach((b,i)=>{b.classList.toggle('active',i===index);b.setAttribute('aria-pressed',String(i===index))});const thumb=c.thumbs[index];if(thumb&&c.strip.clientWidth){const left=thumb.offsetLeft-c.strip.offsetLeft;if(left<c.strip.scrollLeft||left+thumb.clientWidth>c.strip.scrollLeft+c.strip.clientWidth)c.strip.scrollLeft=Math.max(0,left-c.strip.clientWidth/2)}const preload=scene.frames[index+1];if(preload){const img=new Image();img.src=preload.image.url}}
-function locate(scene,frame,scroll=false){if(data.audio)audio.currentTime=frame.timeSeconds;setActive(scene,scroll);setFrame(scene,scene.frames.indexOf(frame))}
-function setActive(scene,scroll){if(activeScene!==scene?.stableId){activeScene=scene?.stableId||null;for(const [id,c] of cards)c.root.classList.toggle('is-active',id===activeScene);if(scene)picker.value=scene.stableId;if(scroll&&scene&&lastScrollScene!==scene.stableId){const typing=['INPUT','SELECT','TEXTAREA'].includes(document.activeElement?.tagName)||document.activeElement?.isContentEditable;if(!typing){cards.get(scene.stableId).root.scrollIntoView({block:'start',behavior:'smooth'});lastScrollScene=scene.stableId}}}}
-function sync(){if(feSession)return;const t=audio.currentTime;const scene=scenes.find(s=>t>=s.startSeconds&&t<s.endSeconds);if(!scene){setActive(null,false);return}setActive(scene,$('#wb-follow').checked);let i=0;for(let n=0;n<scene.frames.length;n++){if(scene.frames[n].timeSeconds<=t+1e-7)i=n;else break}setFrame(scene,i)}
+function locate(scene,frame,scroll=false,forceScroll=false){if(data.audio)audio.currentTime=frame.timeSeconds;setActive(scene,scroll,forceScroll);setFrame(scene,scene.frames.indexOf(frame))}
+function setActive(scene,scroll,forceScroll=false){if(activeScene!==scene?.stableId){activeScene=scene?.stableId||null;for(const [id,c] of cards)c.root.classList.toggle('is-active',id===activeScene);if(scene)picker.value=scene.stableId}if(scroll&&scene&&(forceScroll||lastScrollScene!==scene.stableId)){const typing=['INPUT','SELECT','TEXTAREA'].includes(document.activeElement?.tagName)||document.activeElement?.isContentEditable;if(forceScroll||!typing){cards.get(scene.stableId).root.scrollIntoView({block:'start',behavior:'smooth'});lastScrollScene=scene.stableId}}}
+function sync(){if(feSession)return;const t=audio.currentTime+1e-4;const scene=scenes.find(s=>t>=s.startSeconds&&t<s.endSeconds);if(!scene){setActive(null,false);return}setActive(scene,$('#wb-follow').checked);let i=0;for(let n=0;n<scene.frames.length;n++){if(scene.frames[n].timeSeconds<=t)i=n;else break}setFrame(scene,i)}
 function animate(){sync();if(!audio.paused)raf=requestAnimationFrame(animate)}
 audio.addEventListener('play',()=>{master.pause();pauseSegmentVideos();cancelAnimationFrame(raf);animate()});['timeupdate','seeked','loadedmetadata','ended'].forEach(e=>audio.addEventListener(e,sync));audio.addEventListener('pause',()=>cancelAnimationFrame(raf));audio.addEventListener('error',()=>message('音频加载失败，请检查文件入口。',true));
 $('#wb-speed').onchange=e=>{audio.playbackRate=Number(e.target.value)};$('#wb-follow').onchange=()=>{lastScrollScene=null;sync()};
-picker.onchange=()=>{const s=scenes.find(s=>s.stableId===picker.value);lastScrollScene=null;if(s.frames.length)locate(s,s.frames[0],true);else{audio.currentTime=s.startSeconds;setActive(s,true)}};
+picker.onchange=()=>{const s=scenes.find(s=>s.stableId===picker.value);lastScrollScene=null;if(s.frames.length)locate(s,s.frames[0],true,true);else{audio.currentTime=s.startSeconds;setActive(s,true,true)}};
 for(const scene of scenes){
  const option=el('option','',`${String(scene.number).padStart(2,'0')} · ${scene.title}`);option.value=scene.stableId;picker.append(option);
  const root=el('article','scene-card');root.id='scene-'+scene.stableId;root.dataset.stableId=scene.stableId;root.setAttribute('aria-label',`第${scene.number}段 ${scene.title}`);
@@ -791,9 +791,11 @@ for(const scene of scenes){
  const controls=el('div','frame-controls'),prev=el('button','','←'),counter=el('span','frame-count'),next=el('button','','→'),play=el('button','play-scene','从本段连续播放');prev.setAttribute('aria-label',`第${scene.number}段上一帧`);next.setAttribute('aria-label',`第${scene.number}段下一帧`);play.setAttribute('aria-label',`从第${scene.number}段连续播放`);controls.append(prev,counter,next,play);const strip=el('div','thumbs');strip.setAttribute('aria-label',`第${scene.number}段关键帧缩略图`);const thumbs=[];
  for(const f of scene.frames){const b=el('button','thumb');b.setAttribute('aria-label',`第${scene.number}段定位 ${time(f.timeSeconds)} ${f.id}`);const img=el('img');img.loading='lazy';img.src=f.thumbnail.url;img.alt='';b.append(img,el('span','',time(f.timeSeconds)));b.onclick=()=>locate(scene,f);thumbs.push(b);strip.append(b)}
  frameView.append(bar,imageButton,controls,strip);if(!scene.frames.length){frameView.replaceChildren(el('div','empty','真实关键帧待生成；当前意见可继续保存。'));play.disabled=true}
+ if(scene.videos?.length){const previews=el('details','keyframe-motion-previews');previews.append(el('summary','','播放本段动画预览'));for(const v of scene.videos){const clip=el('video');clip.controls=true;clip.preload='none';clip.src=v.media.url;clip.style.width='100%';clip.setAttribute('aria-label',`第${scene.number}段动画预览 · ${v.label||''}`);clip.addEventListener('play',()=>{audio.pause();master.pause();pauseSegmentVideos(clip)});previews.append(el('p','scene-meta',v.label||'本段动画预览'),clip)}frameView.append(previews)}
  const videoView=el('div','video-preview'),videoSource=data.master||scene.videos?.[0]?.media,clipStart=data.master?scene.startSeconds:0,clipEnd=data.master?scene.endSeconds:scene.durationInFrames/data.fps;const video=el('video');video.controls=true;video.preload='none';if(scene.frames.length)video.poster=scene.frames[0].image.url;if(videoSource)video.src=videoSource.url;video.setAttribute('aria-label',`第${scene.number}段真实视频`);video.addEventListener('play',()=>{audio.pause();master.pause();pauseSegmentVideos(video);if(video.currentTime<clipStart||video.currentTime>=clipEnd)video.currentTime=clipStart;setActive(scene,false)});video.addEventListener('timeupdate',()=>{if(video.currentTime>=clipEnd&&!video.paused)video.pause()});videoView.append(el('p','scene-meta',`当前成片 ${time(scene.startSeconds)}—${time(scene.endSeconds)} · 到段尾暂停`));if(videoSource)videoView.append(video);else videoView.append(el('div','empty','本段视频待生成'));if(scene.videos?.length){const versions=el('details');versions.append(el('summary','',data.master?'先前逐段视频（保留原版本）':'先前逐段视频'));for(const v of scene.videos.slice(data.master?0:1)){const old=el('video');old.controls=true;old.preload='none';old.src=v.media.url;if(v.poster)old.poster=v.poster.url;versions.append(el('p','history-label',v.label),old)}if(versions.childElementCount>1)videoView.append(versions)}
  const suggestion=el('div','suggestion-preview');suggestion.append(el('p','semantic-label','画面职责与素材计划 · 非成片关键帧'));
- for(const [label,value] of [['画面类型',scene.semantic.visual.type],['观众需要看见',scene.semantic.visual.description],['聚焦对象',scene.semantic.visual.focus],['IP / 情绪',[scene.semantic.ip.mode,scene.semantic.ip.emotion].filter(Boolean).map(friendly).join(' / ')],['强调动作',scene.semantic.ip.emphasis],['屏幕文字',scene.semantic.screenText],['已有审查说明',scene.semantic.reviewNotes]]){if(value&&(!Array.isArray(value)||value.length)){const line=el('p','semantic-field');line.append(el('b','',label+'：'),document.createTextNode(explain(value)));suggestion.append(line)}}
+ const camera=scene.semantic.cameraPlan||{};
+ for(const [label,value] of [['出镜方式',({ip:'通用 IP 小人物',real:'真人出镜'})[scene.semantic.presenterMode]],['画面类型',scene.semantic.visual.type],['观众需要看见',scene.semantic.visual.description],['聚焦对象',scene.semantic.visual.focus],['运镜主体',camera.subject],['景别与构图',camera.framing],['画面运动',camera.movement],['运镜依据',camera.reason],['声音意图',scene.semantic.soundPlan],['IP / 情绪',[scene.semantic.ip.mode,scene.semantic.ip.emotion].filter(Boolean).map(friendly).join(' / ')],['强调动作',scene.semantic.ip.emphasis],['屏幕文字',scene.semantic.screenText],['已有审查说明',scene.semantic.reviewNotes]]){if(value&&(!Array.isArray(value)||value.length)){const line=el('p','semantic-field');line.append(el('b','',label+'：'),document.createTextNode(explain(value)));suggestion.append(line)}}
  const sources=el('div','semantic-assets');sources.append(el('h3','','本镜头素材'));
  if(!scene.semantic.assets.length)sources.append(el('p','help','未指定素材；需要补采或明确标注示意。'));
  for(const item of scene.semantic.assets){const box=el('div','semantic-asset');box.append(el('p','',`${friendly(item.kind)||'素材'} · ${friendly(item.status)||'待确认'}`));box.append(el('p','help',item.source||'来源尚未说明'));if(item.media){const a=el('a','',item.path||'打开素材');a.href=item.media.url;a.target='_blank';a.rel='noopener';box.append(a);if(item.kind==='image'||item.kind==='keyframe'){const img=el('img');img.src=item.media.url;img.alt='参考素材，不是本期关键帧';img.loading='lazy';img.onclick=()=>largeImage(img.src,img.alt);box.append(img)}}else box.append(el('p','help',item.path?'待准备：'+item.path:'暂无文件'));sources.append(box)}suggestion.append(sources);for(const candidate of scene.candidates){const box=el('div','candidate'),img=el('img');img.src=candidate.image.url;img.alt=candidate.label;img.loading='lazy';img.onclick=()=>largeImage(img.src,candidate.label);box.append(img);if(candidate.clip){const clip=el('video');clip.controls=true;clip.preload='none';clip.src=candidate.clip.url;box.append(clip)}const label=el('label'),radio=el('input');radio.type='radio';radio.name='candidate-'+scene.stableId;radio.value=candidate.id;label.append(radio,document.createTextNode(candidate.label));box.append(label);suggestion.append(box)}
@@ -931,6 +933,20 @@ function feInstall(){
  for(const scene of scenes){const c=cards.get(scene.stableId);const b=el('button','frame-edit-button','编辑本帧');b.setAttribute('aria-label',`第${scene.number}段编辑本帧`);b.disabled=!data.frameEditor?.sourceUrl||!scene.frames.length||(data.frameEditor.availableScenes&&!data.frameEditor.availableScenes.includes(scene.stableId));b.title=b.disabled?'本段尚未接入可编辑对象源':'进入精确坐标编辑；保存为 AI 修改提案';b.onclick=()=>feOpen(scene,scene.frames[c.frameIndex]);c.frameView.querySelector('.frame-controls')?.append(b);const list=el('details','frame-proposals');c.frameProposals=list;c.editor.parentNode.insertBefore(list,c.history);feRefreshList(scene)}
 }
 feInstall();
+
+// Keep the original browser persistence/exporter; mirror raw stores and original Blobs to this project.
+window.segmentWorkbench.projectSync=window.WorkbenchProjectSync?.connect({
+ projectId:data.episodeKey,storageKey:key,ready,
+ context:{episodeKey:data.episodeKey,stage:data.stage,revision:data.revision,storyboardSha256:data.storyboardSha256,currentOutputSha256:data.master?.sha256||null,metadata:data.metadata,historyRecords:data.historyRecords},
+ store:()=>copy(read()),assets:()=>[...assets.values()],waitPending:async()=>{await ready;await Promise.all([...pending]);},
+ restore:async(store,list)=>{
+  if(list.length)await transaction('readwrite',s=>{let q;for(const a of list)q=s.put(a);return q;});
+  for(const a of list)assets.set(a.id,a);
+  cachedStore=copy(store);volatileStore=null;drafts.clear();
+  try{localStorage.setItem(key,JSON.stringify(cachedStore));}catch{volatileStore=cachedStore;}
+  for(const s of scenes)editorState.get(s.stableId)?.load();applyFilter();updateUndoButtons();
+ }
+});
 
 })();
 

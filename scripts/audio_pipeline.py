@@ -150,7 +150,7 @@ def soundtrack(duration,sr,storyboard):
         return v
     if storyboard:
         audio=storyboard.get('audio') or {}
-        if audio.get('music',True):
+        if audio.get('music',False):
             beat=60/float(audio.get('bpm',96));bar=8*beat
             chords=[[60,64,67,71],[57,60,64,67],[53,57,60,64],[55,59,62,67]]
             for k in range(math.ceil(duration/bar)):

@@ -3,7 +3,7 @@ import math
 
 
 def resolve(settings, request, storyboard, timing, char_time_map, normalize):
-    defaults={'music':True,'bpm':96,'musicRMS':.018,'sfx':True,'cuePolicy':'semantic','minimumCueGap':.6}
+    defaults={'music':False,'bpm':96,'musicRMS':.018,'sfx':False,'cuePolicy':'none','minimumCueGap':.6}
     defaults.update(settings.get('soundtrack') or {})
     override=request.get('soundtrack') or {}
     if not isinstance(override,dict):raise ValueError('audio-request.soundtrack须为对象。')

@@ -23,3 +23,7 @@ assets/avatar/
 assets/scenes/D-*
 examples/approved-*/
 docs/preview.png
+
+# Local review content and attachments must never be published.
+**/feedback/
+**/review/assets/

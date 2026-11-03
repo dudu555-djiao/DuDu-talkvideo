@@ -3,6 +3,7 @@
 from pathlib import Path
 import argparse,copy,datetime,importlib.util,json,math,os,re,shutil,subprocess,sys,uuid
 from approval import digest,require_semantic
+from presenter import require_presenter
 ROOT=Path(__file__).resolve().parents[1]
 TYPES={'chapter','prompt-media','compare','flow','note','ip-scene'}
 def read(p):return json.loads(Path(p).read_text(encoding='utf-8'))
@@ -17,6 +18,7 @@ def executable(name):
  return binary(name)
 def validate_board(p):
  b=read(p/'storyboard.json');shots=b.get('shots',[])
+ require_presenter(p,b)
  if not shots:raise ValueError('尚未完成语义分镜；请按内容意图编排shots，不能把自动分句当分镜。')
  ids=[s.get('id') for s in shots]
  if any(not x for x in ids) or len(set(ids))!=len(ids):raise ValueError('镜头id缺失或重复。')
@@ -41,12 +43,24 @@ def new(a):
  from runtime_support import prepare_episode
  prepare_episode(p)
  ident='dudu-'+uuid.uuid4().hex[:12]
- save(p/'pipeline.json',{'projectId':ident,'title':a.title,'createdAt':stamp(),'sourceSha256':digest(p/'input/original.txt'),'projectRoot':str(ROOT),'status':'semantic-draft'})
- save(p/'storyboard.json',{'projectId':ident,'title':a.title,'version':1,'shots':[]})
+ save(p/'pipeline.json',{'projectId':ident,'title':a.title,'createdAt':stamp(),'sourceSha256':digest(p/'input/original.txt'),'projectRoot':str(ROOT),'status':'awaiting-presenter-choice'})
+ save(p/'storyboard.json',{'projectId':ident,'title':a.title,'version':1,'presenterMode':'pending','shots':[]})
+ save(p/'presenter-request.json',{'mode':'pending','status':'pending','question':'本期使用 通用 IP 小人物出镜，还是真人出镜？','userStatement':'','evidence':''})
  save(p/'audio-request.json',{'soundtrack':copy.deepcopy(read(p/'brand/style-lock.json')['audio']['soundtrack'])})
  save(p/'sources.json',{'sources':[],'note':'记录来源地址、日期、引用位置和素材文件；不将示意或生成内容充当事实证据。'})
- (p/'PROJECT_STATE.md').write_text('# '+a.title+'\n\n阶段：语义分镜草稿。尚无用户批准。先完成storyboard.json并生成review/index.html，收到用户同意后才继续配音/实际关键帧。\n')
- emit({'episode':str(p),'next':'编排storyboard.json，然后 semantic；等待用户同意。'})
+ (p/'PROJECT_STATE.md').write_text('# '+a.title+'\n\n阶段：待确认出镜方式。先问清本期使用 IP 小人物还是真人，并用 presenter 命令记录；再按对应运镜编排 storyboard.json。尚无语义批准，收到用户同意后才继续配音/实际关键帧。\n')
+ emit({'episode':str(p),'next':'先问清 IP 小人物还是真人，用 presenter 记录原话和出处；再编排分镜。'})
+
+def presenter(a):
+ p=Path(a.project).resolve();b=read(p/'storyboard.json')
+ if (p/'approvals/semantic.json').exists():raise ValueError('已有语义审批记录；出镜方式属于语义变更，请保留旧版并准备新版审查，不在获批源文件上切换。')
+ if not a.quote.strip() or not a.evidence.strip():raise ValueError('须记录用户本期选择原话和消息出处。')
+ save(p/'presenter-request.json',{'mode':a.mode,'status':'confirmed','userStatement':a.quote.strip(),'evidence':a.evidence.strip(),'confirmedAt':stamp()})
+ b['presenterMode']=a.mode;save(p/'storyboard.json',b)
+ pipeline=p/'pipeline.json'
+ if pipeline.exists():
+  state=read(pipeline);state['status']='semantic-draft';save(pipeline,state)
+ emit({'mode':a.mode,'next':'按出镜方式填写每镜 cameraPlan；真人模式 ip.mode=hidden，不使用 ip-scene。'})
 
 def semantic(a):
  p=Path(a.project).resolve();validate_board(p);run([sys.executable,ROOT/'scripts/build_review.py',p,'--stage','semantic']);emit({'review':str(p/'review/index.html'),'status':'awaiting-user-semantic-approval'})
@@ -111,14 +125,16 @@ def assemble(a):
    e=copy.deepcopy(e)
    if e.get('anchor'):
     x,y=anchor_range(e['anchor'],e.get('occurrence',1));e['start']=max(st,x-.10);e['end']=min(en-.05,y+float(e.get('hold',.12)))
-   if 'start' not in e or 'end' not in e:raise ValueError(s['id']+' 强调必须有本句锚点或本期绝对时间。')
+   if 'start' not in e or 'end' not in e:raise ValueError(s['id']+' 出框必须有本句锚点或本期绝对时间。')
    e.setdefault('attack',.28);e['release']=min(float(e.get('release',.4)),max(.01,en-float(e['end'])))
    emph.append(e)
   ip['emphasis']=emph;item['ip']=ip
+  if s.get('cameraPlan'):item['cameraPlan']=copy.deepcopy(s['cameraPlan'])
   for ann in item.get('annotations',[]):
    if ann.get('anchor'):ann['at']=anchor_range(ann['anchor'],ann.get('occurrence',1))[0]
   scenes.append(item)
  episode={'title':b['title'],'projectId':b['projectId'],'width':lock['canvas']['width'],'height':lock['canvas']['height'],'fps':fps,'duration':duration,'audio':'audio/mix.wav','narration':'audio/narration.wav','captions':caps,'scenes':scenes,'brand':lock,'timingGranularity':'caption' if caption_only else 'word','semanticSha256':digest(p/'storyboard.json'),'timingSha256':digest(p/'audio/timing.json')}
+ if b.get('presenterMode'):episode['presenterMode']=b['presenterMode']
  save(p/'episode.json',episode);(p/'episode-data.js').write_text('window.EPISODE='+json.dumps(episode,ensure_ascii=False)+';\n')
  run([sys.executable,ROOT/'scripts/build_speech_envelope.py',p])
  emit({'episode':str(p/'episode.json'),'shots':len(scenes),'duration':duration,'frames':frames,'semanticSourceUnchanged':True})
@@ -144,13 +160,14 @@ def check(a):
 def main():
  ap=argparse.ArgumentParser(description=__doc__);sub=ap.add_subparsers(dest='cmd',required=True)
  n=sub.add_parser('new');n.add_argument('--script',required=True);n.add_argument('--title',required=True);n.add_argument('--out')
+ choice=sub.add_parser('presenter');choice.add_argument('project');choice.add_argument('--mode',choices=['ip','real'],required=True);choice.add_argument('--quote',required=True);choice.add_argument('--evidence',required=True)
  sub.add_parser('doctor')
  for c in ['semantic','approve','voice','audio','remix','assemble','frames','review','render','check','serve']:
   s=sub.add_parser(c);s.add_argument('project')
   if c=='approve':s.add_argument('--quote',required=True);s.add_argument('--evidence',required=True)
   if c=='serve':s.add_argument('--port',default='8866')
  a=ap.parse_args()
- if a.cmd in ['new','semantic','approve','assemble','doctor','check']:globals()[a.cmd](a);return
+ if a.cmd in ['new','presenter','semantic','approve','assemble','doctor','check']:globals()[a.cmd](a);return
  p=Path(a.project).resolve()
  if a.cmd=='voice':require_semantic(p);run([executable('node'),ROOT/'scripts/synthesize.mjs','--project',p])
  elif a.cmd=='audio':require_semantic(p);run([sys.executable,ROOT/'scripts/audio_pipeline.py','--project',p])
