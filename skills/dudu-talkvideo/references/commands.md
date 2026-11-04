@@ -11,7 +11,7 @@
 ./dudu serve EPISODE --port 8866
 ```
 
-`new` 自动建立待确认的 `presenter-request.json` 与声音配置，保存 `input/original.txt` 与工作稿 `input/script.txt`，不自动把分句当成已完成分镜。先问清IP或真人，用 `presenter` 记录本期真实选择，再按模式填写分镜；未确认不能运行semantic。真人镜头须 `ip.mode=hidden`，不使用ip-scene。每镜cameraPlan写主体、景别/构图、运动及依据，soundPlan写声音意图。`semantic` 生成原三栏 `review/index.html`。浏览器操作按项目当前模型要求执行。`serve` 提供项目意见自动保存API；优先沿用原端口/浏览器，旧记录初次迁移后其他浏览器可从项目恢复。浏览器本身的localStorage/IndexedDB仍各自独立。
+`new` 自动建立待确认的 `presenter-request.json` 与声音配置，保存 `input/original.txt` 与工作稿 `input/script.txt`，不自动把分句当成已完成分镜。先问清IP或真人，用 `presenter` 记录本期真实选择，再按模式填写分镜；未确认不能运行semantic。真人镜头须 `ip.mode=hidden`，不使用ip-scene。每镜cameraPlan写主体、景别/构图、运动及依据，soundPlan写声音意图。`semantic` 生成原三栏 `review/index.html`。浏览器操作按项目当前模型要求执行。`serve` 提供项目意见自动保存API；优先沿用原端口/浏览器，旧记录初次迁移后其他浏览器可从项目恢复。浏览器本身的localStorage/IndexedDB仍各自独立。打开 `http://127.0.0.1:<port>/review/` 使用本期数据，不要直接打开未绑定的 `workbench/template.html`；工作台细节见 [workbench-ui.md](workbench-ui.md)。
 
 
 收到用户对本版语义分镜的真实同意后才记录（以下是命令格式，不是已有授权）：

@@ -1,6 +1,6 @@
 {
   "name": "DuDu-talkvideo",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "scope": "Public generic themes, workflow code and documentation; no private character, recordings or feedback",
   "files": [
     {
@@ -30,13 +30,13 @@
     },
     {
       "path": "PROJECT_STATE.md",
-      "bytes": 4076,
-      "sha256": "d5590b64d21c618d45b1832c8fcb7f851ac6fc6a028dbce737a9aa783809db68"
+      "bytes": 4381,
+      "sha256": "c31576f1cd864e287f804af8e36fbca081fe2a63797e35df6db3d2f58c670ef7"
     },
     {
       "path": "README.md",
-      "bytes": 12669,
-      "sha256": "0393745763387ecc3a8bffcb2bb492a4fff576707cc1cbd0286a80cddafadd17"
+      "bytes": 12772,
+      "sha256": "1c803131b73f81128d69ddadf5f1fc65c41d00354576c6ff30719d7b8a74cd7b"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -46,7 +46,7 @@
     {
       "path": "VERSION",
       "bytes": 6,
-      "sha256": "78b591400c56b7b67b8cb3b2b8a8e65e9093897f02ce0878e6b5405c68620fa7"
+      "sha256": "dfe7d71b3f428eb73ed853f8fded65e2986896e21d69f45ebf06bb623b450e14"
     },
     {
       "path": "assets/fonts/NotoSansSC-400.woff2",
@@ -375,8 +375,8 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 2099,
-      "sha256": "abdb82aa5b80e88dbf959b4f843b9959ca578fe7fa585fc1f5d3f6cf6ec07c34"
+      "bytes": 3179,
+      "sha256": "f624e1247b8b24597b4a3ee1d0b848e33b69c4e0e1b07a7230722a5132028fbc"
     },
     {
       "path": "docs/WORKFLOW_REVIEW.md",
@@ -610,8 +610,8 @@
     },
     {
       "path": "skills/dudu-talkvideo/SKILL.md",
-      "bytes": 9861,
-      "sha256": "103ead54b4b745172d64527e4f5a418344930ac4682bd97a82609404ebc39ebb"
+      "bytes": 10686,
+      "sha256": "04386af5c073c06bd7c386cf9b8ecb0556ba41341004a68e52bc109f262e2927"
     },
     {
       "path": "skills/dudu-talkvideo/agents/openai.yaml",
@@ -620,8 +620,13 @@
     },
     {
       "path": "skills/dudu-talkvideo/references/commands.md",
-      "bytes": 5921,
-      "sha256": "7cd92d202f080c4b1b5d35e1f55eccb4f82a9d81c1a8427206f20b4cf2c7d0aa"
+      "bytes": 6098,
+      "sha256": "84bb8ba3ca1488e33dc7a900c1d7ca00666e5ec705e4b8c7258ab359c04536cc"
+    },
+    {
+      "path": "skills/dudu-talkvideo/references/workbench-ui.md",
+      "bytes": 2852,
+      "sha256": "0bf536687b6516324f64308186688a6242f72642777edaf814104478b2a46828"
     },
     {
       "path": "tests/installation_smoke.py",
@@ -650,18 +655,18 @@
     },
     {
       "path": "workbench/README.md",
-      "bytes": 2996,
-      "sha256": "5ab6637d6eff901ab500e89506cd1bc514f9e1794dd900c347093bbf2cf685b0"
+      "bytes": 4100,
+      "sha256": "2af44597cb95e170624ec592b426b79db713ac2519f21b3594407bc9be06c518"
     },
     {
       "path": "workbench/project-feedback.js",
-      "bytes": 9173,
-      "sha256": "b95b1bd17ee0d5d2d1d0534e9dd6794bc2d6a416cb103dd7cad3476f942d79bc"
+      "bytes": 9189,
+      "sha256": "c4f52c3fa52cf521e4f23f29eb8cf2a1ed147166aa4003b8987d4a52d6b02e29"
     },
     {
       "path": "workbench/template.html",
-      "bytes": 157482,
-      "sha256": "cbcc9dc15179995bbd02ebd550b46b3af4e16e0f2dabe80da788e6bf19c06d6f"
+      "bytes": 157055,
+      "sha256": "2d717188d5cb0e4080e18a66e503e4756701d6a7f6dd18ff010ff21628f2e176"
     },
     {
       "path": "workbench/tests/test_cli.py",

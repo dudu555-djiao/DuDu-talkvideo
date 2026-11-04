@@ -16,7 +16,7 @@
     let timer = 0, retryTimer = 0, lastError = '', savedAt = '', inflight = null;
     const blobs = new WeakMap(), uploaded = new Map();
     const badge = document.createElement('span');
-    badge.id = 'wb-project-save'; badge.className = 'wb-hint'; badge.setAttribute('role', 'status');
+    badge.id = 'wb-project-save'; badge.className = 'wb-hint visually-hidden'; badge.setAttribute('role', 'status');
     document.querySelector('#wb-save').parentNode.append(badge);
     const status = (text, error = false) => { badge.textContent = '项目文件：' + text; badge.style.color = error ? '#a33830' : ''; };
     const state = () => ({initialized, dirty, busy, blocked, revision, savedAt, error: lastError, path: 'feedback/latest.json'});
